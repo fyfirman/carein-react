@@ -14,4 +14,8 @@ const Login = () => {
   );
 };
 
+Login.navigationOptions = {
+  header: null
+};
+
 export default Login;
