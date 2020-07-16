@@ -2,11 +2,11 @@ import React from 'react';
 import { View, Image } from 'react-native';
 import { Form, Item, Input, Label, Button, Text } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-import styles from './styles';
+import styles from './Styles';
 
 const Login = () => {
-  const goToHome = () => {
-    Actions.home();
+  const goToRegister = () => {
+    Actions.register();
   };
 
   return (
@@ -35,7 +35,7 @@ const Login = () => {
           <Text>or</Text>
         </View>
         <View style={styles.registerContainer}>
-          <Button full>
+          <Button full onPress={goToRegister}>
             <Text>Register</Text>
           </Button>
         </View>

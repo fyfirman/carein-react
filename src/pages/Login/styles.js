@@ -1,6 +1,7 @@
+import SPACING from '../../theme/Spacing';
+
 const CONST = {
-  LOGO_SIZE: 128,
-  PADDING_HORIZONTAL: 16
+  LOGO_SIZE: 128
 };
 
 module.exports = {
@@ -23,8 +24,8 @@ module.exports = {
   formContainer: {
     height: '75%',
     paddingTop: CONST.LOGO_SIZE / 2 + 20,
-    paddingLeft: CONST.PADDING_HORIZONTAL,
-    paddingRight: CONST.PADDING_HORIZONTAL
+    paddingLeft: SPACING.PADDING_HORIZONTAL,
+    paddingRight: SPACING.PADDING_HORIZONTAL
   },
 
   loginForm: {
