@@ -22,7 +22,9 @@ const StyledPickerInput = (props) => {
   };
 
   const renderItems = () =>
-    data.map((item) => <Picker.Item label={item.label} value={item.value} />);
+    data.map((item, index) => (
+      <Picker.Item key={index} label={item.label} value={item.value} />
+    ));
 
   return (
     <View>
