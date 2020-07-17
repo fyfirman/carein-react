@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
-import { DatePicker, Label } from 'native-base';
+import { DatePicker, Label, Item } from 'native-base';
 
 const propTypes = {
   label: PropTypes.string
@@ -17,7 +16,7 @@ const StyledDatePicker = (props) => {
   const [chosenDate, setChosenDate] = useState(new Date(1999, 1, 1));
 
   return (
-    <View>
+    <Item stackedLabel>
       <Label hidden={label === ''}>{label}</Label>
       <DatePicker
         {...rest}
@@ -27,10 +26,10 @@ const StyledDatePicker = (props) => {
         androidMode="default"
         placeHolderText="Pilih tanggal"
         textStyle={{ color: 'green' }}
-        placeHolderTextStyle={{ color: '#d3d3d3' }}
+        placeHolderTextStyle={{ color: '#000' }}
         onDateChange={setChosenDate}
       />
-    </View>
+    </Item>
   );
 };
 
