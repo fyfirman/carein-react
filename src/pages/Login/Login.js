@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image } from 'react-native';
 import { Form, Item, Input, Label, Button, Text } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-import styles from './Styles';
+import styles from './styles';
 
 const Login = () => {
   const goToRegister = () => {
