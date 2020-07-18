@@ -15,7 +15,6 @@ const Register = () => {
   ];
 
   const handleChange = (name, newValue) => {
-    console.log(name, newValue);
     setFormState({
       ...formState,
       values: {
