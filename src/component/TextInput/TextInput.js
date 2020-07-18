@@ -5,25 +5,24 @@ import { Label, Item, Input } from 'native-base';
 const propTypes = {
   label: PropTypes.string,
   icon: PropTypes.element,
-  onChange: PropTypes.func,
-  iconPosition: PropTypes.string,
-  name: PropTypes.string.isRequired
+  onChangeText: PropTypes.func,
+  iconPosition: PropTypes.string
 };
 
 const defaultProps = {
   label: '',
   icon: null,
   iconPosition: 'left',
-  onChange: () => {}
+  onChangeText: () => {}
 };
 
 const TextInput = (props) => {
-  const { label, icon, iconPosition, name, onChange, ...rest } = props;
+  const { label, icon, iconPosition, onChangeText, ...rest } = props;
   return (
     <Item floatingLabel {...rest}>
       <Label>{label}</Label>
       {iconPosition === 'left' ? icon : null}
-      <Input onChange={onChange} name={name} />
+      <Input onChangeText={onChangeText} />
       {iconPosition === 'right' ? icon : null}
     </Item>
   );

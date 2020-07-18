@@ -14,14 +14,13 @@ const Register = () => {
     { label: 'Perempuan', value: 'p' }
   ];
 
-  const handleChange = (event) => {
-    event.persist();
-
+  const handleChange = (name, newValue) => {
+    console.log(name, newValue);
     setFormState({
       ...formState,
       values: {
         ...formState.values,
-        [event.target.name]: event.target.value
+        [name]: newValue
       }
     });
   };
@@ -29,17 +28,31 @@ const Register = () => {
   return (
     <ScrollView style={styles.container}>
       <Form style={styles.loginForm}>
-        <TextInput label="Nama Lengkap" name="name" onChange={handleChange} />
+        <TextInput
+          label="Nama Lengkap"
+          onChangeText={(newValue) => handleChange('name', newValue)}
+        />
         <DatePicker label="Tanggal Lahir" />
         <PickerInput label="Jenis Kelamin" data={genderData} />
-        <TextInput label="No telepon" name="phone" onChange={handleChange} />
-        <TextInput label="Email" name="email" onChange={handleChange} />
-        <TextInput label="Username" name="username" onChange={handleChange} />
-        <TextInput label="Password" name="password" onChange={handleChange} />
+        <TextInput
+          label="No telepon"
+          onChangeText={(newValue) => handleChange('phone', newValue)}
+        />
+        <TextInput
+          label="Email"
+          onChangeText={(newValue) => handleChange('email', newValue)}
+        />
+        <TextInput
+          label="Username"
+          onChangeText={(newValue) => handleChange('username', newValue)}
+        />
+        <TextInput
+          label="Password"
+          onChangeText={(newValue) => handleChange('password', newValue)}
+        />
         <TextInput
           label="Confirm Password"
-          name="confirmPassword"
-          onChange={handleChange}
+          onChangeText={(newValue) => handleChange('confirmPassword', newValue)}
         />
         <Button full>
           <Text>Next</Text>
