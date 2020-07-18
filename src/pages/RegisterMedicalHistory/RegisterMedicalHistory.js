@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { Form, Button, Text } from 'native-base';
-import { PickerInput, TextInput } from '../../component';
+import { PickerInput, TextInput, PairInputText } from '../../component';
 import styles from './styles';
 
 const propTypes = {
@@ -38,7 +38,7 @@ const RegisterMedicalHistory = (props) => {
 
   return (
     <ScrollView style={styles.container}>
-      <Form style={styles.loginForm}>
+      <Form>
         <TextInput
           label="Berat Badan"
           onChangeText={(newValue) => handleChange('weight', newValue)}
@@ -48,6 +48,7 @@ const RegisterMedicalHistory = (props) => {
           onChangeText={(newValue) => handleChange('height', newValue)}
         />
         <PickerInput label="Golongan Darah" data={bloodType} />
+        <PairInputText firstLabel="Tahun" secondLabel="Nama Penyakit" />
         <Button full>
           <Text>Submit</Text>
         </Button>
