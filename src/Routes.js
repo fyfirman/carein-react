@@ -5,8 +5,8 @@ import { Home, Login, Register, RegisterMedicalHistory } from './pages';
 const Routes = () => (
   <Router>
     <Scene key="root">
-      <Scene key="home" component={Home} title="Home" initial />
-      <Scene key="login" component={Login} title="Login" />
+      <Scene key="login" component={Login} title="Login" initial />
+      <Scene key="home" component={Home} title="Home" />
       <Scene key="register" component={Register} title="Register" />
       <Scene
         key="registerMedicalHistory"
