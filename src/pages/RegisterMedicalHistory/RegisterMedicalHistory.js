@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { Form, Button, Text } from 'native-base';
+import { Actions } from 'react-native-router-flux';
 import { PickerInput, TextInput, PairInputText } from '../../component';
 import styles from './styles';
 
@@ -26,6 +27,10 @@ const RegisterMedicalHistory = (props) => {
     { label: 'O', value: 'o' }
   ];
 
+  const goToLogin = () => {
+    Actions.login();
+  };
+
   const handleChange = (name, newValue) => {
     setFormState({
       ...formState,
@@ -49,7 +54,7 @@ const RegisterMedicalHistory = (props) => {
         />
         <PickerInput label="Golongan Darah" data={bloodType} />
         <PairInputText firstLabel="Tahun" secondLabel="Nama Penyakit" />
-        <Button full>
+        <Button full onPress={goToLogin}>
           <Text>Submit</Text>
         </Button>
       </Form>
