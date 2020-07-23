@@ -1,21 +1,19 @@
 module.exports = {
   root: {
-    marginBottom: 0
+    marginTop: 8,
+    marginBottom: 8
   },
 
-  content: {
-    height: '100%',
-    backgroundColor: 'white'
-  },
+  content: {},
 
   imageContainer: {
-    flex: 1,
-    backgroundColor: 'blue'
+    flex: 1
   },
 
   image: {
     aspectRatio: 1,
-    height: '100%'
+    width: '100%',
+    borderRadius: 100
   },
 
   information: {

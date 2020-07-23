@@ -1,12 +1,10 @@
 import SPACING from '../../theme/Spacing';
 
 module.exports = {
-  content: {
-    backgroundColor: 'green'
-  },
+  content: {},
 
   cardContainer: {
-    height: '75%',
+    flexDirection: 'column',
     paddingLeft: SPACING.PADDING_HORIZONTAL,
     paddingRight: SPACING.PADDING_HORIZONTAL
   }
