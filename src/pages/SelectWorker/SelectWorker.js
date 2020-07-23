@@ -22,7 +22,7 @@ const SelectWorker = (props) => {
       <Content style={styles.cardContainer}>
         <CardWorker
           name="dr. Lucy Purnama"
-          photos={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+          photoSource={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
           price={100000}
           distance={1.4}
         />

@@ -5,27 +5,29 @@ import { Card, CardItem, Text } from 'native-base';
 import styles from './styles';
 
 const propTypes = {
-  label: PropTypes.string.isRequired,
-  imageSource: PropTypes.objectOf(PropTypes.string).isRequired,
-  onPress: PropTypes.func.isRequired,
-  reverse: PropTypes.bool
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  distance: PropTypes.number.isRequired,
+  photoSource: PropTypes.objectOf(PropTypes.string).isRequired,
+  onPress: PropTypes.func.isRequired
 };
 
-const defaultProps = {
-  reverse: false
-};
+const defaultProps = {};
 
 const StyledHeader = (props) => {
-  const { label, reverse, imageSource, onPress } = props;
+  const { name, price, distance, photoSource, onPress } = props;
 
   return (
     <Card style={styles.root}>
       <CardItem button style={styles.content} onPress={onPress}>
-        {reverse && <Text style={styles.label}>{label}</Text>}
         <View style={styles.imageContainer}>
-          <Image style={styles.image} source={imageSource} />
+          <Image style={styles.image} source={photoSource} />
         </View>
-        {!reverse && <Text style={styles.label}>{label}</Text>}
+        <View style={styles.information}>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.price}>{price}</Text>
+          <Text style={styles.distance}>{distance}</Text>
+        </View>
       </CardItem>
     </Card>
   );

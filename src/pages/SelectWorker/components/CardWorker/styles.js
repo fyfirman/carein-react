@@ -1,7 +1,5 @@
 module.exports = {
   root: {
-    height: '31%',
-    marginTop: '2%',
     marginBottom: 0
   },
 
@@ -12,16 +10,28 @@ module.exports = {
 
   imageContainer: {
     flex: 1,
-    alignItems: 'center'
+    backgroundColor: 'blue'
   },
 
   image: {
     aspectRatio: 1,
-    height: '80%'
+    height: '100%'
   },
 
-  label: {
-    flex: 1,
-    textAlign: 'center'
+  information: {
+    flex: 3,
+    paddingLeft: 16
+  },
+
+  name: {
+    color: 'red'
+  },
+
+  price: {
+    color: 'blue'
+  },
+
+  distance: {
+    color: 'yellow'
   }
 };
