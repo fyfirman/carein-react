@@ -6,6 +6,7 @@ import styles from './styles';
 
 const propTypes = {
   label: PropTypes.string.isRequired,
+  imageSource: PropTypes.objectOf(PropTypes.string).isRequired,
   reverse: PropTypes.bool
 };
 
@@ -14,17 +15,14 @@ const defaultProps = {
 };
 
 const StyledHeader = (props) => {
-  const { label, reverse, ...rest } = props;
+  const { label, reverse, imageSource } = props;
 
   return (
-    <Card style={styles.root} {...rest}>
+    <Card style={styles.root}>
       <CardItem style={styles.content}>
         {reverse && <Text style={styles.label}>{label}</Text>}
         <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-          />
+          <Image style={styles.image} source={imageSource} />
         </View>
         {!reverse && <Text style={styles.label}>{label}</Text>}
       </CardItem>

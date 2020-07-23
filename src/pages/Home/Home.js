@@ -9,9 +9,19 @@ const Home = (props) => {
     <Container>
       <Header />
       <View style={styles.cardContainer}>
-        <CardMenu label="Dokter" />
-        <CardMenu label="Perawat" reverse />
-        <CardMenu label="Psikolog" />
+        <CardMenu
+          label="Dokter"
+          imageSource={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+        />
+        <CardMenu
+          label="Perawat"
+          imageSource={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+          reverse
+        />
+        <CardMenu
+          label="Psikolog"
+          imageSource={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+        />
       </View>
     </Container>
   );
