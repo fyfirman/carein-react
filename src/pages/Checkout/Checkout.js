@@ -2,6 +2,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import { Container, Content, Text, Footer, Button, View } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import MapView from 'react-native-maps';
 import { Header } from '../../component';
 import styles from './styles';
 
@@ -28,13 +29,23 @@ const Checkout = (props) => {
   return (
     <Container>
       <Header iconName="back" title="Pembayaran" onPress={backToSelectWorker} />
-      <Content style={styles.cardContainer}>
+      <Content>
         <Image style={styles.photos} source={{ uri: mockData.photoSource }} />
         <Text>{mockData.name}</Text>
         <Text>{`Harga : ${mockData.price}`}</Text>
         <Text>{`Jarak : ${mockData.distance}`}</Text>
         <View>
           <Text>See in maps</Text>
+          <MapView
+            style={styles.mapView}
+            showsUserLocation
+            region={{
+              latitude: -6.953215215081733,
+              longitude: 107.68519169510188,
+              latitudeDelta: 0.005,
+              longitudeDelta: 0.005
+            }}
+          />
         </View>
         <Text>{`Total : ${mockData.totalPrice}`}</Text>
       </Content>

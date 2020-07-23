@@ -13,7 +13,7 @@ import { BottomNavigation } from './component';
 const Routes = () => (
   <Router>
     <Scene key="root">
-      <Scene key="login" component={Login} title="Login" initial />
+      <Scene key="login" component={Login} title="Login" />
       <Tabs key="home" tabBarComponent={BottomNavigation} hideNavBar>
         <Scene
           key="order"
@@ -56,6 +56,7 @@ const Routes = () => (
         component={Checkout}
         title="Pembayaran"
         hideNavBar
+        initial
       />
       <Scene
         key="registerMedicalHistory"
