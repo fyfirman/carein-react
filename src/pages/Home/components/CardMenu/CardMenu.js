@@ -7,6 +7,7 @@ import styles from './styles';
 const propTypes = {
   label: PropTypes.string.isRequired,
   imageSource: PropTypes.objectOf(PropTypes.string).isRequired,
+  onPress: PropTypes.func.isRequired,
   reverse: PropTypes.bool
 };
 
@@ -15,11 +16,11 @@ const defaultProps = {
 };
 
 const StyledHeader = (props) => {
-  const { label, reverse, imageSource } = props;
+  const { label, reverse, imageSource, onPress } = props;
 
   return (
     <Card style={styles.root}>
-      <CardItem style={styles.content}>
+      <CardItem button style={styles.content} onPress={onPress}>
         {reverse && <Text style={styles.label}>{label}</Text>}
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={imageSource} />
