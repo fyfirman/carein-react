@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, Content, Text } from 'native-base';
+import { Image } from 'react-native';
+import { Container, Content, Text, Footer, Button, View } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { Header } from '../../component';
 import styles from './styles';
@@ -7,6 +8,15 @@ import styles from './styles';
 const propTypes = {};
 
 const defaultProps = {};
+
+const mockData = {
+  name: 'dr. Lucy Purnama',
+  photoSource: 'https://reactnative.dev/img/tiny_logo.png',
+  price: 100000,
+  distance: 4,
+  transportCost: 8000,
+  totalPrice: 108000
+};
 
 const Checkout = (props) => {
   const { user } = props;
@@ -19,8 +29,20 @@ const Checkout = (props) => {
     <Container>
       <Header iconName="back" title="Pembayaran" onPress={backToSelectWorker} />
       <Content style={styles.cardContainer}>
-        <Text>Test</Text>
+        <Image style={styles.photos} source={{ uri: mockData.photoSource }} />
+        <Text>{mockData.name}</Text>
+        <Text>{`Harga : ${mockData.price}`}</Text>
+        <Text>{`Jarak : ${mockData.distance}`}</Text>
+        <View>
+          <Text>See in maps</Text>
+        </View>
+        <Text>{`Total : ${mockData.totalPrice}`}</Text>
       </Content>
+      <Footer>
+        <Button>
+          <Text>Order</Text>
+        </Button>
+      </Footer>
     </Container>
   );
 };
