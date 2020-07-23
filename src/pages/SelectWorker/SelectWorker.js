@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Content, Text } from 'native-base';
+import { Container, Content } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { CardWorker } from './components';
 import { Header } from '../../component';
@@ -61,6 +61,10 @@ const SelectWorker = (props) => {
     Actions.pop();
   };
 
+  const goToCheckout = (id) => {
+    Actions.checkout(id);
+  };
+
   return (
     <Container>
       <Header iconName="back" title="Pilih Dokter" onPress={backToHome} />
@@ -72,6 +76,7 @@ const SelectWorker = (props) => {
             photoSource={{ uri: element.photoSource }}
             price={element.price}
             distance={element.distance}
+            onPress={() => goToCheckout(123)}
           />
         ))}
       </Content>

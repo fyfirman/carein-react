@@ -5,7 +5,8 @@ import {
   Login,
   Register,
   RegisterMedicalHistory,
-  SelectWorker
+  SelectWorker,
+  Checkout
 } from './pages';
 import { BottomNavigation } from './component';
 
@@ -48,6 +49,12 @@ const Routes = () => (
         key="selectWorker"
         component={SelectWorker}
         title="Pilih Pekerja"
+        hideNavBar
+      />
+      <Scene
+        key="checkout"
+        component={Checkout}
+        title="Pembayaran"
         hideNavBar
       />
       <Scene
