@@ -1,6 +1,6 @@
 module.exports = {
   root: {
-    height: '50%',
+    marginBottom: '25%',
     backgroundColor: 'red'
   }
 };

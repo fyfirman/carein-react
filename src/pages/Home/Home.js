@@ -1,14 +1,18 @@
 import React from 'react';
-import { Container, Content, Text } from 'native-base';
-import { Header } from './components';
+import { View } from 'react-native';
+import { Container, Content } from 'native-base';
+import { Header, CardMenu } from './components';
+import styles from './styles';
 
 const Home = (props) => {
   return (
     <Container>
       <Header />
-      <Content>
-        <Text>This is homepage</Text>
-      </Content>
+      <View style={styles.cardContainer}>
+        <CardMenu label="Dokter" />
+        <CardMenu label="Perawat" reverse />
+        <CardMenu label="Psikolog" />
+      </View>
     </Container>
   );
 };
