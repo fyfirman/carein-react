@@ -7,7 +7,7 @@ import styles from './styles';
 
 const Home = (props) => {
   const goToSelectWorker = (workerType) => {
-    Actions.login(workerType);
+    Actions.selectWorker(workerType);
   };
 
   return (

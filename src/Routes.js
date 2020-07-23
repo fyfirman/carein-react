@@ -1,6 +1,12 @@
 import React from 'react';
 import { Router, Scene, Tabs } from 'react-native-router-flux';
-import { Home, Login, Register, RegisterMedicalHistory } from './pages';
+import {
+  Home,
+  Login,
+  Register,
+  RegisterMedicalHistory,
+  SelectWorker
+} from './pages';
 import { BottomNavigation } from './component';
 
 const Routes = () => (
@@ -38,6 +44,12 @@ const Routes = () => (
         />
       </Tabs>
       <Scene key="register" component={Register} title="Register" />
+      <Scene
+        key="selectWorker"
+        component={SelectWorker}
+        title="Pilih Pekerja"
+        hideNavBar
+      />
       <Scene
         key="registerMedicalHistory"
         component={RegisterMedicalHistory}
