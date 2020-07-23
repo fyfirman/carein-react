@@ -1,12 +1,42 @@
 import React from 'react';
-import { Router, Scene } from 'react-native-router-flux';
+import { Router, Scene, Tabs } from 'react-native-router-flux';
 import { Home, Login, Register, RegisterMedicalHistory } from './pages';
+import { BottomNavigation } from './component';
 
 const Routes = () => (
   <Router>
     <Scene key="root">
       <Scene key="login" component={Login} title="Login" initial />
-      <Scene key="home" component={Home} title="Home" />
+      <Tabs key="home" tabBarComponent={BottomNavigation} hideNavBar>
+        <Scene
+          key="order"
+          component={Home}
+          title="Home"
+          iconName="home"
+          hideNavBar
+        />
+        <Scene
+          key="history"
+          component={Home}
+          title="History"
+          iconName="history"
+          hideNavBar
+        />
+        <Scene
+          key="medicalHistory"
+          component={Home}
+          title="Rekam Medis"
+          iconName="document"
+          hideNavBar
+        />
+        <Scene
+          key="profile"
+          component={Home}
+          title="Profile"
+          iconName="user"
+          hideNavBar
+        />
+      </Tabs>
       <Scene key="register" component={Register} title="Register" />
       <Scene
         key="registerMedicalHistory"
