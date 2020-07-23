@@ -1,9 +1,5 @@
 import SPACING from '../../theme/Spacing';
 
-const CONST = {
-  LOGO_SIZE: 128
-};
-
 module.exports = {
   content: {
     backgroundColor: 'green'
