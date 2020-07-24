@@ -1,5 +1,4 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
 import { Router, Scene, Tabs } from 'react-native-router-flux';
 import {
   Home,
