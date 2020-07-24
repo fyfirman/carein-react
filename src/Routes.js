@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 import { Router, Scene, Tabs } from 'react-native-router-flux';
 import {
   Home,
@@ -13,7 +14,7 @@ import { BottomNavigation } from './component';
 const Routes = () => (
   <Router>
     <Scene key="root">
-      <Scene key="login" component={Login} title="Login" />
+      <Scene key="login" component={Login} title="Login" initial />
       <Tabs key="home" tabBarComponent={BottomNavigation} hideNavBar>
         <Scene
           key="order"
@@ -56,7 +57,6 @@ const Routes = () => (
         component={Checkout}
         title="Pembayaran"
         hideNavBar
-        initial
       />
       <Scene
         key="registerMedicalHistory"
@@ -66,4 +66,5 @@ const Routes = () => (
     </Scene>
   </Router>
 );
+
 export default Routes;
