@@ -5,6 +5,12 @@ const CONST = {
 };
 
 module.exports = {
+  photos: {
+    height: 64,
+    width: 64,
+    aspectRatio: 1
+  },
+
   mapView: {
     width: '100%',
     aspectRatio: 4 / 3
