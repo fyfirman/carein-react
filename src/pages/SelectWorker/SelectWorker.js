@@ -58,7 +58,9 @@ const mockData = [
 const SelectWorker = (props) => {
   const { workerType } = props;
 
-  useEffect(() => Geolocation.getCurrentPosition((info) => console.log(info)));
+  useEffect(() => {
+    Geolocation.getCurrentPosition((info) => console.log(info));
+  });
 
   const backToHome = () => {
     Actions.pop();
@@ -87,7 +89,6 @@ const SelectWorker = (props) => {
   );
 };
 
-SelectWorker.propTypes = propTypes;
 SelectWorker.defaultProps = defaultProps;
 
 export default SelectWorker;
