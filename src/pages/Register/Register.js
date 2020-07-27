@@ -19,8 +19,6 @@ const Register = () => {
   });
 
   useEffect(() => {
-    console.log(formState.errors);
-    // console.log(formState.values);
     const errors = validate(formState.values, schema);
 
     setFormState(() => ({
