@@ -38,7 +38,10 @@ const Register = () => {
           label="Nama Lengkap"
           onChangeText={(newValue) => handleChange('nama', newValue)}
         />
-        <DatePicker label="Tanggal Lahir" />
+        <DatePicker
+          label="Tanggal Lahir"
+          onDateChange={(newValue) => handleChange('tglLahir', newValue)}
+        />
         <PickerInput
           label="Jenis Kelamin"
           data={genderData}
