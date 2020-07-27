@@ -62,6 +62,16 @@ const RegisterMedicalHistory = (props) => {
   const hasError = (field) =>
     !!(formState.touched[field] && formState.errors[field]);
 
+  const saveValuesPairInput = (newValue) => {
+    setFormState({
+      ...formState,
+      values: {
+        ...formState.values,
+        riwayatKesehatan: newValue
+      }
+    });
+  };
+
   const handleChange = (name, newValue) => {
     setFormState({
       ...formState,
@@ -101,7 +111,11 @@ const RegisterMedicalHistory = (props) => {
           onValueChange={(newValue) => handleChange('goldar', newValue)}
           selectedValue={formState.values.goldar}
         />
-        <PairInputText firstLabel="Tahun" sdecondLabel="Nama Penyakit" />
+        <PairInputText
+          firstLabel="Tahun"
+          secondLabel="Nama Penyakit"
+          onValueChange={saveValuesPairInput}
+        />
         <Button full onPress={goToLogin}>
           <Text>Submit</Text>
         </Button>
