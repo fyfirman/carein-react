@@ -14,12 +14,13 @@ const Register = () => {
     values: {
       jk: 'l'
     },
-    errors: {}
+    errors: {},
+    touched: {}
   });
 
   useEffect(() => {
     console.log(formState.errors);
-    console.log(formState.values);
+    // console.log(formState.values);
     const errors = validate(formState.values, schema);
 
     setFormState(() => ({
@@ -47,12 +48,19 @@ const Register = () => {
     Actions.registerMedicalHistory({ registerData: parseData() });
   };
 
+  const hasError = (field) =>
+    !!(formState.touched[field] && formState.errors[field]);
+
   const handleChange = (name, newValue) => {
     setFormState({
       ...formState,
       values: {
         ...formState.values,
         [name]: newValue
+      },
+      touched: {
+        ...formState.touched,
+        [name]: true
       }
     });
   };
@@ -63,11 +71,15 @@ const Register = () => {
         <TextInput
           label="Nama Lengkap"
           onChangeText={(newValue) => handleChange('nama', newValue)}
+          alertText={hasError('nama') ? formState.errors.nama[0] : null}
           autoFocus
         />
         <TextInput
           label="Tempat Lahir"
           onChangeText={(newValue) => handleChange('tempatLahir', newValue)}
+          alertText={
+            hasError('tempatLahir') ? formState.errors.tempatLahir[0] : null
+          }
         />
         <DatePicker
           label="Tanggal Lahir"
@@ -83,25 +95,34 @@ const Register = () => {
           label="No telepon"
           keyboardType="phone-pad"
           onChangeText={(newValue) => handleChange('noTelp', newValue)}
+          alertText={hasError('noTelp') ? formState.errors.noTelp[0] : null}
         />
         <TextInput
           label="Email"
           keyboardType="email-address"
           onChangeText={(newValue) => handleChange('email', newValue)}
+          alertText={hasError('email') ? formState.errors.email[0] : null}
         />
         <TextInput
           label="Username"
           onChangeText={(newValue) => handleChange('username', newValue)}
+          alertText={hasError('username') ? formState.errors.username[0] : null}
         />
         <TextInput
           label="Password"
           secureTextEntry
           onChangeText={(newValue) => handleChange('password', newValue)}
+          alertText={hasError('password') ? formState.errors.password[0] : null}
         />
         <TextInput
           label="Confirm Password"
           secureTextEntry
           onChangeText={(newValue) => handleChange('confirmPassword', newValue)}
+          alertText={
+            hasError('confirmPassword')
+              ? formState.errors.confirmPassword[0]
+              : null
+          }
         />
         <Button full onPress={goToMedicalHistory} disabled={!formState.isValid}>
           <Text>Next</Text>
