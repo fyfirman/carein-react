@@ -8,6 +8,7 @@ import { PickerInput, TextInput, PairInputText } from '../../component';
 import API from '../../services';
 import styles from './styles';
 import schema from './schema';
+import { getShortDate } from '../../util';
 
 const propTypes = {
   registerData: PropTypes.objectOf(PropTypes.any).isRequired
@@ -62,12 +63,23 @@ const RegisterMedicalHistory = (props) => {
   const hasError = (field) =>
     !!(formState.touched[field] && formState.errors[field]);
 
-  const saveValuesPairInput = (newValue) => {
+  const parseYearToDate = (year) =>
+    getShortDate(new Date(parseInt(year, 10), 0, 1));
+
+  const parsePairInputData = (data) =>
+    data.map((item) => {
+      return {
+        tanggal: parseYearToDate(item.valueOne),
+        namaPenyakit: item.valueTwo
+      };
+    });
+
+  const saveValuesPairInput = (newData) => {
     setFormState({
       ...formState,
       values: {
         ...formState.values,
-        riwayatKesehatan: newValue
+        riwayatKesehatan: parsePairInputData(newData)
       }
     });
   };
@@ -124,7 +136,6 @@ const RegisterMedicalHistory = (props) => {
   );
 };
 
-RegisterMedicalHistory.propTypes = propTypes;
 RegisterMedicalHistory.defaultProps = defaultProps;
 
 export default RegisterMedicalHistory;
