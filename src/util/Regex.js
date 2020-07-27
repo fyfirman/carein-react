@@ -4,6 +4,7 @@ const alphabetUpperCaseOnly = '[A-Z]+';
 const alphabetLowerCaseOnly = '[a-z]+';
 const numberOnly = '[0-9]+';
 const username = '[a-z0-9_-]+';
+const decimal = /^\d{1,6}(\.\d{1,2})?$/;
 
 const REGEX = {
   alphabetOnly,
@@ -11,7 +12,8 @@ const REGEX = {
   alphabetUpperCaseOnly,
   alphabetLowerCaseOnly,
   numberOnly,
-  username
+  username,
+  decimal
 };
 
 export default REGEX;
