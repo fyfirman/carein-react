@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
-import { Form, Button, Text, View } from 'native-base';
+import { Form, Button, Text } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import validate from 'validate.js';
 import { DatePicker, PickerInput, TextInput } from '../../component';
@@ -63,6 +63,7 @@ const Register = () => {
         <TextInput
           label="Nama Lengkap"
           onChangeText={(newValue) => handleChange('nama', newValue)}
+          autoFocus
         />
         <TextInput
           label="Tempat Lahir"
@@ -80,10 +81,12 @@ const Register = () => {
         />
         <TextInput
           label="No telepon"
+          keyboardType="phone-pad"
           onChangeText={(newValue) => handleChange('noTelp', newValue)}
         />
         <TextInput
           label="Email"
+          keyboardType="email-address"
           onChangeText={(newValue) => handleChange('email', newValue)}
         />
         <TextInput
@@ -92,10 +95,12 @@ const Register = () => {
         />
         <TextInput
           label="Password"
+          secureTextEntry
           onChangeText={(newValue) => handleChange('password', newValue)}
         />
         <TextInput
           label="Confirm Password"
+          secureTextEntry
           onChangeText={(newValue) => handleChange('confirmPassword', newValue)}
         />
         <Button full onPress={goToMedicalHistory} disabled={!formState.isValid}>

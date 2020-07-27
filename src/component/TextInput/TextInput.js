@@ -19,10 +19,10 @@ const defaultProps = {
 const TextInput = (props) => {
   const { label, icon, iconPosition, onChangeText, ...rest } = props;
   return (
-    <Item floatingLabel {...rest}>
+    <Item floatingLabel>
       <Label>{label}</Label>
       {iconPosition === 'left' ? icon : null}
-      <Input onChangeText={onChangeText} />
+      <Input onChangeText={onChangeText} {...rest} secureTextEntry />
       {iconPosition === 'right' ? icon : null}
     </Item>
   );
