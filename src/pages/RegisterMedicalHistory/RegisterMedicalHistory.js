@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Form, Button, Text } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { PickerInput, TextInput, PairInputText } from '../../component';
+import API from '../../services';
 import styles from './styles';
 
 const propTypes = {
@@ -16,8 +17,9 @@ const RegisterMedicalHistory = (props) => {
   const { registerData } = props;
 
   const [formState, setFormState] = useState({
-    registerData,
-    values: {}
+    values: {
+      ...registerData
+    }
   });
 
   const bloodType = [
@@ -28,7 +30,16 @@ const RegisterMedicalHistory = (props) => {
   ];
 
   const goToLogin = () => {
-    Actions.login();
+    console.log(formState);
+    // Actions.login();
+  };
+
+  const postDataToAPI = () => {
+    const data = {};
+
+    API.postRegister(data).then((res) => {
+      console.log('==================================', res);
+    });
   };
 
   const handleChange = (name, newValue) => {

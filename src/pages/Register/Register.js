@@ -4,11 +4,12 @@ import { Form, Button, Text } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { DatePicker, PickerInput, TextInput } from '../../component';
 import styles from './styles';
-import API from '../../services';
 
 const Register = () => {
   const [formState, setFormState] = useState({
-    values: {}
+    values: {
+      jk: 'l'
+    }
   });
 
   const genderData = [
@@ -18,14 +19,6 @@ const Register = () => {
 
   const goToMedicalHistory = () => {
     Actions.registerMedicalHistory({ registerData: formState.values });
-  };
-
-  const postDataToAPI = () => {
-    const data = {};
-
-    API.postRegister(data).then((res) => {
-      console.log('==================================', res);
-    });
   };
 
   const handleChange = (name, newValue) => {
@@ -43,13 +36,18 @@ const Register = () => {
       <Form style={styles.loginForm}>
         <TextInput
           label="Nama Lengkap"
-          onChangeText={(newValue) => handleChange('name', newValue)}
+          onChangeText={(newValue) => handleChange('nama', newValue)}
         />
         <DatePicker label="Tanggal Lahir" />
-        <PickerInput label="Jenis Kelamin" data={genderData} />
+        <PickerInput
+          label="Jenis Kelamin"
+          data={genderData}
+          onValueChange={(newValue) => handleChange('jk', newValue)}
+          selectedValue={formState.values.jk}
+        />
         <TextInput
           label="No telepon"
-          onChangeText={(newValue) => handleChange('phone', newValue)}
+          onChangeText={(newValue) => handleChange('noTelp', newValue)}
         />
         <TextInput
           label="Email"
@@ -67,7 +65,7 @@ const Register = () => {
           label="Confirm Password"
           onChangeText={(newValue) => handleChange('confirmPassword', newValue)}
         />
-        <Button full onPress={postDataToAPI}>
+        <Button full onPress={goToMedicalHistory}>
           <Text>Next</Text>
         </Button>
       </Form>
