@@ -1,17 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
-import { Form, Button, Text } from 'native-base';
+import { Form, Button, Text, View } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import validate from 'validate.js';
 import { DatePicker, PickerInput, TextInput } from '../../component';
 import styles from './styles';
 import { getShortDate } from '../../util';
+import schema from './schema';
 
 const Register = () => {
   const [formState, setFormState] = useState({
+    isValid: false,
     values: {
       jk: 'l'
-    }
+    },
+    errors: {}
   });
+
+  useEffect(() => {
+    console.log(formState.errors);
+    console.log(formState.values);
+    const errors = validate(formState.values, schema);
+
+    setFormState(() => ({
+      ...formState,
+      isValid: !errors,
+      errors: errors || {}
+    }));
+  }, [formState.values]);
 
   const genderData = [
     { label: 'Laki-Laki', value: 'l' },
@@ -48,6 +64,10 @@ const Register = () => {
           label="Nama Lengkap"
           onChangeText={(newValue) => handleChange('nama', newValue)}
         />
+        <TextInput
+          label="Tempat Lahir"
+          onChangeText={(newValue) => handleChange('tempatLahir', newValue)}
+        />
         <DatePicker
           label="Tanggal Lahir"
           onDateChange={(newValue) => handleChange('tglLahir', newValue)}
@@ -78,7 +98,7 @@ const Register = () => {
           label="Confirm Password"
           onChangeText={(newValue) => handleChange('confirmPassword', newValue)}
         />
-        <Button full onPress={goToMedicalHistory}>
+        <Button full onPress={goToMedicalHistory} disabled={!formState.isValid}>
           <Text>Next</Text>
         </Button>
       </Form>
