@@ -4,6 +4,7 @@ import { Form, Button, Text } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { DatePicker, PickerInput, TextInput } from '../../component';
 import styles from './styles';
+import { getShortDate } from '../../util';
 
 const Register = () => {
   const [formState, setFormState] = useState({
@@ -17,8 +18,17 @@ const Register = () => {
     { label: 'Perempuan', value: 'p' }
   ];
 
+  const parseData = () => {
+    const parsedData = {
+      ...formState.values,
+      tglLahir: getShortDate(formState.values.tglLahir)
+    };
+
+    return parsedData;
+  };
+
   const goToMedicalHistory = () => {
-    Actions.registerMedicalHistory({ registerData: formState.values });
+    Actions.registerMedicalHistory({ registerData: parseData() });
   };
 
   const handleChange = (name, newValue) => {
