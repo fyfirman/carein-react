@@ -44,7 +44,6 @@ const Routes = () => (
           hideNavBar
         />
       </Tabs>
-      <Scene key="register" component={Register} title="Register" />
       <Scene
         key="selectWorker"
         component={SelectWorker}
@@ -57,10 +56,12 @@ const Routes = () => (
         title="Pembayaran"
         hideNavBar
       />
+      <Scene key="register" component={Register} title="Register" hideNavBar />
       <Scene
         key="registerMedicalHistory"
         component={RegisterMedicalHistory}
         title="Riwayat Kesehatan"
+        hideNavBar
       />
     </Scene>
   </Router>
