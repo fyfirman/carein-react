@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { StatusBar, View } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+import { Root } from 'native-base';
 import Routes from './Routes';
 
 const App = () => {
@@ -11,7 +12,9 @@ const App = () => {
   return (
     <View style={{ flex: 1 }}>
       <StatusBar barStyle="light-content" backgroundColor="#2a83be" />
-      <Routes />
+      <Root>
+        <Routes />
+      </Root>
     </View>
   );
 };

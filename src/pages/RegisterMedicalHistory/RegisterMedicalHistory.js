@@ -36,8 +36,6 @@ const RegisterMedicalHistory = (props) => {
   ];
 
   useEffect(() => {
-    console.log(formState.values);
-    console.log(formState.errors);
     const errors = validate(formState.values, schema);
 
     setFormState(() => ({
@@ -56,15 +54,14 @@ const RegisterMedicalHistory = (props) => {
   };
 
   const handleSubmit = () => {
-    Toast.show({ text: 'res.data.message', duration: 3000 });
-
     API.postRegister(formState.values)
       .then((res) => {
+        console.log(res);
         Toast.show({ text: res.data.message, duration: 3000 });
-        goToLogin();
+        setTimeout(() => goToLogin(), 3000);
       })
       .catch((error) => {
-        Toast.show({ text: error.response.message, duration: 3000 });
+        Toast.show({ text: error.response.data.message, duration: 3000 });
       });
   };
 
@@ -107,13 +104,13 @@ const RegisterMedicalHistory = (props) => {
   };
 
   return (
-    <Container style={styles.container}>
+    <Container>
       <Header
         iconName="add"
         title="Riwayat Kesehatan"
         onPress={backToRegister}
       />
-      <Content>
+      <Content style={styles.container}>
         <Form>
           <TextInput
             label="Berat Badan"
