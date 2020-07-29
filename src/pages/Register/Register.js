@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Form, Button, Text, Content } from 'native-base';
+import { View } from 'react-native';
+import { Toast, Container, Form, Button, Text, Content } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import validate from 'validate.js';
+import API from '../../services';
 import { Header, DatePicker, PickerInput, TextInput } from '../../component';
 import styles from './styles';
 import { getShortDate } from '../../util';
@@ -14,7 +16,8 @@ const Register = () => {
       jk: 'l'
     },
     errors: {},
-    touched: {}
+    touched: {},
+    errorUserExist: null
   });
 
   useEffect(() => {
@@ -33,12 +36,10 @@ const Register = () => {
   ];
 
   const parseData = () => {
-    const parsedData = {
+    return {
       ...formState.values,
       tglLahir: getShortDate(formState.values.tglLahir)
     };
-
-    return parsedData;
   };
 
   const backToLogin = () => {
@@ -51,6 +52,23 @@ const Register = () => {
 
   const hasError = (field) =>
     !!(formState.touched[field] && formState.errors[field]);
+
+  const handleSubmit = () => {
+    API.postCheckRegister(parseData())
+      .then(() => {
+        goToMedicalHistory();
+      })
+      .catch((error) => {
+        setFormState({
+          ...formState,
+          errorUserExist: error.response.data.constraints
+        });
+        Toast.show({
+          text: error.response.data.message,
+          duration: 3000
+        });
+      });
+  };
 
   const handleChange = (name, newValue) => {
     setFormState({
@@ -65,6 +83,9 @@ const Register = () => {
       }
     });
   };
+
+  const renderErrorUserExist = () =>
+    formState.errorUserExist.map((error) => <Text>{error.errors[0]}</Text>);
 
   return (
     <Container>
@@ -132,11 +153,10 @@ const Register = () => {
                 : null
             }
           />
-          <Button
-            full
-            onPress={goToMedicalHistory}
-            disabled={!formState.isValid}
-          >
+          <View>
+            {formState.errorUserExist !== null ? renderErrorUserExist() : null}
+          </View>
+          <Button full onPress={handleSubmit} disabled={!formState.isValid}>
             <Text>Next</Text>
           </Button>
         </Form>
