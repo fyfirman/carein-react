@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import API from '../../services';
 import AuthAction from '../../redux/actions';
-import { Storage } from '../../helpers';
+import { LocalStorage } from '../../helpers';
 
 const propTypes = {
   setToken: PropTypes.func.isRequired
@@ -20,7 +20,7 @@ const Login = (props) => {
   const { setToken } = props;
 
   useEffect(() => {
-    Storage.getToken();
+    LocalStorage.getToken();
   });
 
   const handleSubmit = () => {
@@ -33,7 +33,7 @@ const Login = (props) => {
       .then(
         (res) => {
           setToken(res.token);
-          Storage.storeToken(res.token);
+          LocalStorage.storeToken(res.token);
           Toast.show({ text: res.message }, 1000);
           setTimeout(() => Actions.home(), 1000);
         },

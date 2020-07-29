@@ -17,9 +17,9 @@ const getToken = async () => {
   }
 };
 
-const Storage = {
+const LocalStorage = {
   storeToken,
   getToken
 };
 
-export default Storage;
+export default LocalStorage;
