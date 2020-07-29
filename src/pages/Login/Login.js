@@ -6,6 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import styles from './styles';
 import API from '../../services';
+import ActionType from '../../redux/reducers';
 
 const propTypes = {
   setToken: PropTypes.func.isRequired
@@ -77,7 +78,7 @@ Login.defaultProps = defaultProps;
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setToken: (token) => dispatch({ type: 'SET_TOKEN', token })
+    setToken: (token) => dispatch({ type: ActionType.SET_TOKEN, token })
   };
 };
 

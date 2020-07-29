@@ -5,23 +5,9 @@ import { Root } from 'native-base';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import Routes from './Routes';
+import { authenticationReducer } from './redux/reducers';
 
-const initialState = {
-  token: null
-};
-
-const rootReducer = (state = initialState, action) => {
-  if (action.type === 'SET_TOKEN') {
-    return {
-      ...state,
-      token: `bearer ${action.token}`
-    };
-  }
-
-  return state;
-};
-
-const storeRedux = createStore(rootReducer);
+const storeRedux = createStore(authenticationReducer);
 
 const App = () => {
   useEffect(() => {
