@@ -3,7 +3,7 @@ import { Container, Content } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import Geolocation from '@react-native-community/geolocation';
 import { CardWorker } from './components';
-import { Header } from '../../component';
+import { Header } from '../../components';
 import styles from './styles';
 
 const propTypes = {};

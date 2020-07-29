@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Container, Content, Form, Button, Text, Toast } from 'native-base';
 import { validate } from 'validate.js';
 import { Actions } from 'react-native-router-flux';
-import { Header, PickerInput, TextInput, PairInputText } from '../../component';
+import { Header, PickerInput, TextInput, PairInputText } from '../../components';
 import API from '../../services';
 import styles from './styles';
 import schema from './schema';

@@ -8,7 +8,7 @@ import {
   SelectWorker,
   Checkout
 } from './pages';
-import { BottomNavigation } from './component';
+import { BottomNavigation } from './components';
 
 const Routes = () => (
   <Router>

@@ -4,7 +4,7 @@ import { Toast, Container, Form, Button, Text, Content } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import validate from 'validate.js';
 import API from '../../services';
-import { Header, DatePicker, PickerInput, TextInput } from '../../component';
+import { Header, DatePicker, PickerInput, TextInput } from '../../components';
 import styles from './styles';
 import { getShortDate } from '../../helpers';
 import schema from './schema';
