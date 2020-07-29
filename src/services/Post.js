@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from 'react-native-dotenv';
 
-const Post = (path, data, config) => {
+const post = (path, data, config) => {
   const promise = new Promise((resolve, reject) => {
     axios.post(`${BASE_URL}/${path}`, data, config).then(
       (result) => {
@@ -16,4 +16,4 @@ const Post = (path, data, config) => {
   return promise;
 };
 
-export default Post;
+export default post;

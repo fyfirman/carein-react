@@ -1,1 +1,1 @@
-export { default } from './auth.actions';
+export { default } from './AuthActions';

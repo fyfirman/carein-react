@@ -6,7 +6,7 @@ const numberOnly = '[0-9]+';
 const username = '[a-z0-9_-]+';
 const decimal = /^\d{1,6}(\.\d{1,2})?$/;
 
-const REGEX = {
+const Regex = {
   alphabetOnly,
   alphabetWithSpace,
   alphabetUpperCaseOnly,
@@ -16,4 +16,4 @@ const REGEX = {
   decimal
 };
 
-export default REGEX;
+export default Regex;
