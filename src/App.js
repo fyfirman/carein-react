@@ -14,7 +14,7 @@ const rootReducer = (state = initialState, action) => {
   if (action.type === 'SET_TOKEN') {
     return {
       ...state,
-      token: `bearer ${state.token}`
+      token: `bearer ${action.token}`
     };
   }
 

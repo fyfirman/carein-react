@@ -25,8 +25,8 @@ const Login = (props) => {
     API.postGenerateToken(mockData)
       .then((res) => {
         setToken(res.token);
-        Toast.show({ text: res.message }, 2000);
-        setTimeout(() => Actions.home(), 1500);
+        Toast.show({ text: res.message }, 1000);
+        setTimeout(() => Actions.home(), 1000);
       })
       .catch((error) => {
         Toast.show({ text: error.response.data.message }, 3000);
@@ -77,7 +77,7 @@ Login.defaultProps = defaultProps;
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setToken: () => dispatch({ type: 'SET_TOKEN' })
+    setToken: (token) => dispatch({ type: 'SET_TOKEN', token })
   };
 };
 
