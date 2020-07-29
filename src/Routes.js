@@ -6,7 +6,8 @@ import {
   Register,
   RegisterMedicalHistory,
   SelectWorker,
-  Checkout
+  Checkout,
+  Chat
 } from './pages';
 import { BottomNavigation } from './components';
 
@@ -63,6 +64,7 @@ const Routes = () => (
         title="Riwayat Kesehatan"
         hideNavBar
       />
+      <Scene key="chat" component={Chat} title="Obrolan" hideNavBar />
     </Scene>
   </Router>
 );
