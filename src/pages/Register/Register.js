@@ -6,7 +6,7 @@ import validate from 'validate.js';
 import API from '../../services';
 import { Header, DatePicker, PickerInput, TextInput } from '../../components';
 import styles from './styles';
-import { getShortDate } from '../../helpers';
+import { DateFormatter } from '../../helpers';
 import schema from './schema';
 
 const Register = () => {
@@ -38,7 +38,7 @@ const Register = () => {
   const parseData = () => {
     return {
       ...formState.values,
-      tglLahir: getShortDate(formState.values.tglLahir)
+      tglLahir: DateFormatter.getShortDate(formState.values.tglLahir)
     };
   };
 

@@ -3,11 +3,16 @@ import PropTypes from 'prop-types';
 import { Container, Content, Form, Button, Text, Toast } from 'native-base';
 import { validate } from 'validate.js';
 import { Actions } from 'react-native-router-flux';
-import { Header, PickerInput, TextInput, PairInputText } from '../../components';
+import {
+  Header,
+  PickerInput,
+  TextInput,
+  PairInputText
+} from '../../components';
 import API from '../../services';
 import styles from './styles';
 import schema from './schema';
-import { getShortDate } from '../../helpers';
+import { DateFormatter } from '../../helpers';
 
 const propTypes = {
   registerData: PropTypes.objectOf(PropTypes.any).isRequired
@@ -68,7 +73,7 @@ const RegisterMedicalHistory = (props) => {
     !!(formState.touched[field] && formState.errors[field]);
 
   const parseYearToDate = (year) =>
-    getShortDate(new Date(parseInt(year, 10), 1, 1));
+    DateFormatter.getShortDate(new Date(parseInt(year, 10), 1, 1));
 
   const parsePairInputData = (data) =>
     data.map((item) => {

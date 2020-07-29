@@ -13,4 +13,9 @@ const getShortDate = (date) => {
   return `${year}-${month}-${day}`;
 };
 
-export default getShortDate;
+const DateFormatter = {
+  giveZero,
+  getShortDate
+};
+
+export default DateFormatter;
