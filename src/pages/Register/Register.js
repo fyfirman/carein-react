@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Header, Container, Form, Button, Text, Content } from 'native-base';
+import { Container, Form, Button, Text, Content } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import validate from 'validate.js';
-import { DatePicker, PickerInput, TextInput } from '../../component';
+import { Header, DatePicker, PickerInput, TextInput } from '../../component';
 import styles from './styles';
 import { getShortDate } from '../../util';
 import schema from './schema';
@@ -68,7 +68,7 @@ const Register = () => {
 
   return (
     <Container>
-      <Header iconName="back" title="Pembayaran" onPress={backToLogin} />
+      <Header iconName="back" title="Pendaftaran" onPress={backToLogin} />
       <Content style={styles.container}>
         <Form style={styles.loginForm}>
           <TextInput
