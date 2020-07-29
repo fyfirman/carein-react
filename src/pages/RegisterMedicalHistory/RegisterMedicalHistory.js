@@ -56,8 +56,8 @@ const RegisterMedicalHistory = (props) => {
   const handleSubmit = () => {
     API.postRegister(formState.values)
       .then((res) => {
-        console.log(res);
-        Toast.show({ text: res.data.message, duration: 3000 });
+        console.log('response success : ', res);
+        Toast.show({ text: res.message, duration: 3000 });
         setTimeout(() => goToLogin(), 3000);
       })
       .catch((error) => {
