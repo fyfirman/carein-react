@@ -2,12 +2,9 @@ import React, { useEffect } from 'react';
 import { StatusBar, View } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { Root } from 'native-base';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import Routes from './Routes';
-import { authenticationReducer } from './redux/reducers';
-
-const storeRedux = createStore(authenticationReducer);
+import { store } from './helpers';
 
 const App = () => {
   useEffect(() => {
@@ -15,7 +12,7 @@ const App = () => {
   }, []);
 
   return (
-    <Provider store={storeRedux}>
+    <Provider store={store}>
       <View style={{ flex: 1 }}>
         <StatusBar barStyle="light-content" backgroundColor="#2a83be" />
         <Root>

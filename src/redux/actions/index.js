@@ -1,1 +1,1 @@
-export { default as actionType } from './authentication.action';
+export { default } from './auth.actions';
