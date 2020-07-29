@@ -1,14 +1,20 @@
 import React from 'react';
 import { View, Image } from 'react-native';
+import PropTypes from 'prop-types';
 import { Form, Item, Input, Label, Button, Text, Toast } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import styles from './styles';
 import API from '../../services';
 
-const Login = () => {
-  const saveTokenToStore = (token) => {
-    console.log('token : ', `bearer ${token}`);
-  };
+const propTypes = {
+  setToken: PropTypes.func.isRequired
+};
+
+const defaultProps = {};
+
+const Login = (props) => {
+  const { setToken } = props;
 
   const handleSubmit = () => {
     const mockData = {
@@ -18,9 +24,9 @@ const Login = () => {
 
     API.postGenerateToken(mockData)
       .then((res) => {
-        saveTokenToStore(res.token);
+        setToken(res.token);
         Toast.show({ text: res.message }, 2000);
-        setTimeout(() => Actions.home(), 2000);
+        setTimeout(() => Actions.home(), 1500);
       })
       .catch((error) => {
         Toast.show({ text: error.response.data.message }, 3000);
@@ -66,4 +72,13 @@ Login.navigationOptions = {
   header: null
 };
 
-export default Login;
+Login.propTypes = propTypes;
+Login.defaultProps = defaultProps;
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setToken: () => dispatch({ type: 'SET_TOKEN' })
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Login);
