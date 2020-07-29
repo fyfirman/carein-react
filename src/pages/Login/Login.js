@@ -1,16 +1,30 @@
 import React from 'react';
 import { View, Image } from 'react-native';
-import { Form, Item, Input, Label, Button, Text } from 'native-base';
+import { Form, Item, Input, Label, Button, Text, Toast } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import styles from './styles';
+import API from '../../services';
 
 const Login = () => {
-  const goToRegister = () => {
-    Actions.register();
+  const saveTokenToStore = (token) => {
+    console.log('token : ', `bearer ${token}`);
   };
 
-  const goToHome = () => {
-    Actions.home();
+  const handleSubmit = () => {
+    const mockData = {
+      username: 'dummy',
+      password: '12345678'
+    };
+
+    API.postGenerateToken(mockData)
+      .then((res) => {
+        saveTokenToStore(res.token);
+        Toast.show({ text: res.message }, 2000);
+        setTimeout(() => Actions.home(), 2000);
+      })
+      .catch((error) => {
+        Toast.show({ text: error.response.data.message }, 3000);
+      });
   };
 
   return (
@@ -31,7 +45,7 @@ const Login = () => {
             <Label>Password</Label>
             <Input />
           </Item>
-          <Button full onPress={goToHome}>
+          <Button full onPress={handleSubmit}>
             <Text>Sign In</Text>
           </Button>
         </Form>
@@ -39,7 +53,7 @@ const Login = () => {
           <Text>or</Text>
         </View>
         <View style={styles.registerContainer}>
-          <Button full onPress={goToRegister}>
+          <Button full onPress={() => Actions.register()}>
             <Text>Register</Text>
           </Button>
         </View>
