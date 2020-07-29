@@ -6,7 +6,7 @@ import validate from 'validate.js';
 import API from '../../services';
 import { Header, DatePicker, PickerInput, TextInput } from '../../component';
 import styles from './styles';
-import { getShortDate } from '../../util';
+import { getShortDate } from '../../helpers';
 import schema from './schema';
 
 const Register = () => {

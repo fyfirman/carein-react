@@ -7,7 +7,7 @@ import { Header, PickerInput, TextInput, PairInputText } from '../../component';
 import API from '../../services';
 import styles from './styles';
 import schema from './schema';
-import { getShortDate } from '../../util';
+import { getShortDate } from '../../helpers';
 
 const propTypes = {
   registerData: PropTypes.objectOf(PropTypes.any).isRequired

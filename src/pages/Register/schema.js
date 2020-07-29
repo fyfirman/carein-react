@@ -1,4 +1,4 @@
-import { REGEX } from '../../util';
+import { REGEX } from '../../helpers';
 
 module.exports = {
   nama: {
