@@ -1,19 +1,20 @@
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const storeToken = async (token) => {
   try {
     await AsyncStorage.setItem('token', `bearer ${token}`);
+    console.log('Token set!', token);
   } catch (error) {
-    console.log('Something went wrong', error);
+    console.log('Token is not set', error);
   }
 };
 
 const getToken = async () => {
   try {
     const token = await AsyncStorage.getItem('token');
-    console.log(token);
+    return token;
   } catch (error) {
-    console.log('Something went wrong', error);
+    return null;
   }
 };
 

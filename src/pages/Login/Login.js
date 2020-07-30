@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import { Form, Item, Input, Label, Button, Text, Toast } from 'native-base';
@@ -19,10 +19,6 @@ const defaultProps = {};
 const Login = (props) => {
   const { setToken } = props;
 
-  useEffect(() => {
-    LocalStorage.getToken();
-  });
-
   const handleSubmit = () => {
     const mockData = {
       username: 'dummy',
@@ -42,8 +38,7 @@ const Login = (props) => {
         }
       )
       .catch((error) => {
-        console.log(error);
-        Toast.show({ text: 'Something went wrong' }, 3000);
+        Toast.show({ text: `Something went wrong:  ${error}` }, 3000);
       });
   };
 
