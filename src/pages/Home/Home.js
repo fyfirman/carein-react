@@ -58,7 +58,7 @@ const Home = (props) => {
         <CardMenu
           label="Psikolog"
           imageSource={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-          onPress={() => () => Actions.selectWorker({ workerType: 'psikolog' })}
+          onPress={() => Actions.selectWorker({ workerType: 'psikolog' })}
         />
       </View>
     </Container>
