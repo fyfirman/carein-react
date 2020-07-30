@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Content } from 'native-base';
+import { Container, Content, Toast } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import Geolocation from '@react-native-community/geolocation';
 import { connect } from 'react-redux';
@@ -63,8 +63,26 @@ const SelectWorker = (props) => {
   const { token } = props;
 
   useEffect(() => {
-    Geolocation.getCurrentPosition((info) => console.log(info));
-  });
+    Geolocation.getCurrentPosition(
+      (position) => {
+        const origin = `${position.coords.latitude} ${position.coords.longitude}`;
+        const params = {
+          params: {
+            origin,
+            limit: 5,
+            page: 1,
+            berbagiLokasi: true,
+            sort: 'berbagiLokasi'
+          }
+        };
+
+        console.log('params : ', params);
+      },
+      (error) => {
+        Toast.show({ text: error });
+      }
+    );
+  }, []);
 
   const backToHome = () => {
     Actions.pop();
