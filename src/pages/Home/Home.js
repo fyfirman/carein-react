@@ -1,13 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
-import { Container } from 'native-base';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Container, Toast } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { Header, CardMenu } from './components';
 import styles from './styles';
 import Api from '../../services';
+import { UserActions } from '../../redux/actions';
+
+const propTypes = {
+  user: PropTypes.objectOf(PropTypes.any),
+  setUser: PropTypes.func.isRequired
+};
 
 const Home = (props) => {
-  const [state, setState] = useState({});
+  const { user, setUser } = props;
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -15,15 +24,15 @@ const Home = (props) => {
         (res) => {
           Api.getUser(res.user.id).then(
             (data) => {
-              setState({ user: data.pasien });
+              setUser(data.pasien);
             },
             (e) => {
-              console.log(`Get user failed : ${e.response.data.message}`);
+              Toast.show({ text: e });
             }
           );
         },
         (error) => {
-          console.log(`Check auth failed : ${error.response.data.message}`);
+          Toast.show({ text: error });
         }
       );
     };
@@ -37,7 +46,7 @@ const Home = (props) => {
 
   return (
     <Container>
-      <Header name={state.user.nama} />
+      <Header name={user !== undefined ? user.nama : ''} />
       <View style={styles.cardContainer}>
         <CardMenu
           label="Dokter"
@@ -60,4 +69,16 @@ const Home = (props) => {
   );
 };
 
-export default Home;
+Home.propTypes = propTypes;
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.userReducer.user
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(UserActions, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

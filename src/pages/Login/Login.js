@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styles from './styles';
 import API from '../../services';
-import AuthAction from '../../redux/actions';
+import { AuthActions } from '../../redux/actions';
 import { LocalStorage } from '../../helpers';
 
 const propTypes = {
@@ -85,7 +85,7 @@ Login.propTypes = propTypes;
 Login.defaultProps = defaultProps;
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(AuthAction, dispatch);
+  return bindActionCreators(AuthActions, dispatch);
 };
 
 export default connect(null, mapDispatchToProps)(Login);
