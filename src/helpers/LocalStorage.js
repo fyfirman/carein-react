@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const storeToken = async (token) => {
   try {
-    await AsyncStorage.setItem('token', `Bearer ${token}`);
+    await AsyncStorage.setItem('token', token);
     console.log('Token set!', token);
   } catch (error) {
     console.log('Token is not set', error);
@@ -11,9 +11,9 @@ const storeToken = async (token) => {
 
 const getToken = async () => {
   try {
-    const token = await AsyncStorage.getItem('token');
-    return token;
+    return await AsyncStorage.getItem('token');
   } catch (error) {
+    console.log('Failed to get token : ', error);
     return null;
   }
 };

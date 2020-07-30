@@ -23,7 +23,7 @@ const Routes = () => {
     };
 
     setToken();
-  });
+  }, []);
 
   return (
     <View style={{ flex: 1 }}>

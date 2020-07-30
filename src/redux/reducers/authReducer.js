@@ -8,7 +8,7 @@ const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case authConstants.SET_TOKEN:
       return {
-        token: `Bearer ${action.token}`
+        token: action.token
       };
     default:
       return state;
