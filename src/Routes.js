@@ -8,7 +8,8 @@ import {
   RegisterMedicalHistory,
   SelectWorker,
   Checkout,
-  Chat
+  Chat,
+  History
 } from './pages';
 import { BottomNavigation } from './components';
 import { LocalStorage } from './helpers';
@@ -53,8 +54,8 @@ const Routes = () => {
               />
               <Scene
                 key="history"
-                component={Home}
-                title="History"
+                component={History}
+                title="Riwayat"
                 iconName="history"
                 hideNavBar
               />

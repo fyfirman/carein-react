@@ -5,3 +5,4 @@ export { default as RegisterMedicalHistory } from './RegisterMedicalHistory';
 export { default as SelectWorker } from './SelectWorker';
 export { default as Checkout } from './Checkout';
 export { default as Chat } from './Chat';
+export { default as History } from './History';
