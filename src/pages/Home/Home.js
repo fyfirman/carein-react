@@ -11,7 +11,7 @@ import Api from '../../services';
 import { UserActions } from '../../redux/actions';
 
 const propTypes = {
-  user: PropTypes.objectOf(PropTypes.any),
+  user: PropTypes.objectOf(PropTypes.any).isRequired,
   setUser: PropTypes.func.isRequired
 };
 
@@ -40,10 +40,6 @@ const Home = (props) => {
     fetchUser();
   }, []);
 
-  const goToSelectWorker = (workerType) => {
-    Actions.selectWorker(workerType);
-  };
-
   return (
     <Container>
       <Header name={user !== undefined ? user.nama : ''} />
@@ -51,18 +47,18 @@ const Home = (props) => {
         <CardMenu
           label="Dokter"
           imageSource={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-          onPress={() => goToSelectWorker('doctor')}
+          onPress={() => Actions.selectWorker({ workerType: 'dokter' })}
         />
         <CardMenu
           label="Perawat"
           imageSource={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-          onPress={() => goToSelectWorker('nurse')}
+          onPress={() => Actions.selectWorker({ workerType: 'perawat' })}
           reverse
         />
         <CardMenu
           label="Psikolog"
           imageSource={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-          onPress={() => goToSelectWorker('psychologist')}
+          onPress={() => () => Actions.selectWorker({ workerType: 'psikolog' })}
         />
       </View>
     </Container>

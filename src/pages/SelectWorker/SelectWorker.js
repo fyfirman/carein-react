@@ -1,66 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Content, Toast } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import Geolocation from '@react-native-community/geolocation';
 import { connect } from 'react-redux';
+import Api from '../../services';
 import { CardWorker } from './components';
 import { Header } from '../../components';
 import styles from './styles';
 
 const propTypes = {
-  token: PropTypes.string.isRequired
+  workerType: PropTypes.string.isRequired
 };
 
 const defaultProps = {};
 
-const mockData = [
-  {
-    name: 'dr. Lucy Purnama',
-    photoSource: 'https://reactnative.dev/img/tiny_logo.png',
-    price: 100000,
-    distance: 1.4
-  },
-  {
-    name: 'dr. Lucy Purnama',
-    photoSource: 'https://reactnative.dev/img/tiny_logo.png',
-    price: 100000,
-    distance: 1.4
-  },
-  {
-    name: 'dr. Lucy Purnama',
-    photoSource: 'https://reactnative.dev/img/tiny_logo.png',
-    price: 100000,
-    distance: 1.4
-  },
-  {
-    name: 'dr. Lucy Purnama',
-    photoSource: 'https://reactnative.dev/img/tiny_logo.png',
-    price: 100000,
-    distance: 1.4
-  },
-  {
-    name: 'dr. Lucy Purnama',
-    photoSource: 'https://reactnative.dev/img/tiny_logo.png',
-    price: 100000,
-    distance: 1.4
-  },
-  {
-    name: 'dr. Lucy Purnama',
-    photoSource: 'https://reactnative.dev/img/tiny_logo.png',
-    price: 100000,
-    distance: 1.4
-  },
-  {
-    name: 'dr. Lucy Purnama',
-    photoSource: 'https://reactnative.dev/img/tiny_logo.png',
-    price: 100000,
-    distance: 1.4
-  }
-];
-
 const SelectWorker = (props) => {
-  const { token } = props;
+  const { workerType } = props;
+
+  const [state, setState] = useState({ worker: [] });
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -69,6 +27,7 @@ const SelectWorker = (props) => {
         const params = {
           params: {
             origin,
+            jenis: workerType,
             limit: 5,
             page: 1,
             berbagiLokasi: true,
@@ -77,6 +36,14 @@ const SelectWorker = (props) => {
         };
 
         console.log('params : ', params);
+        Api.getWorker(params).then(
+          (res) => {
+            setState({ ...state, worker: res.nakes });
+          },
+          (error) => {
+            Toast.show({ text: error });
+          }
+        );
       },
       (error) => {
         Toast.show({ text: error });
@@ -96,7 +63,7 @@ const SelectWorker = (props) => {
     <Container>
       <Header iconName="back" title="Pilih Dokter" onPress={backToHome} />
       <Content style={styles.cardContainer}>
-        {mockData.map((element, index) => (
+        {state.worker.map((element, index) => (
           <CardWorker
             key={index}
             name={element.name}

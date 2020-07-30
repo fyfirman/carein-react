@@ -1,8 +1,9 @@
 import { LocalStorage } from '../helpers';
 
-const withToken = async () => {
+const withToken = async (config) => {
   const token = await LocalStorage.getToken();
   return {
+    ...config,
     headers: {
       Authorization: `Bearer ${token}`
     }
