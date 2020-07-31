@@ -38,7 +38,7 @@ const Login = (props) => {
         }
       )
       .catch((error) => {
-        Toast.show({ text: `Something went wrong:  ${error}` }, 3000);
+        Toast.show({ text: `Something went wrong:  ${error.message}` }, 3000);
       });
   };
 
