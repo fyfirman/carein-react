@@ -56,21 +56,21 @@ const Routes = () => {
                 key="history"
                 component={History}
                 title="Riwayat"
-                iconName="history"
+                iconName="swap-horizontal"
                 hideNavBar
               />
               <Scene
                 key="medicalHistory"
                 component={Home}
                 title="Rekam Medis"
-                iconName="document"
+                iconName="pulse"
                 hideNavBar
               />
               <Scene
                 key="profile"
                 component={Home}
                 title="Profile"
-                iconName="user"
+                iconName="person"
                 hideNavBar
               />
             </Tabs>
