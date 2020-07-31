@@ -56,7 +56,7 @@ const Routes = () => {
               <Scene
                 key="history"
                 component={History}
-                title="Riwayat"
+                title="Transaksi"
                 iconName="swap-horizontal"
                 hideNavBar
               />
@@ -70,7 +70,7 @@ const Routes = () => {
               <Scene
                 key="profile"
                 component={Profile}
-                title="Profile"
+                title="Profil"
                 iconName="person"
                 hideNavBar
               />
@@ -100,6 +100,12 @@ const Routes = () => {
               hideNavBar
             />
             <Scene key="chat" component={Chat} title="Obrolan" hideNavBar />
+            <Scene
+              key="editProfile"
+              component={Chat}
+              title="Edit Profil"
+              hideNavBar
+            />
           </Scene>
         </Router>
       )}

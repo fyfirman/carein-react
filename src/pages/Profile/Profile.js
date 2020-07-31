@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Image, View, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import { Container, Content, Toast, Button } from 'native-base';
+import { Container, Content, Button } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import styles from './styles';
