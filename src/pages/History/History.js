@@ -43,14 +43,14 @@ const History = () => {
         onPress={() => Actions.pop()}
       />
       <Content>
-        {state.history.map((element, index) => (
+        {mockData.map((element, index) => (
           <CardHistory
             key={index}
             name={element.name}
             photoSource={{ uri: element.photoSource }}
             status={element.status}
             date={element.date}
-            onPress={() => Actions.chat(123)}
+            onPress={() => Actions.chat()}
           />
         ))}
       </Content>

@@ -9,7 +9,8 @@ import {
   SelectWorker,
   Checkout,
   Chat,
-  History
+  History,
+  Profile
 } from './pages';
 import { BottomNavigation } from './components';
 import { LocalStorage } from './helpers';
@@ -68,7 +69,7 @@ const Routes = () => {
               />
               <Scene
                 key="profile"
-                component={Home}
+                component={Profile}
                 title="Profile"
                 iconName="person"
                 hideNavBar
