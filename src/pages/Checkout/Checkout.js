@@ -30,7 +30,11 @@ const Checkout = (props) => {
 
   return (
     <Container>
-      <Header iconName="back" title="Pembayaran" onPress={backToSelectWorker} />
+      <Header
+        iconName="chevron-back-outline"
+        title="Pembayaran"
+        onPress={backToSelectWorker}
+      />
       <Content>
         <Image style={styles.photos} source={{ uri: mockData.photoSource }} />
         <Text>{mockData.name}</Text>
@@ -67,8 +71,7 @@ const Checkout = (props) => {
                   edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
                   animated: true
                 }
-              )
-            }
+              )}
           >
             <Marker
               coordinate={{

@@ -89,7 +89,11 @@ const Register = () => {
 
   return (
     <Container>
-      <Header iconName="back" title="Pendaftaran" onPress={backToLogin} />
+      <Header
+        iconName="chevron-back-outline"
+        title="Pendaftaran"
+        onPress={backToLogin}
+      />
       <Content style={styles.container}>
         <Form style={styles.loginForm}>
           <TextInput

@@ -37,7 +37,11 @@ const History = () => {
 
   return (
     <Container>
-      <Header iconName="back" title="Riwayat" onPress={() => Actions.pop()} />
+      <Header
+        iconName="chevron-back-outline"
+        title="Riwayat"
+        onPress={() => Actions.pop()}
+      />
       <Content>
         {state.history.map((element, index) => (
           <CardHistory

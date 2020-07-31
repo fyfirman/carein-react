@@ -20,7 +20,11 @@ const mockData = {
 const Chat = () => {
   return (
     <Container>
-      <Header iconName="back" title="Obrolan" onPress={() => Actions.pop()} />
+      <Header
+        iconName="chevron-back-outline"
+        title="Obrolan"
+        onPress={() => Actions.pop()}
+      />
       <Content>
         <Text>Chat page</Text>
       </Content>

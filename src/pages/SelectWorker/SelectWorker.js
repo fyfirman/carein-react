@@ -61,7 +61,11 @@ const SelectWorker = (props) => {
 
   return (
     <Container>
-      <Header iconName="back" title="Pilih Dokter" onPress={backToHome} />
+      <Header
+        iconName="chevron-back-outline"
+        title="Pilih Dokter"
+        onPress={backToHome}
+      />
       <Content style={styles.cardContainer}>
         {state.worker.map((element, index) => (
           <CardWorker
