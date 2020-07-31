@@ -33,7 +33,7 @@ const CardWorker = (props) => {
           </Text>
         </View>
         {status !== 'off' && (
-          <Button>
+          <Button onPress={onPress}>
             <Text>Chat</Text>
           </Button>
         )}
