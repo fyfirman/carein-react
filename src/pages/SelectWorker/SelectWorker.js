@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Api from '../../services';
 import { CardWorker } from './components';
 import { Header } from '../../components';
+import { StringBuilder } from '../../helpers';
 import styles from './styles';
 
 const propTypes = {
@@ -18,11 +19,13 @@ const defaultProps = {};
 const SelectWorker = (props) => {
   const { workerType } = props;
 
-  const [state, setState] = useState({ worker: [] });
+  const [state, setState] = useState({ position: {}, worker: [] });
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
       (position) => {
+        setState({ ...state, position: position.coords });
+
         const origin = `${position.coords.latitude} ${position.coords.longitude}`;
         const params = {
           params: {
@@ -35,18 +38,19 @@ const SelectWorker = (props) => {
           }
         };
 
-        console.log('params : ', params);
         Api.getWorker(params).then(
           (res) => {
             setState({ ...state, worker: res.nakes });
+            console.log('Params  ', params);
+            console.log('Fetch success :  ', res);
           },
           (error) => {
-            Toast.show({ text: error });
+            Toast.show({ text: error.message });
           }
         );
       },
       (error) => {
-        Toast.show({ text: error });
+        Toast.show({ text: error.message });
       }
     );
   }, []);
@@ -67,13 +71,13 @@ const SelectWorker = (props) => {
         onPress={backToHome}
       />
       <Content style={styles.cardContainer}>
-        {state.worker.map((element, index) => (
+        {state.worker.map((item, index) => (
           <CardWorker
             key={index}
-            name={element.name}
-            photoSource={{ uri: element.photoSource }}
-            price={element.price}
-            distance={element.distance}
+            name={item.nama}
+            photoSource={{ uri: StringBuilder.addBaseURL(item.foto) }}
+            price={item.harga}
+            distance={item.jarak.teks}
             onPress={() => goToCheckout(123)}
           />
         ))}
