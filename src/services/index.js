@@ -16,6 +16,8 @@ const getMedicalHitory = async (id, params) =>
 const postRegister = (data) => post('pasien', data);
 const postCheckRegister = (data) => post('pasien?check', data);
 const postGenerateToken = (data) => post('auth?remember=true', data);
+const postOrder = async (id, data) =>
+  post(`transaksi/${id}`, data, await config.withToken());
 
 const Api = {
   getCheckAuth,
@@ -25,7 +27,8 @@ const Api = {
   getMedicalHitory,
   postRegister,
   postCheckRegister,
-  postGenerateToken
+  postGenerateToken,
+  postOrder
 };
 
 export default Api;

@@ -24,8 +24,6 @@ const SelectWorker = (props) => {
   useEffect(() => {
     Geolocation.getCurrentPosition(
       (position) => {
-        setState({ ...state, position: position.coords });
-
         const origin = `${position.coords.latitude} ${position.coords.longitude}`;
         const params = {
           params: {
@@ -40,9 +38,11 @@ const SelectWorker = (props) => {
 
         Api.getWorker(params).then(
           (res) => {
-            setState({ ...state, worker: res.nakes });
-            console.log('Params  ', params);
-            console.log('Fetch success :  ', res);
+            setState({
+              ...state,
+              position: position.coords,
+              worker: res.nakes
+            });
           },
           (error) => {
             Toast.show({ text: error.message });
@@ -55,30 +55,27 @@ const SelectWorker = (props) => {
     );
   }, []);
 
-  const backToHome = () => {
-    Actions.pop();
-  };
-
-  const goToCheckout = (id) => {
-    Actions.checkout(id);
-  };
-
   return (
     <Container>
       <Header
         iconName="chevron-back-outline"
         title="Pilih Dokter"
-        onPress={backToHome}
+        onPress={() => Actions.pop()}
       />
       <Content style={styles.cardContainer}>
-        {state.worker.map((item, index) => (
+        {state.worker.map((item) => (
           <CardWorker
-            key={index}
+            key={item.id}
             name={item.nama}
             photoSource={{ uri: StringBuilder.addBaseURL(item.foto) }}
             price={item.harga}
             distance={item.jarak.teks}
-            onPress={() => goToCheckout(123)}
+            onPress={() => {
+              Actions.checkout({
+                userPosition: state.position,
+                worker: item
+              });
+            }}
           />
         ))}
       </Content>
