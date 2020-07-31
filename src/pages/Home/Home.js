@@ -27,12 +27,13 @@ const Home = (props) => {
               setUser(data.pasien);
             },
             (e) => {
-              Toast.show({ text: e });
+              Toast.show({ text: e.message });
             }
           );
         },
         (error) => {
-          Toast.show({ text: error });
+          Toast.show({ text: `Tidak terkoneksi dengan internet` });
+          console.log(error);
         }
       );
     };
