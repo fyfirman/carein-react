@@ -48,7 +48,7 @@ const MedicalHistory = (props) => {
     <Container>
       <Header
         iconName="chevron-back-outline"
-        title="Pilih Dokter"
+        title="Riwayat Kesehatan"
         onPress={() => Actions.pop()}
       />
       <Content style={styles.cardContainer}>
