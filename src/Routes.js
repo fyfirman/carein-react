@@ -10,7 +10,8 @@ import {
   Checkout,
   Chat,
   History,
-  Profile
+  Profile,
+  MedicalHistory
 } from './pages';
 import { BottomNavigation } from './components';
 import { LocalStorage } from './helpers';
@@ -62,7 +63,7 @@ const Routes = () => {
               />
               <Scene
                 key="medicalHistory"
-                component={Home}
+                component={MedicalHistory}
                 title="Rekam Medis"
                 iconName="pulse"
                 hideNavBar

@@ -7,3 +7,4 @@ export { default as Checkout } from './Checkout';
 export { default as Chat } from './Chat';
 export { default as History } from './History';
 export { default as Profile } from './Profile';
+export { default as MedicalHistory } from './MedicalHistory';
