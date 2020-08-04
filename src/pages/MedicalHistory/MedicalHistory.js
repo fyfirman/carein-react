@@ -34,10 +34,9 @@ const MedicalHistory = (props) => {
       Api.getMedicalHitory(user.id, params).then(
         (res) => {
           setState({ medicalHistory: res.riwayatKesehatan });
-          console.log(res);
         },
         (error) => {
-          console.log(error);
+          Toast.show({ text: error.message });
         }
       );
     };
