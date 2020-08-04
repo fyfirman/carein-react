@@ -30,10 +30,7 @@ const EditProfile = (props) => {
 
   const [formState, setFormState] = useState({
     isValid: false,
-    values: {
-      jk: 'l',
-      goldar: 'ab'
-    },
+    values: user,
     errors: {},
     touched: {},
     errorUserExist: null
@@ -54,10 +51,6 @@ const EditProfile = (props) => {
 
     if (isMounted) {
       validateData();
-      setFormState({
-        ...formState,
-        values: user
-      });
     }
 
     console.log(formState.values);
