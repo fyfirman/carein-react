@@ -7,7 +7,7 @@ import styles from './styles';
 const propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  distance: PropTypes.number.isRequired,
+  distance: PropTypes.string.isRequired,
   photoSource: PropTypes.objectOf(PropTypes.string).isRequired,
   onPress: PropTypes.func.isRequired
 };

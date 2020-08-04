@@ -91,7 +91,8 @@ const Checkout = (props) => {
             <Marker coordinate={workerPosition} title="Lokasi Nakes" />
           </MapView>
         </View>
-        <Text>Total : -</Text>
+        <Text>{`Biaya transportasi : ${worker.biayaTranspor}`}</Text>
+        <Text>{`Total : ${worker.biayaTranspor + worker.harga}`}</Text>
       </Content>
       <Footer>
         <Button onPress={handleSubmit}>
