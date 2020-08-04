@@ -17,6 +17,7 @@
     "@react-native-community/picker": "^1.6.5",
     "@react-native-community/toolbar-android": "0.1.0-rc.2",
     "axios": "^0.19.2",
+    "moment": "^2.27.0",
     "native-base": "^2.13.12",
     "prop-types": "^15.7.2",
     "react": "16.11.0",

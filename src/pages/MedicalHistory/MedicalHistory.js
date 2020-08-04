@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import Api from '../../services';
 import { CardMedicalHistory } from './components';
 import { Header } from '../../components';
-import { StringBuilder } from '../../helpers';
+import { DateFormatter } from '../../helpers';
 import styles from './styles';
 import mockData from './mockData';
 
@@ -57,7 +57,7 @@ const MedicalHistory = (props) => {
           <CardMedicalHistory
             key={index}
             name={item.namaPenyakit}
-            date={item.tanggal}
+            date={DateFormatter.getLegibleDate(item.tanggal)}
           />
         ))}
       </Content>
