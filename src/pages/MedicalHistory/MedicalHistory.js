@@ -12,16 +12,35 @@ import styles from './styles';
 import mockData from './mockData';
 
 const propTypes = {
-  workerType: PropTypes.string.isRequired
+  user: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
 const defaultProps = {};
 
-const MedicalHistory = () => {
-  // const [state, setState] = useState({ position: {}, worker: [] });
+const MedicalHistory = (props) => {
+  const { user } = props;
+
+  const [state, setState] = useState({ medicalHistory: [] });
 
   useEffect(() => {
-    const fetchMedicalHistory = async () => {};
+    const fetchMedicalHistory = async () => {
+      const params = {
+        params: {
+          limit: 0,
+          page: 0
+        }
+      };
+
+      Api.getMedicalHitory(user.id, params).then(
+        (res) => {
+          setState({ medicalHistory: res.riwayatKesehatan });
+          console.log(res);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    };
 
     fetchMedicalHistory();
   }, []);
@@ -34,8 +53,12 @@ const MedicalHistory = () => {
         onPress={() => Actions.pop()}
       />
       <Content style={styles.cardContainer}>
-        {mockData.map((item, index) => (
-          <CardMedicalHistory key={index} name={item.name} date={item.date} />
+        {state.medicalHistory.map((item, index) => (
+          <CardMedicalHistory
+            key={index}
+            name={item.namaPenyakit}
+            date={item.tanggal}
+          />
         ))}
       </Content>
     </Container>
@@ -47,7 +70,7 @@ MedicalHistory.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
   return {
-    token: state.token
+    user: state.userReducer.user
   };
 };
 
