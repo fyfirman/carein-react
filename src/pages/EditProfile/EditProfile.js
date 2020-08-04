@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { Toast, Container, Form, Button, Text, Content } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import validate from 'validate.js';
-import moment from 'moment';
 import API from '../../services';
 import { Header, DatePicker, PickerInput, TextInput } from '../../components';
 import styles from './styles';
@@ -30,7 +29,10 @@ const EditProfile = (props) => {
 
   const [formState, setFormState] = useState({
     isValid: false,
-    values: user,
+    values: {
+      ...user,
+      tglLahir: new Date(user.tglLahir)
+    },
     errors: {},
     touched: {},
     errorUserExist: null
@@ -53,7 +55,6 @@ const EditProfile = (props) => {
       validateData();
     }
 
-    console.log(formState.values);
     return () => {
       isMounted = false;
     };
@@ -122,6 +123,7 @@ const EditProfile = (props) => {
           <DatePicker
             label="Tanggal Lahir"
             onDateChange={(newValue) => handleChange('tglLahir', newValue)}
+            placeHolderText={DateFormatter.getLegibleDate(formState.values.tglLahir)}
           />
           <PickerInput
             label="Jenis Kelamin"
