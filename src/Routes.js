@@ -11,7 +11,8 @@ import {
   Chat,
   History,
   Profile,
-  MedicalHistory
+  MedicalHistory,
+  EditProfile
 } from './pages';
 import { BottomNavigation } from './components';
 import { LocalStorage } from './helpers';
@@ -103,7 +104,7 @@ const Routes = () => {
             <Scene key="chat" component={Chat} title="Obrolan" hideNavBar />
             <Scene
               key="editProfile"
-              component={Chat}
+              component={EditProfile}
               title="Edit Profil"
               hideNavBar
             />
