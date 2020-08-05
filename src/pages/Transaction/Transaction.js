@@ -20,7 +20,7 @@ const History = () => {
   });
 
   useEffect(() => {
-    const fetchHistory = async () => {
+    const fetchTransaction = async () => {
       const params = {
         params: {
           limit: 5,
@@ -28,7 +28,7 @@ const History = () => {
         }
       };
 
-      Api.getHistory(params)
+      Api.getTransaction(params)
         .then(
           (res) => {
             return res.transaksiBerjalan;
@@ -53,7 +53,7 @@ const History = () => {
         });
     };
 
-    fetchHistory();
+    fetchTransaction();
   }, []);
 
   return (

@@ -7,7 +7,7 @@ const getCheckAuth = async () => get('auth', await config.withToken());
 const getUser = async (id) => get(`pasien/${id}`, await config.withToken());
 const getWorker = async (params) =>
   get(`nakes`, await config.withToken(params));
-const getHistory = async (params) =>
+const getTransaction = async (params) =>
   get('transaksi', await config.withToken(params));
 const getMedicalHitory = async (id, params) =>
   get(`riwayat-kesehatan/${id}`, await config.withToken(params));
@@ -23,7 +23,7 @@ const Api = {
   getCheckAuth,
   getUser,
   getWorker,
-  getHistory,
+  getTransaction,
   getMedicalHitory,
   postRegister,
   postCheckRegister,
