@@ -17,20 +17,29 @@ const defaultProps = {
   status: 'off'
 };
 
-const CardWorker = (props) => {
+const CardTransaction = (props) => {
   const { name, date, photoSource, onPress, status } = props;
+
+  const getSubInfo = () => {
+    switch (status) {
+      case 'pending':
+        return 'Sedang menunggu konfirmasi';
+      case 'berjalan':
+        return 'Tenaga kesehatan akan datang';
+      default:
+        return date;
+    }
+  };
 
   return (
     <Card style={styles.root}>
-      <CardItem button style={styles.content} onPress={onPress}>
+      <CardItem button style={styles.content}>
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={photoSource} />
         </View>
         <View style={styles.information}>
           <Text style={styles.name}>{name}</Text>
-          <Text style={styles.subinfo}>
-            {status !== 'off' ? 'Sedang dalam pemeriksaan' : date}
-          </Text>
+          <Text style={styles.subinfo}>{getSubInfo()}</Text>
         </View>
         {status !== 'off' && (
           <Button onPress={onPress}>
@@ -42,7 +51,7 @@ const CardWorker = (props) => {
   );
 };
 
-CardWorker.propTypes = propTypes;
-CardWorker.defaultProps = defaultProps;
+CardTransaction.propTypes = propTypes;
+CardTransaction.defaultProps = defaultProps;
 
-export default CardWorker;
+export default CardTransaction;

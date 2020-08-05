@@ -9,7 +9,7 @@ import {
   SelectWorker,
   Checkout,
   Chat,
-  History,
+  Transaction,
   Profile,
   MedicalHistory,
   EditProfile
@@ -57,7 +57,7 @@ const Routes = () => {
               />
               <Scene
                 key="history"
-                component={History}
+                component={Transaction}
                 title="Transaksi"
                 iconName="swap-horizontal"
                 hideNavBar
