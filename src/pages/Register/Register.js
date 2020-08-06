@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux';
 import validate from 'validate.js';
 import API from '../../services';
 import { Header, DatePicker, PickerInput, TextInput } from '../../components';
-import styles from './styles';
+import styles from './Styles';
 import { DateFormatter } from '../../helpers';
 import schema from './schema';
 

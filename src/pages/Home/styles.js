@@ -6,6 +6,7 @@ module.exports = {
   },
 
   cardContainer: {
+    marginTop:'5%',
     height: '75%',
     paddingLeft: SPACING.PADDING_HORIZONTAL,
     paddingRight: SPACING.PADDING_HORIZONTAL

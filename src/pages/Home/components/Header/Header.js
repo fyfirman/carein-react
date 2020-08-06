@@ -1,6 +1,7 @@
 import React from 'react';
+import {View, Image} from 'react-native';
 import PropTypes from 'prop-types';
-import { Header, Text } from 'native-base';
+import { Header, Text,Left, Right } from 'native-base';
 import styles from './styles';
 
 const propTypes = {
@@ -16,7 +17,12 @@ const StyledHeader = (props) => {
 
   return (
     <Header style={styles.root} noShadow {...rest}>
-      <Text>{`Halo ${name}\nSelamat datang!`}</Text>
+        <Left>
+          <Image style={styles.image} source={require('../../../../assets/nurse.png')} />
+        </Left>
+        <Right>
+          <Text style={styles.text}>{`Halo ${name}\nSelamat datang!`}</Text>
+        </Right>
     </Header>
   );
 };
