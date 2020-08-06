@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Image } from 'react-native';
 import PropTypes from 'prop-types';
-import { Form, Item, Input, Label, Button, Text, Toast } from 'native-base';
+import { Form, Button, Text, Toast } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { TextInput } from '../../components';
 import styles from './styles';
 import API from '../../services';
 import { AuthActions } from '../../redux/actions';
@@ -19,12 +20,12 @@ const defaultProps = {};
 const Login = (props) => {
   const { setToken } = props;
 
-  const [formstate, setFormstate] = useState({
+  const [formState, setFormState] = useState({
     values: {}
   });
 
   const handleSubmit = () => {
-    API.postGenerateToken(formstate.values)
+    API.postGenerateToken(formState.values)
       .then(
         (res) => {
           setToken(res.token);
