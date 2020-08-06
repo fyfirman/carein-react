@@ -80,6 +80,13 @@ const Profile = (props) => {
   
         </View>
         <View />
+        <Button
+            onPress={() => {
+              Actions.editProfile({ id: user.id });
+            }}
+          >
+            <Text>Edit</Text>
+          </Button>
       </Content>
     </Container>
   );

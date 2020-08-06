@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Content, Toast } from 'native-base';
+import { Image, View ,TouchableOpacity} from 'react-native';
+import { Container, Text, Fab, Icon,Card, Toast } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import Geolocation from '@react-native-community/geolocation';
 import { connect } from 'react-redux';
@@ -51,7 +52,7 @@ const MedicalHistory = (props) => {
         title="Riwayat Kesehatan"
         onPress={() => Actions.pop()}
       />
-      <Content style={styles.cardContainer}>
+        <Card>
         {state.medicalHistory.map((item, index) => (
           <CardMedicalHistory
             key={index}
@@ -59,7 +60,18 @@ const MedicalHistory = (props) => {
             date={DateFormatter.getLegibleDate(item.tanggal)}
           />
         ))}
-      </Content>
+        </Card>
+        <View style={styles.container}>
+          <View style={styles.fab}>
+              <TouchableOpacity >
+              <View style={styles.containt}>
+                  <View style={{paddingLeft:'30%'}}>
+                      <Text style={{fontSize:40,color:'white',textAlign:'center',fontWeight:'bold'}}>+</Text>
+                  </View>
+              </View>
+              </TouchableOpacity>
+          </View>
+        </View>
     </Container>
   );
 };

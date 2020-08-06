@@ -1,35 +1,13 @@
+const { Directions } = require("react-native-gesture-handler");
+const { Right } = require("native-base");
+
 module.exports = {
   root: {
-    marginTop: 8,
-    marginBottom: 8
+    backgroundColor:'grey',
+    borderRadius:10
   },
-
-  content: {},
-
-  imageContainer: {
-    flex: 1
+  bubble:{
+    marginLeft:'10%',
+    marginVertical:'4%'
   },
-
-  image: {
-    aspectRatio: 1,
-    width: '100%',
-    borderRadius: 100
-  },
-
-  information: {
-    flex: 3,
-    paddingLeft: 16
-  },
-
-  name: {
-    color: 'red'
-  },
-
-  price: {
-    color: 'blue'
-  },
-
-  distance: {
-    color: 'yellow'
-  }
 };
