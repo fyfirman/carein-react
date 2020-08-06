@@ -19,13 +19,12 @@ const defaultProps = {};
 const Login = (props) => {
   const { setToken } = props;
 
-  const handleSubmit = () => {
-    const mockData = {
-      username: 'dummy',
-      password: '12345678'
-    };
+  const [formstate, setFormstate] = useState({
+    values: {}
+  });
 
-    API.postGenerateToken(mockData)
+  const handleSubmit = () => {
+    API.postGenerateToken(formstate.values)
       .then(
         (res) => {
           setToken(res.token);
@@ -34,12 +33,22 @@ const Login = (props) => {
           setTimeout(() => Actions.home(), 1000);
         },
         (error) => {
-          Toast.show({ text: error.response.data.message }, 3000);
+          Toast.show({ text: error.message }, 3000);
         }
       )
       .catch((error) => {
         Toast.show({ text: `Something went wrong:  ${error.message}` }, 3000);
       });
+  };
+
+  const handleChange = (name, newValue) => {
+    setFormState({
+      ...formState,
+      values: {
+        ...formState.values,
+        [name]: newValue
+      }
+    });
   };
 
   return (
@@ -52,14 +61,15 @@ const Login = (props) => {
       </View>
       <View style={styles.formContainer}>
         <Form style={styles.loginForm}>
-          <Item inlineLabel>
-            <Label>Username</Label>
-            <Input />
-          </Item>
-          <Item inlineLabel>
-            <Label>Password</Label>
-            <Input />
-          </Item>
+          <TextInput
+            label="Username"
+            onChangeText={(newValue) => handleChange('username', newValue)}
+            autoFocus
+          />
+          <TextInput
+            label="Password"
+            onChangeText={(newValue) => handleChange('password', newValue)}
+          />
           <Button full onPress={handleSubmit}>
             <Text>Sign In</Text>
           </Button>
