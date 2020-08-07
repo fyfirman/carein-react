@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Image, View ,TouchableOpacity} from 'react-native';
-import { Container, Text, Fab, Icon,Card, Toast } from 'native-base';
+import { Container, Text, ActionSheet, Button , Icon,Card, Toast } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import Geolocation from '@react-native-community/geolocation';
 import { connect } from 'react-redux';
@@ -11,6 +11,7 @@ import { Header } from '../../components';
 import { DateFormatter } from '../../helpers';
 import styles from './styles';
 import mockData from './mockData';
+
 
 const propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired
@@ -66,7 +67,7 @@ const MedicalHistory = (props) => {
               <TouchableOpacity >
               <View style={styles.containt}>
                   <View style={{paddingLeft:'30%'}}>
-                      <Text style={{fontSize:40,color:'white',textAlign:'center',fontWeight:'bold'}}>+</Text>
+                      <Text style={styles.textContaint}>+</Text>
                   </View>
               </View>
               </TouchableOpacity>

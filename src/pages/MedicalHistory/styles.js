@@ -22,6 +22,12 @@ module.exports = {
     flexDirection:'row',
     justifyContent:'space-between',
   },
+  textContaint:{
+    fontSize:40,
+    color:'white',
+    textAlign:'center',
+    fontWeight:'bold'
+  },
   container: {
     flex: 1,
     justifyContent: 'center',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Container, Content, Text, Footer, Input, Button } from 'native-base';
+import { Container, Content, Text, Footer, Thumbnail, Input, Right,Icon, Button } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { Header } from '../../components';
 import { BubbleChat } from './components';
@@ -12,12 +12,12 @@ const defaultProps = {};
 
 const mockData = [
   {
-    message: 'Halo',
+    message: 'Halo, apa kabar denganmu hari ini ada yang bisa saya bantu ? ',
     time: '19:48',
     worker: true
   },
   {
-    message: 'Hi',
+    message: 'Hi  sdadad sdada',
     time: '19:50',
     worker: false
   },
@@ -27,7 +27,7 @@ const mockData = [
     worker: true
   },
   {
-    message: 'Hi',
+    message: 'Hi adasdasdasd asdasd',
     time: '19:50',
     worker: false
   },
@@ -84,10 +84,10 @@ const Chat = () => {
         </View>
       </Content>
       <Footer>
-        <Input />
-        <Button>
-          <Text>Send</Text>
-        </Button>
+        <Input style={styles.input}/>
+        <Button iconLeft transparent style={styles.button}>
+            <Icon name='paper-plane' style={styles.buttonIcon} />
+          </Button>
       </Footer>
     </Container>
   );
