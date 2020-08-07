@@ -4,7 +4,6 @@ import { Router, Scene, Tabs } from 'react-native-router-flux';
 import {
   Home,
   Login,
-  Register,
   RegisterMedicalHistory,
   SelectWorker,
   Checkout,
@@ -14,6 +13,7 @@ import {
   MedicalHistory,
   EditProfile
 } from './pages';
+import { StepOne, StepTwo, StepThree, StepFour } from './pages/Register/steps';
 import { BottomNavigation } from './components';
 import { LocalStorage } from './helpers';
 
@@ -89,18 +89,32 @@ const Routes = () => {
               title="Pembayaran"
               hideNavBar
             />
-            <Scene
-              key="register"
-              component={Register}
-              title="Register"
-              hideNavBar
-            />
-            <Scene
-              key="registerMedicalHistory"
-              component={RegisterMedicalHistory}
-              title="Riwayat Kesehatan"
-              hideNavBar
-            />
+            <Scene key="register" hideNavBar>
+              <Scene
+                key="registerStepOne"
+                component={StepOne}
+                title="Daftar"
+                hideNavBar
+              />
+              <Scene
+                key="registerStepTwo"
+                component={StepTwo}
+                title="Daftar"
+                hideNavBar
+              />
+              <Scene
+                key="registerStepThree"
+                component={StepThree}
+                title="Daftar"
+                hideNavBar
+              />
+              <Scene
+                key="registerStepFour"
+                component={StepFour}
+                title="Daftar"
+                hideNavBar
+              />
+            </Scene>
             <Scene key="chat" component={Chat} title="Obrolan" hideNavBar />
             <Scene
               key="editProfile"

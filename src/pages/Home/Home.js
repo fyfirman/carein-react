@@ -18,23 +18,20 @@ const propTypes = {
 const Home = (props) => {
   const { user, setUser } = props;
 
-  useEffect(() => {
-    const backAction = () => {
-      Alert.alert('Tunggu dulu!', 'Kamu yakin akan keluar?', [
-        {
-          text: 'Kembali',
-          onPress: () => null,
-          style: 'cancel'
-        },
-        { text: 'Iya', onPress: () => BackHandler.exitApp() }
-      ]);
-      return true;
-    };
+  const backAction = () => {
+    Alert.alert('Hold on!', 'Are you sure you want to go back?', [
+      {
+        text: 'Cancel',
+        onPress: () => null,
+        style: 'cancel'
+      },
+      { text: 'YES', onPress: () => BackHandler.exitApp() }
+    ]);
+    return true;
+  };
 
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction
-    );
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', backAction);
 
     const fetchUser = async () => {
       Api.getCheckAuth().then(
@@ -57,7 +54,8 @@ const Home = (props) => {
 
     fetchUser();
 
-    return () => backHandler.remove();
+    return () =>
+      BackHandler.removeEventListener('hardwareBackPress', backAction);
   }, []);
 
   return (
