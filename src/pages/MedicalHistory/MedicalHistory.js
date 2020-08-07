@@ -38,7 +38,7 @@ const MedicalHistory = (props) => {
           setState({ medicalHistory: res.riwayatKesehatan });
         },
         (error) => {
-          Toast.show({ text: error.message });
+          Toast.show({ text: error.response.data.message });
         }
       );
     };

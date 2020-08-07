@@ -34,11 +34,11 @@ const Login = (props) => {
           setTimeout(() => Actions.home(), 1000);
         },
         (error) => {
-          Toast.show({ text: error.message }, 3000);
+          Toast.show({ text: error.response.data.message }, 3000);
         }
       )
       .catch((error) => {
-        Toast.show({ text: `Something went wrong:  ${error.message}` }, 3000);
+        Toast.show({ text: `Something went wrong:  ${error.response.data.message}` }, 3000);
       });
   };
 
