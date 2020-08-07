@@ -19,15 +19,43 @@ module.exports = {
   },
   text:{
     color:'white',
-    fontSize:20,
+    fontSize:24,
     textAlign:"center",
     marginTop:10,
     fontWeight:'bold',
   },
   sub_text:{
     color:'white',
-    fontSize:16,
+    fontSize:18,
     textAlign:"center",
-  }
+  },
 
+  root: {
+    marginVertical:'30%',
+    flex: 1,
+    flexDirection: "column"
+  },
+  image: {
+    width:250,
+    height:290,
+  },
+  textBundle:{
+    marginHorizontal:36,
+    position:'absolute',
+    marginVertical:'15%',
+    alignSelf: 'center',
+  },
+  welcomeText:{
+    color:'white',
+    fontSize:28,
+    fontWeight:'bold',
+    paddingRight:'20%'
+  },
+  background:{
+    width:'auto',
+    height:330,
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
+  }
 };

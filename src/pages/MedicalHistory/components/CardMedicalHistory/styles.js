@@ -3,11 +3,13 @@ const { Right } = require("native-base");
 
 module.exports = {
   root: {
-    backgroundColor:'grey',
-    borderRadius:10
+    backgroundColor:'white',
+    borderRadius:50,
+    elevation:2,
   },
   bubble:{
     marginLeft:'10%',
+    marginVertical:11,
     marginVertical:'4%'
   },
 };

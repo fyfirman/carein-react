@@ -16,7 +16,7 @@ module.exports = {
     bottom: 20,
     right: 20,
     justifyContent: 'center',
-    backgroundColor:'#31B059',
+    backgroundColor:'#497CFB',
   },
   containt:{
     flexDirection:'row',

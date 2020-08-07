@@ -18,8 +18,8 @@ const CardMedicalHistory = (props) => {
     <CardItem>
       <Body style={styles.root}>
         <View style={styles.bubble}>
-        <Title style={{color:'white'}}>{name}</Title>
-        <Subtitle style={{color:'white'}}>{date}</Subtitle>
+        <Title style={{color:'black',fontSize:16,fontWeight:'700'}}>{name}</Title>
+        <Subtitle style={{color:'black',fontSize:12}}>{date}</Subtitle>
         </View>
       </Body>
     </CardItem>
