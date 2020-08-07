@@ -30,6 +30,8 @@ const BubbleChat = (props) => {
         </View>
       </CardItem>
     </Card>
+
+
     {/* //second its for sender */}
     <View style={styles.largeBundle_sender}>
     <Thumbnail small source={require('../../../../assets/marcell-white.jpg')} style={styles.img_sender}/>

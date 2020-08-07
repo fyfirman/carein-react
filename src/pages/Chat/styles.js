@@ -1,11 +1,12 @@
 module.exports = {
     input:{
-        color:'white',
-        marginLeft:'3%'
+        color:'black',
+        marginLeft:'3%',
     },
 
     buttonIcon:{
-        color:'white',
-        paddingRight:'5%'
+        color:'blue',
+        paddingRight:'5%',
+        alignSelf:'flex-end'
     }
 };

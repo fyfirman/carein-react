@@ -38,13 +38,13 @@ const Profile = (props) => {
             <Text style={styles.name}>{user.username}</Text>
           </View> */}
           <List style={{marginTop:10}}>
-            <Profile_item title='Email' item={user.email} imageSource={require('../../assets/perawat.png')} />
-            <Profile_item title='Telpon' item={user.noTelp} imageSource={require('../../assets/perawat.png')} />
+            <Profile_item title='Email' item={user.email} icon={'mail-outline'} warna={'blue'} />
+            <Profile_item title='Telpon' item={user.noTelp} icon={'call-outline'} color={'red'} />
             {/* <Profile_item title='Tempat lahir' item={user.tempatLahir} imageSource={require('../../assets/perawat.png')} />
             <Profile_item title='Tanggal Lahir' item={user.tglLahir} imageSource={require('../../assets/perawat.png')} /> 
             <Profile_item title='Golongan Darah' item={`${user.goldar}`} imageSource={require('../../assets/perawat.png')} />*/}
-            <Profile_item title='Berat Badan' item={`${user.beratBadan} kg`} imageSource={require('../../assets/perawat.png')} />
-            <Profile_item title='Tinggi Badan' item={`${user.beratBadan} cm`} imageSource={require('../../assets/perawat.png')} />
+            <Profile_item title='Berat Badan' item={`${user.beratBadan} kg`} icon={'man-outline'} color={'yellow'} />
+            <Profile_item title='Tinggi Badan' item={`${user.beratBadan} cm`} icon={'resize-outline'} color={'green'} />
           </List>
           {/* <View style={styles.infoContainer}>
             
@@ -68,9 +68,9 @@ const Profile = (props) => {
           >
             <Text>Edit</Text>
           </Button> */}
-        <View style={{ flexDirection: 'row',marginHorizontal:10,marginTop:30,marginBottom:'3%', justifyContent: 'space-between'}}>
-          <Text style={{fontWeight:'bold'}}>Riwayat Kesehatan</Text>
-          <Text>Lihat Semua</Text>
+        <View style={{ flexDirection: 'row',marginHorizontal:15,marginTop:30,marginBottom:'3%', justifyContent: 'space-between'}}>
+          <Text style={{fontWeight:'bold',fontSize:14}}>Riwayat Kesehatan</Text>
+          <Text style={{fontSize:14}}>Lihat Semua</Text>
         </View>
         <Card>
           <Riwayat penyakit='Sakit Jantung' tanggal='Agustus 2020'/>

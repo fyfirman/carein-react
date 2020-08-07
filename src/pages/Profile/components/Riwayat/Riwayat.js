@@ -20,8 +20,8 @@ const StyledHeader = (props) => {
     <CardItem>
       <Body style={styles.root}>
         <View style={styles.bubble}>
-        <Title style={{color:'white'}}>{penyakit}</Title>
-        <Subtitle style={{color:'white'}}>{tanggal}</Subtitle>
+        <Text style={{color:'black',fontSize:16}}>{penyakit}</Text>
+        <Text style={{color:'black',fontSize:12}}>{tanggal}</Text>
         </View>
       </Body>
     </CardItem>
