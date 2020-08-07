@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -16,7 +16,7 @@ import {
   Button
 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-import { Header, CardMenu, Feature } from './components';
+import { Header, Feature } from './components';
 import styles from './styles';
 import Api from '../../services';
 import { UserActions } from '../../redux/actions';
@@ -59,7 +59,9 @@ const Home = (props) => {
         <View style={styles.root}>
           <View style={styles.subtitle}>
             <Text style={{ fontWeight: 'bold', fontSize: 14 }}>Transaksi</Text>
-            <Text style={{ fontSize: 14 }}>Lihat Semua</Text>
+            <TouchableOpacity onPress={() => Actions.transaction()}>
+              <Text style={{ fontSize: 14 }}>Lihat Semua</Text>
+            </TouchableOpacity>
           </View>
 
           <Card style={styles.card}>
