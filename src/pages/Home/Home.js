@@ -112,8 +112,7 @@ const Home = (props) => {
                   <Text
                     style={{ color: 'black', fontSize: 14, fontWeight: '600' }}
                   >
-                    Rp. 100.000
-{' '}
+                    Rp. 100.000 •
                     <Text
                       style={{
                         color: 'green',
@@ -140,9 +139,7 @@ const Home = (props) => {
                   fontSize: 18
                 }}
               >
-                {' '}
                 Tidak ada transaksi tersedia
-{' '}
               </Text>
             </CardItem>
           </Card>
@@ -153,35 +150,19 @@ const Home = (props) => {
               <Feature
                 title="Dokter"
                 imageSource={require('../../assets/dokter.png')}
+                onPress={() => Actions.selectWorker({ workerType: 'dokter' })}
               />
               <Feature
                 title="Psikolog"
                 imageSource={require('../../assets/psikolog.png')}
+                onPress={() => Actions.selectWorker({ workerType: 'psikolog' })}
               />
               <Feature
                 title="Perawat"
                 imageSource={require('../../assets/perawat.png')}
+                onPress={() => Actions.selectWorker({ workerType: 'perawat' })}
               />
             </View>
-          </View>
-
-          <View style={styles.cardContainer}>
-            <CardMenu
-              label="Dokter"
-              imageSource={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-              onPress={() => Actions.selectWorker({ workerType: 'dokter' })}
-            />
-            <CardMenu
-              label="Perawat"
-              imageSource={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-              onPress={() => Actions.selectWorker({ workerType: 'perawat' })}
-              reverse
-            />
-            <CardMenu
-              label="Psikolog"
-              imageSource={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-              onPress={() => Actions.selectWorker({ workerType: 'psikolog' })}
-            />
           </View>
         </View>
       </Content>
