@@ -12,7 +12,8 @@ import {
   Right,
   CardItem,
   Thumbnail,
-  Content
+  Content,
+  Button
 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { Header, CardMenu, Feature } from './components';
@@ -80,9 +81,9 @@ const Home = (props) => {
                 </View>
               </Left>
               <Right>
-                <View style={styles.chat}>
+                <Button style={styles.chat} onPress={() => Actions.chat()}>
                   <Text style={styles.chatText}>Chat</Text>
-                </View>
+                </Button>
               </Right>
             </CardItem>
           </Card>
