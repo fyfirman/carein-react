@@ -4,14 +4,14 @@ import { Router, Scene, Tabs } from 'react-native-router-flux';
 import {
   Home,
   Login,
-  RegisterMedicalHistory,
   SelectWorker,
   Checkout,
   Chat,
   Transaction,
   Profile,
   MedicalHistory,
-  EditProfile
+  EditProfile,
+  LoginWorker
 } from './pages';
 import { StepOne, StepTwo, StepThree, StepFour } from './pages/Register/steps';
 import { BottomNavigation } from './components';
@@ -119,6 +119,12 @@ const Routes = () => {
             <Scene
               key="editProfile"
               component={EditProfile}
+              title="Edit Profil"
+              hideNavBar
+            />
+            <Scene
+              key="loginWorker"
+              component={LoginWorker}
               title="Edit Profil"
               hideNavBar
             />

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Image } from 'react-native';
 import PropTypes from 'prop-types';
-import { Form, Button, Thumbnail, Text, Toast, Icon } from 'native-base';
+import { Form, Button, Thumbnail, Text, Toast } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -38,10 +38,7 @@ const Login = (props) => {
         }
       )
       .catch((error) => {
-        Toast.show(
-          { text: `Something went wrong:  ${error.response.data.message}` },
-          3000
-        );
+        Toast.show({ text: `Something went wrong:  ${error.response.data.message}` }, 3000);
       });
   };
 
@@ -57,16 +54,8 @@ const Login = (props) => {
 
   return (
     <View>
-      <Button onPress={() => Actions.loginWorker()}>
-        <Icon name="medkit-outline" />
-      </Button>
       <View style={styles.logoContainer}>
-        <Thumbnail
-          square
-          large
-          style={styles.logoheader}
-          source={require('../../assets/masker.png')}
-        />
+        <Thumbnail square large style={styles.logoheader} source={require('../../assets/marcell-white.jpg')} />
         <Text style={styles.textheader}>Care In</Text>
       </View>
       {/* <View style={styles.headerContainer}>
@@ -86,24 +75,12 @@ const Login = (props) => {
             label="Password"
             onChangeText={(newValue) => handleChange('password', newValue)}
           />
-          <Button
-            full
-            primary
-            onPress={handleSubmit}
-            style={styles.button_save}
-          >
+          <Button full primary  onPress={handleSubmit} style={styles.button_save}>
             <Text>Save</Text>
           </Button>
         </Form>
-        <Button
-          transparent
-          light
-          style={styles.separator}
-          onPress={() => Actions.register()}
-        >
-          <Text style={styles.textseparator}>
-            Belum memiliki akun ? Daftar disini
-          </Text>
+        <Button transparent light style={styles.separator} onPress={() => Actions.register()}>
+          <Text style={styles.textseparator}>Belum memiliki akun ? Daftar disini</Text>
         </Button>
       </View>
     </View>
