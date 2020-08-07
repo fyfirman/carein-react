@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Image } from 'react-native';
 import PropTypes from 'prop-types';
-import { Form, Button, Text, Toast } from 'native-base';
+import { Form, Button, Thumbnail, Text, Toast } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -54,12 +54,16 @@ const Login = (props) => {
 
   return (
     <View>
-      <View style={styles.headerContainer}>
+      <View style={styles.logoContainer}>
+        <Thumbnail square large style={styles.logoheader} source={require('../../assets/masker.png')} />
+        <Text style={styles.textheader}>Care In</Text>
+      </View>
+      {/* <View style={styles.headerContainer}>
         <Image
           style={styles.logo}
           source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
         />
-      </View>
+      </View> */}
       <View style={styles.formContainer}>
         <Form style={styles.loginForm}>
           <TextInput
@@ -71,18 +75,13 @@ const Login = (props) => {
             label="Password"
             onChangeText={(newValue) => handleChange('password', newValue)}
           />
-          <Button full onPress={handleSubmit}>
-            <Text>Sign In</Text>
+          <Button full primary  onPress={handleSubmit} style={styles.button_save}>
+            <Text>Save</Text>
           </Button>
         </Form>
-        <View style={styles.separator}>
-          <Text>or</Text>
-        </View>
-        <View style={styles.registerContainer}>
-          <Button full onPress={() => Actions.register()}>
-            <Text>Register</Text>
-          </Button>
-        </View>
+        <Button transparent light style={styles.separator} onPress={() => Actions.register()}>
+          <Text style={styles.textseparator}>Belum memiliki akun ? Daftar disini</Text>
+        </Button>
       </View>
     </View>
   );

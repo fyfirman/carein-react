@@ -11,25 +11,40 @@ module.exports = {
     height: '25%'
   },
 
-  logo: {
-    backgroundColor: '#a22a5f',
-    position: 'absolute',
-    left: '50%',
-    marginLeft: -CONST.LOGO_SIZE / 2,
-    bottom: -CONST.LOGO_SIZE / 2,
-    width: CONST.LOGO_SIZE,
-    height: CONST.LOGO_SIZE
+  logoContainer:{
+    justifyContent:'center',
+    alignItems: 'center',
+  },
+
+  logoheader: {
+    // backgroundColor: '#a22a5f',
+    // position: 'absolute',
+    // left: '50%',
+    // marginLeft: -CONST.LOGO_SIZE / 2,
+    // bottom: -CONST.LOGO_SIZE / 2,
+    // width: CONST.LOGO_SIZE,
+    // height: CONST.LOGO_SIZE
+    marginTop:'15%',
+    width:150,
+    height:150
+  },
+
+  textheader:{
+    fontSize:24,
+    fontWeight:'bold',
+    marginTop:20,
+    marginBottom:10
   },
 
   formContainer: {
-    height: '75%',
-    paddingTop: CONST.LOGO_SIZE / 2 + 20,
+    height: '65%',
+    // paddingTop: CONST.LOGO_SIZE / 2 ,
     paddingLeft: SPACING.PADDING_HORIZONTAL,
     paddingRight: SPACING.PADDING_HORIZONTAL
   },
 
   loginForm: {
-    flex: 3,
+    flex: 2,
     flexDirection: 'column',
     justifyContent: 'space-around'
   },
@@ -41,9 +56,18 @@ module.exports = {
     justifyContent: 'space-around'
   },
 
+  textseparator:{
+    color:'grey'
+  },
+
   registerContainer: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-around'
+  },
+  
+  button_save:{
+    borderRadius:20,
+    marginHorizontal:'7%',
   }
 };
