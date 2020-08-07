@@ -62,30 +62,49 @@ const Home = (props) => {
     <Container>
       <Content>
       <Header name={user !== undefined ? user.nama : ''} />
-      
-      <View style={{ flexDirection: 'row',marginHorizontal:10,marginTop:30,marginBottom:'7%', justifyContent: 'space-between'}}>
-        <Text style={{fontWeight:'bold'}}>Transaksi</Text>
-        <Text>Lihat Semua</Text>
+      <View style={styles.root}>
+      <View style={styles.subtitle}>
+        <Text style={{fontWeight:'bold',fontSize:14}}>Transaksi</Text>
+        <Text style={{fontSize:14}}>Lihat Semua</Text>
       </View>
       
-      <Card>
+      <Card style={styles.card}>
         <CardItem>
           <Left>
-            <Thumbnail source={require('../../assets/me_here.jpeg')} style={{width:100,height:100,borderRadius:10}}/>
-            <View style={{alignItems:'flex-start',marginLeft:10}}>
-              <Title style={{color:'black'}}>Marcell Antonius</Title>
-              <Subtitle style={{color:'black'}}>Sedang dalam perjalanan</Subtitle>
+            <Thumbnail source={require('../../assets/me_here.jpeg')} style={styles.img}/>
+            <View style={styles.subcard}>
+            <Text style={{color:'black',fontWeight:'bold',fontSize:18}}>Marcell Antonius</Text>
+              <Text style={{color:'black',fontSize:12}}>Sedang dalam perjalanan</Text>
             </View>
           </Left>
           <Right>
-            <View style={{backgroundColor:'#E3292A',borderRadius:15}}>
-              <Text style={{fontSize:15,paddingLeft:20,paddingRight:20,paddingTop:'5%',paddingBottom:'5%', color:'white' }} >Chat</Text>
+            <View style={styles.chat}>
+              <Text style={styles.chatText} >Chat</Text>
             </View>  
           </Right>
         </CardItem>
       </Card>
 
-      <View style={{marginHorizontal:10,marginTop:30}}>
+      <Card style={styles.card}>
+        <CardItem>
+          <Left>
+            <Thumbnail source={require('../../assets/me_here.jpeg')} style={styles.img}/>
+            <View style={styles.subcard}>
+              <Text style={{color:'black',fontWeight:'bold',fontSize:18}}>Marcell Antonius</Text>
+              <Text style={{color:'black',fontSize:14,paddingRight:'12%'}}>6 Agustus 2020</Text>
+              <Text style={{color:'black',fontSize:14,fontWeight:'600'}}>Rp. 100.000   <Text  style={{color:'green',fontSize:14,fontWeight:'600'}}>Selesai</Text></Text>
+            </View>
+          </Left>
+        </CardItem>
+      </Card>
+
+      <Card style={styles.card}>
+        <CardItem>
+          <Text style={{textAlign:'center',marginVertical:20,marginHorizontal:'12%',color:'grey',fontSize:18}}> Tidak ada transaksi tersedia </Text>
+        </CardItem>
+      </Card>
+
+      <View style={styles.feature}>
         <Text style={{fontWeight:'bold'}}>Pesan Tenaga Kesehatan</Text>
         <View style={{flexDirection:'row'}}>
           <Feature title='Dokter' imageSource={require('../../assets/dokter.png')}/>
@@ -111,6 +130,7 @@ const Home = (props) => {
           imageSource={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
           onPress={() => Actions.selectWorker({ workerType: 'psikolog' })}
         />
+      </View>
       </View>
       </Content>
     </Container>

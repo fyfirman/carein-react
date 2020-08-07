@@ -20,9 +20,9 @@ const StyledHeader = (props) => {
 
   return (
     <View style={styles.root}>
-        <View style={styles.stack_one}>
-            <Title style={{paddingTop:'70%',textAlign:'center'}}>{title}</Title>
-        </View>
+      <View style={styles.stack_one}>
+          <Title style={{paddingTop:'70%',fontSize:15,color:'black',textAlign:'center'}}>{title}</Title>
+      </View>
         <View style={styles.stack_two}>
         <Thumbnail source={imageSource} style={styles.img}/>
         </View>
