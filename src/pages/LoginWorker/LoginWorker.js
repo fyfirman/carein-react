@@ -75,7 +75,7 @@ const Login = (props) => {
             label="Password"
             onChangeText={(newValue) => handleChange('password', newValue)}
           />
-          <Button full primary  onPress={handleSubmit} style={styles.button_save}>
+          <Button full primary  onPress={() => Actions.homeWorker()} style={styles.button_save}>
             <Text>Save</Text>
           </Button>
         </Form>

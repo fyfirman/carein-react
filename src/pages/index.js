@@ -10,3 +10,4 @@ export { default as Profile } from './Profile';
 export { default as MedicalHistory } from './MedicalHistory';
 export { default as EditProfile } from './EditProfile';
 export { default as LoginWorker } from './LoginWorker';
+export { default as HomeWorker } from './HomeWorker';

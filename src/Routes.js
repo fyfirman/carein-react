@@ -11,7 +11,8 @@ import {
   Profile,
   MedicalHistory,
   EditProfile,
-  LoginWorker
+  LoginWorker,
+  HomeWorker
 } from './pages';
 import { StepOne, StepTwo, StepThree, StepFour } from './pages/Register/steps';
 import { BottomNavigation } from './components';
@@ -125,7 +126,13 @@ const Routes = () => {
             <Scene
               key="loginWorker"
               component={LoginWorker}
-              title="Edit Profil"
+              title="Login Nakes"
+              hideNavBar
+            />
+            <Scene
+              key="homeWorker"
+              component={HomeWorker}
+              title="Home Nakes"
               hideNavBar
             />
           </Scene>
