@@ -15,7 +15,7 @@ const builder = (
       onPress: () => null,
       style: 'cancel'
     },
-    { text: object.yesLabel, onPress: () => null }
+    { text: object.yesLabel, onPress: object.onPress }
   ]);
   return true;
 };
@@ -28,6 +28,7 @@ const exit = () =>
     noLabel: 'Kembali',
     onPress: () => {
       BackHandler.exitApp();
+      console.log('yes pressed');
     }
   });
 
