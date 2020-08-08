@@ -20,6 +20,7 @@ import { Header, Feature } from './components';
 import styles from './styles';
 import Api from '../../services';
 import { UserActions } from '../../redux/actions';
+import { StringBuilder } from '../../helpers';
 
 const propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -100,17 +101,23 @@ const Home = (props) => {
             <CardItem>
               <Left>
                 <Thumbnail
-                  source={require('../../assets/me_here.jpeg')}
+                  source={{
+                    uri: StringBuilder.addBaseURL(
+                      state.activeTransaction.worker.foto
+                    )
+                  }}
                   style={styles.img}
                 />
                 <View style={styles.subcard}>
                   <Text
                     style={{ color: 'black', fontWeight: 'bold', fontSize: 18 }}
                   >
-                    Marcell Antonius
+                    {state.activeTransaction.worker !== undefined
+                      ? state.activeTransaction.worker.nama
+                      : ''}
                   </Text>
                   <Text style={{ color: 'black', fontSize: 12 }}>
-                    Sedang dalam perjalanan
+                    {state.activeTransaction.status}
                   </Text>
                 </View>
               </Left>
