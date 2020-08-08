@@ -25,8 +25,8 @@ const MedicalHistory = (props) => {
     const fetchMedicalHistory = async () => {
       const params = {
         params: {
-          limit: 0,
-          page: 0
+          limit: 100,
+          page: 1
         }
       };
 
