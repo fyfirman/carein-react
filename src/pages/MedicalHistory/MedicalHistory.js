@@ -57,6 +57,7 @@ const MedicalHistory = (props) => {
           key={index}
           name={item.namaPenyakit}
           date={DateFormatter.getLegibleDate(item.tanggal)}
+          onPress={() => bottomSheetRef.open()}
         />
       ));
     }
