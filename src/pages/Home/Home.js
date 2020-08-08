@@ -100,7 +100,7 @@ const Home = (props) => {
 
       <Card style={styles.card}>
         <CardItem>
-          <Text style={{textAlign:'center',marginVertical:20,marginHorizontal:'12%',color:'grey',fontSize:18}}> Tidak ada transaksi tersedia </Text>
+          <Text style={{textAlign:'center',marginVertical:10,marginHorizontal:'12%',color:'grey',fontSize:18}}> Tidak ada transaksi tersedia </Text>
         </CardItem>
       </Card>
 
