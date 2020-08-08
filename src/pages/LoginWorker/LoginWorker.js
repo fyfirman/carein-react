@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import { View, Image } from 'react-native';
 import PropTypes from 'prop-types';
-import { Form, Button, Thumbnail, Text, Toast, Icon, Content } from 'native-base';
+import {
+  Form,
+  Button,
+  Thumbnail,
+  Text,
+  Toast,
+  Icon,
+  Content
+} from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { TextInput} from '../../components';
-import { Header} from './components';
+import { TextInput } from '../../components';
+import { Header } from './components';
 import styles from './styles';
 import API from '../../services';
 import { AuthActions } from '../../redux/actions';
@@ -58,15 +66,17 @@ const Login = (props) => {
 
   return (
     <View>
-    <Header />
+      <Header />
       <Button transparent onPress={() => Actions.loginWorker()}>
-        <Icon name="chevron-back-outline" style={{color:'white',fontSize:30,position:'absolute'}}/>
+        <Icon
+          name="chevron-back-outline"
+          style={{ color: 'white', fontSize: 30, position: 'absolute' }}
+        />
       </Button>
-       {/* <Button transparent  onPress={() => Actions.loginWorker()}>
+      {/* <Button transparent  onPress={() => Actions.loginWorker()}>
             <Icon name='medkit-outline' style={{color:'white',fontSize:36}}/>
           </Button> */}
 
-      
       {/* <View style={styles.logoContainer}>
         <Thumbnail
           square
