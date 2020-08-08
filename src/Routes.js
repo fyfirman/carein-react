@@ -71,7 +71,7 @@ const Routes = () => {
             </Scene>
             <Scene
               key="home"
-              component={Home}
+              component={MedicalHistory}
               title="Home"
               iconName="home"
               hideNavBar

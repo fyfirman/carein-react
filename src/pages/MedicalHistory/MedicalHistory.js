@@ -93,7 +93,7 @@ const MedicalHistory = (props) => {
           title="Create"
           isOpen={false}
         >
-          <View>
+          <View style={styles.modal}>
             <View style={styles.option}>
               <Button  style={styles.btnSuccessDetailThree}>
                 <Icon name='trash-outline' style={styles.btnSuccessTextThree} />

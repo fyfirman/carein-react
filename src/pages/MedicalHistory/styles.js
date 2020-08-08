@@ -73,7 +73,6 @@ module.exports = {
     marginLeft:4,
     borderRadius:15,
     backgroundColor:'#EB5757',
-    marginRight:'3%',
     opacity:0.2
   },
   option:{
@@ -85,8 +84,7 @@ module.exports = {
     flexDirection:'row',
     justifyContent:'flex-end',
     marginVertical:10,
-    marginRight:11,
-    marginTop:12
+    marginTop:20
   },
   btnModalKembali:{
     fontSize:16,
@@ -102,5 +100,8 @@ module.exports = {
     color:'rgba(255, 255, 255, 0.9)',
     fontSize:16,
     textAlign:'center'
+  },
+  modal:{
+    marginHorizontal:15
   }
 };
