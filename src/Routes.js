@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import { Router, Scene, Tabs } from 'react-native-router-flux';
+import { Router, Scene } from 'react-native-router-flux';
 import {
   Home,
   Login,
@@ -15,15 +15,21 @@ import {
   HomeWorker
 } from './pages';
 import { StepOne, StepTwo, StepThree, StepFour } from './pages/Register/steps';
+import { UserType } from './constant';
 import { LocalStorage, BackAction } from './helpers';
 
 const Routes = () => {
-  const [state, setState] = useState({ token: null, isLoaded: false });
+  const [state, setState] = useState({
+    token: null,
+    userType: null,
+    isLoaded: false
+  });
 
   useEffect(() => {
     const setToken = async () => {
       const token = await LocalStorage.getToken();
-      setState({ token, isLoaded: true });
+      const userType = await LocalStorage.getUserType();
+      setState({ token, userType, isLoaded: true });
     };
 
     setToken();
@@ -75,7 +81,9 @@ const Routes = () => {
               title="Home"
               iconName="home"
               hideNavBar
-              initial={state.token !== null}
+              initial={
+                state.token !== null && state.userType === UserType.PATIENT
+              }
               onBack={() => {
                 BackAction.exit();
                 console.log('back pressed');
@@ -128,6 +136,9 @@ const Routes = () => {
               key="homeWorker"
               component={HomeWorker}
               title="Home Nakes"
+              initial={
+                state.token !== null && state.userType === UserType.WORKER
+              }
               hideNavBar
             />
           </Scene>
