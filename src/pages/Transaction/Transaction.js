@@ -94,7 +94,7 @@ const Transaction = () => {
       )
     );
 
-    return cardList.map((item) => item);
+    return cardList;
   };
 
   return (
