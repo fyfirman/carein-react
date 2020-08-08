@@ -1,5 +1,6 @@
 import get from './Get';
 import post from './Post';
+import put from './Put';
 import config from './config';
 
 // Get
@@ -19,6 +20,10 @@ const postGenerateToken = (data) => post('auth?remember=true', data);
 const postOrder = async (id, data) =>
   post(`transaksi/${id}`, data, await config.withToken());
 
+// Put
+const putUser = async (id, data) =>
+  put(`pasien/${id}`, data, await config.withToken());
+
 const Api = {
   getCheckAuth,
   getUser,
@@ -28,7 +33,8 @@ const Api = {
   postRegister,
   postCheckRegister,
   postGenerateToken,
-  postOrder
+  postOrder,
+  putUser
 };
 
 export default Api;
