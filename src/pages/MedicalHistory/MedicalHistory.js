@@ -1,35 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableOpacity } from 'react-native';
-import { Container, Text, Card, Button, Toast, Icon} from 'native-base';
+import { ActivityIndicator, View, TouchableOpacity } from 'react-native';
+import { Container, Text, Card, Button, Toast, Icon } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import BottomSheet from 'react-native-js-bottom-sheet';
 import Api from '../../services';
 import { CardMedicalHistory } from './components';
-import { Header } from '../../components';
+import { Header, DatePicker, PickerInput, TextInput } from '../../components';
 import { DateFormatter } from '../../helpers';
 import styles from './styles';
-import BottomSheet from 'react-native-js-bottom-sheet';
-import {
-  DatePicker,
-  PickerInput,
-  TextInput
-} from '../../components';
 
 const propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired
 };
-bottomSheet: BottomSheet;
 
-  _onPressButton = () => {
-    this.bottomSheet.open()
-  }
 const defaultProps = {};
 
 const MedicalHistory = (props) => {
   const { user } = props;
 
-  const [state, setState] = useState({ medicalHistory: [] });
+  const [state, setState] = useState({
+    medicalHistory: [],
+    isLoaded: false
+  });
+
+  let bottomSheetRef;
 
   useEffect(() => {
     const fetchMedicalHistory = async () => {
@@ -42,9 +38,10 @@ const MedicalHistory = (props) => {
 
       Api.getMedicalHitory(user.id, params).then(
         (res) => {
-          setState({ medicalHistory: res.riwayatKesehatan });
+          setState({ medicalHistory: res.riwayatKesehatan, isLoaded: true });
         },
         (error) => {
+          setState({ ...state, isLoaded: true });
           Toast.show({ text: error.response.data.message });
         }
       );
@@ -52,6 +49,19 @@ const MedicalHistory = (props) => {
 
     fetchMedicalHistory();
   }, []);
+
+  const renderCardMedicalHistory = () => {
+    if (state.medicalHistory.length !== 0) {
+      return state.medicalHistory.map((item, index) => (
+        <CardMedicalHistory
+          key={index}
+          name={item.namaPenyakit}
+          date={DateFormatter.getLegibleDate(item.tanggal)}
+        />
+      ));
+    }
+    return <Text>Tidak ada riwayat kesehatan</Text>;
+  };
 
   return (
     <Container>
@@ -61,65 +71,53 @@ const MedicalHistory = (props) => {
         onPress={() => Actions.pop()}
       />
 
-      <Card>
-        {state.medicalHistory.map((item, index) => (
-          <CardMedicalHistory
-            key={index}
-            name={item.namaPenyakit}
-            date={DateFormatter.getLegibleDate(item.tanggal)}
-          />
-        ))}
-      </Card>
-      
       <View style={styles.bottomsheet}>
+        <View>
+          {!state.isLoaded ? <ActivityIndicator /> : renderCardMedicalHistory()}
+        </View>
         <View style={styles.container}>
-        <View style={styles.fab}>
-          <TouchableOpacity onPress={this._onPressButton}>
-            <View style={styles.containt}>
-              <View style={{ paddingLeft: '30%' }}>
-                <Text style={styles.textContaint}>+</Text>
+          <View style={styles.fab}>
+            <TouchableOpacity onPress={() => bottomSheetRef.open()}>
+              <View style={styles.containt}>
+                <View style={{ paddingLeft: '30%' }}>
+                  <Text style={styles.textContaint}>+</Text>
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
           </View>
         </View>
-        <BottomSheet style={styles.bottomsheetDetail}
-          ref={(ref: BottomSheet) => {
-            this.bottomSheet = ref
+        <BottomSheet
+          style={styles.bottomsheetDetail}
+          ref={(ref) => {
+            bottomSheetRef = ref;
           }}
           itemDivider={3}
-          backButtonEnabled={true}
+          backButtonEnabled
           coverScreen={false}
           title="Create"
           isOpen={false}
         >
           <View style={styles.modal}>
             <View style={styles.option}>
-              <Button  style={styles.btnSuccessDetailThree}>
-                <Icon name='trash-outline' style={styles.btnSuccessTextThree} />
+              <Button style={styles.btnSuccessDetailThree}>
+                <Icon name="trash-outline" style={styles.btnSuccessTextThree} />
               </Button>
             </View>
             <View>
-              <TextInput
-                label="Penyakit"
-              />
-              <DatePicker
-                label="Tanggal Diderita"
-              />
+              <TextInput label="Penyakit" />
+              <DatePicker label="Tanggal Diderita" />
             </View>
             <View style={styles.btnModal}>
               <Button transparent>
-                <Text style={styles.btnModalKembali} >Kembali</Text>
+                <Text style={styles.btnModalKembali}>Kembali</Text>
               </Button>
-              <Button style={styles.btnModalSimpan} >
-                <Text style={styles.btntextModalSimpan} >Simpan</Text>
+              <Button style={styles.btnModalSimpan}>
+                <Text style={styles.btntextModalSimpan}>Simpan</Text>
               </Button>
             </View>
           </View>
         </BottomSheet>
       </View>
-      
-      
     </Container>
   );
 };
