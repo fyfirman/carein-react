@@ -1,4 +1,4 @@
-import SPACING from '../../theme/Spacing';
+import SPACING from '../../../../theme/Spacing';
 
 module.exports = {
   content: {},

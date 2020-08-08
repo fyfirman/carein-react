@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ActivityIndicator, View, TouchableOpacity } from 'react-native';
-import { Container, Text, Card, Button, Toast, Icon } from 'native-base';
+import { Container, Text, Toast } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import BottomSheet from 'react-native-js-bottom-sheet';
 import Api from '../../services';
-import { CardMedicalHistory } from './components';
-import { Header, DatePicker, PickerInput, TextInput } from '../../components';
+import { InputModal, CardMedicalHistory } from './components';
+import { Header } from '../../components';
 import { DateFormatter } from '../../helpers';
 import styles from './styles';
 
@@ -87,37 +86,11 @@ const MedicalHistory = (props) => {
             </TouchableOpacity>
           </View>
         </View>
-        <BottomSheet
-          style={styles.bottomsheetDetail}
-          ref={(ref) => {
+        <InputModal
+          refs={(ref) => {
             bottomSheetRef = ref;
           }}
-          itemDivider={3}
-          backButtonEnabled
-          coverScreen={false}
-          title="Create"
-          isOpen={false}
-        >
-          <View style={styles.modal}>
-            <View style={styles.option}>
-              <Button style={styles.btnSuccessDetailThree}>
-                <Icon name="trash-outline" style={styles.btnSuccessTextThree} />
-              </Button>
-            </View>
-            <View>
-              <TextInput label="Penyakit" />
-              <DatePicker label="Tanggal Diderita" />
-            </View>
-            <View style={styles.btnModal}>
-              <Button transparent>
-                <Text style={styles.btnModalKembali}>Kembali</Text>
-              </Button>
-              <Button style={styles.btnModalSimpan}>
-                <Text style={styles.btntextModalSimpan}>Simpan</Text>
-              </Button>
-            </View>
-          </View>
-        </BottomSheet>
+        />
       </View>
     </Container>
   );
