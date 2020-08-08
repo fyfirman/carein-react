@@ -127,6 +127,7 @@ const Register = () => {
                 />
             </View> 
           </View>
+          
           <View style={styles.option}>
             <Button rounded style={styles.btnTrash}>
               <Icon name='trash-outline' style={styles.iconTrash}  />
