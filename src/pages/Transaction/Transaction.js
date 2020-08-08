@@ -5,16 +5,16 @@ import { Actions } from 'react-native-router-flux';
 import { Header } from '../../components';
 import { CardTransaction } from './components';
 import Api from '../../services';
-import mockData from './mockData';
 import { StringBuilder } from '../../helpers';
+import mockData from './mockData';
 
 const propTypes = {};
 
 const defaultProps = {};
 
-const History = () => {
+const Transaction = () => {
   const [state, setState] = useState({
-    history: [],
+    transactionHistory: [],
     activeTransaction: {},
     isLoaded: false
   });
@@ -92,7 +92,7 @@ const History = () => {
   );
 };
 
-History.propTypes = propTypes;
-History.defaultProps = defaultProps;
+Transaction.propTypes = propTypes;
+Transaction.defaultProps = defaultProps;
 
-export default History;
+export default Transaction;
