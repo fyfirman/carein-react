@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
-import { Container, List, Card, Content } from 'native-base';
+import { Container, List, Card, Content, Toast } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import Api from '../../services';
 import styles from './styles';
 import { Header, ProfileItem, Riwayat } from './components';
 
@@ -16,8 +17,30 @@ const defaultProps = {};
 const Profile = (props) => {
   const { user } = props;
 
+  const [state, setState] = useState({ medicalHistory: [] });
+
   useEffect(() => {
-    console.log(user);
+    const fetchMedicalHistory = async () => {
+      const params = {
+        params: {
+          limit: 0,
+          page: 0
+        }
+      };
+
+      console.log(user.id);
+
+      Api.getMedicalHitory(user.id, params).then(
+        (res) => {
+          setState({ medicalHistory: res.riwayatKesehatan });
+        },
+        (error) => {
+          Toast.show({ text: error.response.data.message });
+        }
+      );
+    };
+
+    fetchMedicalHistory();
   }, []);
 
   return (
@@ -72,9 +95,13 @@ const Profile = (props) => {
             </TouchableOpacity>
           </View>
           <Card>
-            <Riwayat penyakit="Sakit Jantung" tanggal="Agustus 2020" />
-            <Riwayat penyakit="Sakit Jantung" tanggal="Agustus 2020" />
-            <Riwayat penyakit="Sakit Jantung" tanggal="Agustus 2020" />
+            {state.medicalHistory.map((item) => (
+              <Riwayat
+                index={item.id}
+                penyakit={item.namaPenyakit}
+                tanggal={item.tanggal}
+              />
+            ))}
           </Card>
         </View>
       </Content>
