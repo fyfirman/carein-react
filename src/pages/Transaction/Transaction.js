@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
-import { Container, Content, Toast } from 'native-base';
+import { Container, Content, Toast, Text } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { Header } from '../../components';
 import { CardTransaction } from './components';
@@ -97,6 +97,12 @@ const Transaction = () => {
     return cardList;
   };
 
+  const renderContent = () => {
+    if (state.transactionStatus === 'no-transaction') {
+      return <Text>Kamu belum pernah memesan tenaga kesehatan</Text>;
+    }
+    return renderTransactionCard();
+  };
   return (
     <Container>
       <Header
@@ -105,7 +111,7 @@ const Transaction = () => {
         onPress={() => Actions.pop()}
       />
       <Content>
-        {!state.isLoaded ? <ActivityIndicator /> : renderTransactionCard()}
+        {!state.isLoaded ? <ActivityIndicator /> : renderContent()}
       </Content>
     </Container>
   );
