@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity } from 'react-native';
-import { Container, Text, Card, Toast } from 'native-base';
+import { Container, Text, Card, Button, Toast, Icon} from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Api from '../../services';
@@ -9,11 +9,21 @@ import { CardMedicalHistory } from './components';
 import { Header } from '../../components';
 import { DateFormatter } from '../../helpers';
 import styles from './styles';
+import BottomSheet from 'react-native-js-bottom-sheet';
+import {
+  DatePicker,
+  PickerInput,
+  TextInput
+} from '../../components';
 
 const propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired
 };
+bottomSheet: BottomSheet;
 
+  _onPressButton = () => {
+    this.bottomSheet.open()
+  }
 const defaultProps = {};
 
 const MedicalHistory = (props) => {
@@ -50,6 +60,7 @@ const MedicalHistory = (props) => {
         title="Riwayat Kesehatan"
         onPress={() => Actions.pop()}
       />
+
       <Card>
         {state.medicalHistory.map((item, index) => (
           <CardMedicalHistory
@@ -59,17 +70,56 @@ const MedicalHistory = (props) => {
           />
         ))}
       </Card>
-      <View style={styles.container}>
+      
+      <View style={styles.bottomsheet}>
+        <View style={styles.container}>
         <View style={styles.fab}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this._onPressButton}>
             <View style={styles.containt}>
               <View style={{ paddingLeft: '30%' }}>
                 <Text style={styles.textContaint}>+</Text>
               </View>
             </View>
           </TouchableOpacity>
+          </View>
         </View>
+        <BottomSheet style={styles.bottomsheetDetail}
+          ref={(ref: BottomSheet) => {
+            this.bottomSheet = ref
+          }}
+          itemDivider={3}
+          backButtonEnabled={true}
+          coverScreen={false}
+          title="Create"
+          isOpen={false}
+        >
+          <View>
+            <View style={styles.option}>
+              <Button  style={styles.btnSuccessDetailThree}>
+                <Icon name='trash-outline' style={styles.btnSuccessTextThree} />
+              </Button>
+            </View>
+            <View>
+              <TextInput
+                label="Penyakit"
+              />
+              <DatePicker
+                label="Tanggal Diderita"
+              />
+            </View>
+            <View style={styles.btnModal}>
+              <Button transparent>
+                <Text style={styles.btnModalKembali} >Kembali</Text>
+              </Button>
+              <Button style={styles.btnModalSimpan} >
+                <Text style={styles.btntextModalSimpan} >Simpan</Text>
+              </Button>
+            </View>
+          </View>
+        </BottomSheet>
       </View>
+      
+      
     </Container>
   );
 };
