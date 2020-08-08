@@ -15,8 +15,7 @@ import {
   HomeWorker
 } from './pages';
 import { StepOne, StepTwo, StepThree, StepFour } from './pages/Register/steps';
-import { BottomNavigation } from './components';
-import { LocalStorage } from './helpers';
+import { LocalStorage, BackAction } from './helpers';
 
 const Routes = () => {
   const [state, setState] = useState({ token: null, isLoaded: false });
@@ -42,53 +41,7 @@ const Routes = () => {
               component={Login}
               title="Login"
               initial={state.token === null}
-            />
-            <Tabs
-              key="home"
-              tabBarComponent={BottomNavigation}
-              hideNavBar
-              initial={state.token !== null}
-            >
-              <Scene
-                key="order"
-                component={Home}
-                title="Home"
-                iconName="home"
-                hideNavBar
-              />
-              <Scene
-                key="history"
-                component={Transaction}
-                title="Transaksi"
-                iconName="swap-horizontal"
-                hideNavBar
-              />
-              <Scene
-                key="medicalHistory"
-                component={MedicalHistory}
-                title="Rekam Medis"
-                iconName="pulse"
-                hideNavBar
-              />
-              <Scene
-                key="profile"
-                component={Profile}
-                title="Profil"
-                iconName="person"
-                hideNavBar
-              />
-            </Tabs>
-            <Scene
-              key="selectWorker"
-              component={SelectWorker}
-              title="Pilih Pekerja"
-              hideNavBar
-            />
-            <Scene
-              key="checkout"
-              component={Checkout}
-              title="Pembayaran"
-              hideNavBar
+              onBack={() => BackAction.exit()}
             />
             <Scene key="register" hideNavBar>
               <Scene
@@ -116,6 +69,48 @@ const Routes = () => {
                 hideNavBar
               />
             </Scene>
+            <Scene
+              key="home"
+              component={Home}
+              title="Home"
+              iconName="home"
+              hideNavBar
+              initial={state.token !== null}
+              onBack={() => {
+                BackAction.exit();
+                console.log('back pressed');
+              }}
+            />
+            <Scene
+              key="transaction"
+              component={Transaction}
+              title="Transaksi"
+              hideNavBar
+            />
+            <Scene
+              key="medicalHistory"
+              component={MedicalHistory}
+              title="Rekam Medis"
+              hideNavBar
+            />
+            <Scene
+              key="profile"
+              component={Profile}
+              title="Profil"
+              hideNavBar
+            />
+            <Scene
+              key="selectWorker"
+              component={SelectWorker}
+              title="Pilih Pekerja"
+              hideNavBar
+            />
+            <Scene
+              key="checkout"
+              component={Checkout}
+              title="Pembayaran"
+              hideNavBar
+            />
             <Scene key="chat" component={Chat} title="Obrolan" hideNavBar />
             <Scene
               key="editProfile"
