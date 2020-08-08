@@ -13,11 +13,16 @@ import {
 import { Actions } from 'react-native-router-flux';
 import validate from 'validate.js';
 import API from '../../../../services';
-import { Header, DatePicker, PickerInput, TextInput } from '../../../../components';
+import {
+  Header,
+  DatePicker,
+  PickerInput,
+  TextInput
+} from '../../../../components';
 import styles from './Styles';
 import { DateFormatter } from '../../../../helpers';
 import schema from './schema';
-import TambahPenyakit from './components';
+import { MedicalHistoryInput } from './components';
 
 const Register = () => {
   const [formState, setFormState] = useState({
@@ -101,39 +106,40 @@ const Register = () => {
         onPress={() => Actions.pop()}
       />
       <Content style={styles.container}>
-        <View>
-        
-        </View>
+        <View />
         <Form style={styles.loginForm}>
-
-        <Text style={styles.textHeading}>{`Tambahkan \nRiwayat Penyakit`}</Text>
+          <Text style={styles.textHeading}>
+            {`Tambahkan \nRiwayat Penyakit`}
+          </Text>
 
           <View style={styles.input}>
             <View style={styles.tahunInput}>
-              <TextInput 
+              <TextInput
                 label="Tahun"
                 keyboardType="phone-pad"
                 onChangeText={(newValue) => handleChange('tahun', newValue)}
-                alertText={hasError('tahun') ? formState.errors.noTelp[0] : null}
+                alertText={
+                  hasError('tahun') ? formState.errors.noTelp[0] : null
+                }
               />
-              </View> 
-              <View style={styles.penyakitInput}>
-                <TextInput
-                  label="Penyakit"
-                  onChangeText={(newValue) => handleChange('penyakit', newValue)}
-                  alertText={
-                    hasError('penyakit') ? formState.errors.username[0] : null
-                  }
-                />
-            </View> 
+            </View>
+            <View style={styles.penyakitInput}>
+              <TextInput
+                label="Penyakit"
+                onChangeText={(newValue) => handleChange('penyakit', newValue)}
+                alertText={
+                  hasError('penyakit') ? formState.errors.username[0] : null
+                }
+              />
+            </View>
           </View>
-          
+
           <View style={styles.option}>
             <Button rounded style={styles.btnTrash}>
-              <Icon name='trash-outline' style={styles.iconTrash}  />
+              <Icon name="trash-outline" style={styles.iconTrash} />
             </Button>
             <Button rounded style={styles.btnAdd}>
-              <Icon name='add-outline' style={styles.iconAdd}  />
+              <Icon name="add-outline" style={styles.iconAdd} />
             </Button>
           </View>
 
@@ -149,10 +155,7 @@ const Register = () => {
             onPress={() => Actions.registerStepFour()}
             // disabled={!formState.isValid}
           >
-            <Icon
-              name="arrow-forward"
-              style={styles.icon}
-            />
+            <Icon name="arrow-forward" style={styles.icon} />
           </Button>
         </View>
       </Content>
