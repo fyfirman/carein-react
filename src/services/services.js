@@ -17,12 +17,16 @@ const getMedicalHitory = async (id, params) =>
 const postRegister = (data) => post('pasien', data);
 const postCheckRegister = (data) => post('pasien?check', data);
 const postGenerateToken = (data) => post('auth?remember=true', data);
+const postGenerateTokenWorker = (data) =>
+  post('auth?login=nakes&remember=true', data);
 const postOrder = async (id, data) =>
   post(`transaksi/${id}`, data, await config.withToken());
 
 // Put
 const putUser = async (id, data) =>
   put(`pasien/${id}`, data, await config.withToken());
+const putTransaction = async (id, data) =>
+  put(`transaksi/${id}`, data, await config.withToken());
 
 const Api = {
   getCheckAuth,
@@ -33,8 +37,10 @@ const Api = {
   postRegister,
   postCheckRegister,
   postGenerateToken,
+  postGenerateTokenWorker,
   postOrder,
-  putUser
+  putUser,
+  putTransaction
 };
 
 export default Api;
