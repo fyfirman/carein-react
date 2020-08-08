@@ -58,7 +58,7 @@ const Home = (props) => {
         <Header name={user !== undefined ? user.nama : ''} />
         <View style={styles.root}>
           <View style={styles.subtitle}>
-            <Text style={{ fontWeight: 'bold', fontSize: 14 }}>Transaksi</Text>
+            <Text style={styles.textSubHeading}>Transaksi</Text>
             <TouchableOpacity onPress={() => Actions.transaction()}>
               <Text style={{ fontSize: 14 }}>Lihat Semua</Text>
             </TouchableOpacity>
@@ -73,11 +73,11 @@ const Home = (props) => {
                 />
                 <View style={styles.subcard}>
                   <Text
-                    style={{ color: 'black', fontWeight: 'bold', fontSize: 18 }}
+                    style={styles.textSubcard}
                   >
                     Marcell Antonius
                   </Text>
-                  <Text style={{ color: 'black', fontSize: 12 }}>
+                  <Text style={styles.subtextSubcard}>
                     Sedang dalam perjalanan
                   </Text>
                 </View>
@@ -99,29 +99,20 @@ const Home = (props) => {
                 />
                 <View style={styles.subcard}>
                   <Text
-                    style={{ color: 'black', fontWeight: 'bold', fontSize: 18 }}
+                    style={styles.textSubcard}
                   >
                     Marcell Antonius
                   </Text>
                   <Text
-                    style={{
-                      color: 'black',
-                      fontSize: 14,
-                      paddingRight: '12%'
-                    }}
-                  >
+                    style={styles.doneSubcard}>
                     6 Agustus 2020
                   </Text>
                   <Text
-                    style={{ color: 'black', fontSize: 14, fontWeight: '600' }}
+                    style={styles.doneSubcard}
                   >
-                    Rp. 100.000 •
+                    Rp. 100.000 • 
                     <Text
-                      style={{
-                        color: 'green',
-                        fontSize: 14,
-                        fontWeight: '600'
-                      }}
+                      style={styles.doneInfoSubcard}
                     >
                       Selesai
                     </Text>
@@ -134,13 +125,7 @@ const Home = (props) => {
           <Card style={styles.card}>
             <CardItem>
               <Text
-                style={{
-                  textAlign: 'center',
-                  marginVertical: 20,
-                  marginHorizontal: '12%',
-                  color: 'grey',
-                  fontSize: 18
-                }}
+                style={styles.noTransSubcard}
               >
                 Tidak ada transaksi tersedia
               </Text>
@@ -148,7 +133,7 @@ const Home = (props) => {
           </Card>
 
           <View style={styles.feature}>
-            <Text style={{ fontWeight: 'bold' }}>Pesan Tenaga Kesehatan</Text>
+            <Text style={styles.textSubHeading }>Pesan Tenaga Kesehatan</Text>
             <View style={{ flexDirection: 'row' }}>
               <Feature
                 title="Dokter"
