@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -29,6 +29,8 @@ const propTypes = {
 const Home = (props) => {
   const { user, setUser } = props;
 
+  const [state, setState] = useState({ transactionStatus: 'no-transaction' });
+
   useEffect(() => {
     const fetchUser = async () => {
       Api.getCheckAuth().then(
@@ -49,21 +51,51 @@ const Home = (props) => {
       );
     };
 
+    const fetchTransaction = async () => {
+      const params = {
+        params: {
+          limit: 5,
+          page: 1
+        }
+      };
+
+      Api.getTransaction(params).then(
+        (res) => {
+          if (res.transaksiBerjalan !== undefined) {
+            Api.getWorker({
+              params: { id: res.transaksiBerjalan.nakesId }
+            }).then((response) => {
+              setState({
+                ...state,
+                activeTransaction: {
+                  ...res.transaksiBerjalan,
+                  worker: response.nakes[0]
+                },
+                transactionStatus: 'active'
+              });
+            });
+          } else if (res.riwayatTransaksi.length !== 0) {
+            setState({
+              ...state,
+              transactionHistory: res.riwayatTransaksi[0],
+              transactionStatus: 'inactive'
+            });
+          }
+        },
+        (error) => {
+          Toast.show({ text: error.response.data.message });
+        }
+      );
+    };
+
     fetchUser();
+    fetchTransaction();
   }, []);
 
-  return (
-    <Container>
-      <Content>
-        <Header name={user !== undefined ? user.nama : ''} />
-        <View style={styles.root}>
-          <View style={styles.subtitle}>
-            <Text style={{ fontWeight: 'bold', fontSize: 14 }}>Transaksi</Text>
-            <TouchableOpacity onPress={() => Actions.transaction()}>
-              <Text style={{ fontSize: 14 }}>Lihat Semua</Text>
-            </TouchableOpacity>
-          </View>
-
+  const renderTransactionCard = (status) => {
+    switch (status) {
+      case 'active':
+        return (
           <Card style={styles.card}>
             <CardItem>
               <Left>
@@ -89,7 +121,9 @@ const Home = (props) => {
               </Right>
             </CardItem>
           </Card>
-
+        );
+      case 'inactive':
+        return (
           <Card style={styles.card}>
             <CardItem>
               <Left>
@@ -118,9 +152,7 @@ const Home = (props) => {
                     Rp. 100.000 •
                     <Text
                       style={{
-                        color: 'green',
-                        fontSize: 14,
-                        fontWeight: '600'
+                        color: 'green'
                       }}
                     >
                       Selesai
@@ -130,7 +162,9 @@ const Home = (props) => {
               </Left>
             </CardItem>
           </Card>
-
+        );
+      case 'no-transaction':
+        return (
           <Card style={styles.card}>
             <CardItem>
               <Text
@@ -146,6 +180,25 @@ const Home = (props) => {
               </Text>
             </CardItem>
           </Card>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <Container>
+      <Content>
+        <Header name={user !== undefined ? user.nama : ''} />
+        <View style={styles.root}>
+          <View style={styles.subtitle}>
+            <Text style={{ fontWeight: 'bold', fontSize: 14 }}>Transaksi</Text>
+            <TouchableOpacity onPress={() => Actions.transaction()}>
+              <Text style={{ fontSize: 14 }}>Lihat Semua</Text>
+            </TouchableOpacity>
+          </View>
+
+          {renderTransactionCard(state.transactionStatus)}
 
           <View style={styles.feature}>
             <Text style={{ fontWeight: 'bold' }}>Pesan Tenaga Kesehatan</Text>
