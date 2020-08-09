@@ -1,66 +1,31 @@
 import SPACING from '../../../../theme/Spacing';
 
 module.exports = {
-  content: {},
+  root: {},
 
-  cardContainer: {
-    flexDirection: 'column',
-    paddingLeft: SPACING.PADDING_HORIZONTAL,
-    paddingRight: SPACING.PADDING_HORIZONTAL
-  },
-  fab: {
-    height: 60,
-    width: 60,
-    borderRadius: 30,
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    justifyContent: 'center',
-    backgroundColor: '#497CFB'
-  },
-  containt: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  textContaint: {
-    fontSize: 40,
-    color: 'white',
-    textAlign: 'center',
-    fontWeight: 'bold'
-  },
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    marginTop: '20%'
+    height: '38%',
+    paddingHorizontal: SPACING.PADDING_HORIZONTAL
   },
 
-  bottomsheet: { flex: 1 },
-  bottomsheetDetail: {
-    marginTop: 200,
-    elevation: 1000
+  editContainer: {
+    height: '32%',
+    paddingHorizontal: SPACING.PADDING_HORIZONTAL
   },
-  add: {
-    flex: 1,
-    flexDirection: 'column',
+
+  deleteButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: 8
+  },
+
+  formInput: {
+    marginBottom: 16
+  },
+
+  btnModal: {
+    flexDirection: 'row',
     justifyContent: 'flex-end'
-  },
-  btnBundle: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyConten: 'flex-end',
-    elevation: 3
-  },
-  button: {
-    marginLeft: 'auto',
-    borderRadius: 250,
-    color: '#497CFB',
-    elevation: 5
-  },
-  icon: {
-    paddingLeft: '5%',
-    color: 'white'
   },
 
   btnSuccessTextThree: {
@@ -74,17 +39,6 @@ module.exports = {
     borderRadius: 15,
     backgroundColor: '#EB5757',
     opacity: 0.2
-  },
-  option: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end'
-  },
-  btnModal: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginVertical: 10,
-    marginTop: 20
   },
   btnModalKembali: {
     fontSize: 16,
@@ -100,8 +54,5 @@ module.exports = {
     color: 'rgba(255, 255, 255, 0.9)',
     fontSize: 16,
     textAlign: 'center'
-  },
-  modal: {
-    marginHorizontal: 15
   }
 };

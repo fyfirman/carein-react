@@ -8,21 +8,18 @@ import styles from './styles';
 
 const propTypes = {
   refs: PropTypes.func.isRequired,
-  onDiseaseChange: PropTypes.func,
-  onDateChange: PropTypes.func,
-  onPressSaveButton: PropTypes.func,
-  onPressCancelButton: PropTypes.func,
-  onPressDeleteButton: PropTypes.func,
+  onDiseaseChange: PropTypes.func.isRequired,
+  onDateChange: PropTypes.func.isRequired,
+  onPressSaveButton: PropTypes.func.isRequired,
+  onPressCancelButton: PropTypes.func.isRequired,
+  onPressDeleteButton: PropTypes.func.isRequired,
   valueDisease: PropTypes.string.isRequired,
-  valueDate: PropTypes.string.isRequired
+  valueDate: PropTypes.string.isRequired,
+  edit: PropTypes.bool
 };
 
 const defaultProps = {
-  onDiseaseChange: () => {},
-  onDateChange: () => {},
-  onPressSaveButton: () => {},
-  onPressCancelButton: () => {},
-  onPressDeleteButton: () => {}
+  edit: false
 };
 
 const StyledBottomSheet = (props) => {
@@ -34,12 +31,13 @@ const StyledBottomSheet = (props) => {
     onPressCancelButton,
     onPressDeleteButton,
     valueDisease,
-    valueDate
+    valueDate,
+    edit
   } = props;
 
   return (
     <BottomSheet
-      style={styles.bottomsheetDetail}
+      style={styles.root}
       ref={refs}
       itemDivider={3}
       backButtonEnabled
@@ -47,16 +45,18 @@ const StyledBottomSheet = (props) => {
       title="Create"
       isOpen={false}
     >
-      <View style={styles.modal}>
-        <View style={styles.option}>
-          <Button
-            style={styles.btnSuccessDetailThree}
-            onPress={onPressDeleteButton}
-          >
-            <Icon name="trash-outline" style={styles.btnSuccessTextThree} />
-          </Button>
-        </View>
-        <View>
+      <View style={edit ? styles.container : styles.editContainer}>
+        {edit && (
+          <View style={styles.deleteButtonContainer}>
+            <Button
+              style={styles.btnSuccessDetailThree}
+              onPress={onPressDeleteButton}
+            >
+              <Icon name="trash-outline" style={styles.btnSuccessTextThree} />
+            </Button>
+          </View>
+        )}
+        <View style={styles.formInput}>
           <TextInput
             label="Penyakit"
             onChangeText={onDiseaseChange}

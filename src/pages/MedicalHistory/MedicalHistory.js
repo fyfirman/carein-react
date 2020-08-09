@@ -68,7 +68,7 @@ const MedicalHistory = (props) => {
     };
 
     Api.postMedicalHistory(user.id, body).then(
-      (res) => {
+      () => {
         setState({
           ...state,
           medicalHistory: [body, ...state.medicalHistory]
@@ -93,13 +93,33 @@ const MedicalHistory = (props) => {
     };
 
     Api.putMedicalHistory(state.newValues.id, body).then(
-      (res) => {
+      () => {
         setState({
           ...state,
           reload: !state.reload
         });
         Toast.show({
           text: 'Riwayat kesehatan berhasil diubah'
+        });
+      },
+      (error) => {
+        Toast.show({
+          text: `Telah terjadi error: ${error.response.data.message}`
+        });
+        editBottomSheet.close();
+      }
+    );
+  };
+
+  const handleDelete = () => {
+    Api.deleteMedicalHistory(state.newValues.id).then(
+      () => {
+        setState({
+          ...state,
+          reload: !state.reload
+        });
+        Toast.show({
+          text: 'Riwayat kesehatan berhasil dihapus'
         });
       },
       (error) => {
@@ -181,10 +201,12 @@ const MedicalHistory = (props) => {
         onDiseaseChange={(value) => handleChange('namaPenyakit', value)}
         onPressSaveButton={handleEditMedicalHistory}
         onPressCancelButton={() => editBottomSheet.close()}
+        onPressDeleteButton={handleDelete}
         valueDisease={state.newValues.namaPenyakit}
         valueDate={DateFormatter.getLegibleDate(
           new Date(state.newValues.tanggal)
         )}
+        edit
       />
     </Container>
   );

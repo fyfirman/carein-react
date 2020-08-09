@@ -32,6 +32,10 @@ const putTransaction = async (id, data) =>
 const putMedicalHistory = async (id, data) =>
   put(`riwayat-kesehatan/${id}`, data, await config.withToken());
 
+// Delete
+const deleteMedicalHistory = async (id) =>
+  delete (`riwayat-kesehatan/${id}`, await config.withToken());
+
 const Api = {
   getCheckAuth,
   getUser,
@@ -46,7 +50,8 @@ const Api = {
   postOrder,
   putUser,
   putTransaction,
-  putMedicalHistory
+  putMedicalHistory,
+  deleteMedicalHistory
 };
 
 export default Api;
