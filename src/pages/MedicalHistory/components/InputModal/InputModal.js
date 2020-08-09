@@ -65,7 +65,9 @@ const StyledBottomSheet = (props) => {
           <DatePicker
             label="Tanggal Diderita"
             onDateChange={onDateChange}
-            placeHolderText={valueDate}
+            placeHolderText={
+              valueDate !== 'Invalid date' ? valueDate : 'Pilih tanggal'
+            }
           />
         </View>
         <View style={styles.btnModal}>

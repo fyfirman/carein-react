@@ -58,9 +58,7 @@ const MedicalHistory = (props) => {
   }, [state.reload]);
 
   useEffect(() => {
-    console.log(
-      DateFormatter.getLegibleDate(new Date(state.newValues.tanggal))
-    );
+    console.log(state.newValues);
   }, [state]);
 
   const handleAddMedicalHistory = () => {
@@ -73,7 +71,7 @@ const MedicalHistory = (props) => {
       (res) => {
         setState({
           ...state,
-          medicalHistory: [state.newValues, ...state.medicalHistory]
+          medicalHistory: [body, ...state.medicalHistory]
         });
         Toast.show({
           text: 'Riwayat kesehatan berhasil ditambahkan'
@@ -94,10 +92,7 @@ const MedicalHistory = (props) => {
       tanggal: state.newValues.tanggal
     };
 
-    Api.putMedicalHistory(
-      state.medicalHistory[state.selectedEditValue],
-      body
-    ).then(
+    Api.putMedicalHistory(state.newValues.id, body).then(
       (res) => {
         setState({
           ...state,
@@ -114,6 +109,11 @@ const MedicalHistory = (props) => {
         editBottomSheet.close();
       }
     );
+  };
+
+  const handleFabPress = () => {
+    setState({ ...state, newValues: { namaPenyakit: '', tanggal: '' } });
+    addBottomSheet.open();
   };
 
   const handleEditButtonPress = (index) => {
@@ -155,7 +155,7 @@ const MedicalHistory = (props) => {
       <Content style={{ flex: 1 }}>
         {!state.isLoaded ? <ActivityIndicator /> : renderCardMedicalHistory()}
       </Content>
-      <Button onPress={() => addBottomSheet.open()} style={styles.fab}>
+      <Button onPress={handleFabPress} style={styles.fab}>
         <Icon name="add-outline" />
       </Button>
       <InputModal
@@ -167,6 +167,10 @@ const MedicalHistory = (props) => {
         onDiseaseChange={(value) => handleChange('namaPenyakit', value)}
         onPressSaveButton={handleAddMedicalHistory}
         onPressCancelButton={() => addBottomSheet.close()}
+        valueDisease={state.newValues.namaPenyakit}
+        valueDate={DateFormatter.getLegibleDate(
+          new Date(state.newValues.tanggal)
+        )}
       />
       <InputModal
         refs={(ref) => {
