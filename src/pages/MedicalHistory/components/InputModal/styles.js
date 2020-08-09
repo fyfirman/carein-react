@@ -38,7 +38,8 @@ module.exports = {
 
   bottomsheet: { flex: 1 },
   bottomsheetDetail: {
-    marginTop: 200
+    marginTop: 200,
+    elevation: 1000
   },
   add: {
     flex: 1,

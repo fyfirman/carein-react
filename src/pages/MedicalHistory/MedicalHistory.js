@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { ActivityIndicator, View, TouchableOpacity } from 'react-native';
-import { Container, Text, Toast } from 'native-base';
+import { ActivityIndicator, View } from 'react-native';
+import {
+  Container,
+  Text,
+  Toast,
+  Content,
+  Fab,
+  Icon,
+  Button
+} from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Api from '../../services';
@@ -22,7 +30,8 @@ const MedicalHistory = (props) => {
   const [state, setState] = useState({
     medicalHistory: [],
     isLoaded: false,
-    newValues: {}
+    newValues: {},
+    isFabShown: true
   });
 
   let bottomSheetRef;
@@ -51,8 +60,29 @@ const MedicalHistory = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(state);
+    console.log(state.medicalHistory.length);
   }, [state]);
+
+  const handleAddMedicalHistory = () => {
+    Api.postMedicalHistory(user.id, state.newValues).then(
+      (res) => {
+        console.log(bottomSheetRef);
+        setState({
+          ...state,
+          medicalHistory: [state.newValues, ...state.medicalHistory]
+        });
+        Toast.show({
+          text: 'Riwayat kesehatan berhasil ditambahkan'
+        });
+      },
+      (error) => {
+        Toast.show({
+          text: `Telah terjadi error: ${error.response.data.message}`
+        });
+        bottomSheetRef.close();
+      }
+    );
+  };
 
   const handleChange = (name, value) => {
     setState({
@@ -85,31 +115,23 @@ const MedicalHistory = (props) => {
         title="Riwayat Kesehatan"
         onPress={() => Actions.pop()}
       />
-
-      <View style={styles.bottomsheet}>
-        <View>
-          {!state.isLoaded ? <ActivityIndicator /> : renderCardMedicalHistory()}
-        </View>
-        <View style={styles.container}>
-          <View style={styles.fab}>
-            <TouchableOpacity onPress={() => bottomSheetRef.open()}>
-              <View style={styles.containt}>
-                <View style={{ paddingLeft: '30%' }}>
-                  <Text style={styles.textContaint}>+</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <InputModal
-          refs={(ref) => {
-            bottomSheetRef = ref;
-          }}
-          onDateChange={(value) =>
-            handleChange('date', DateFormatter.getShortDate(value))}
-          onDiseaseChange={(value) => handleChange('disease', value)}
-        />
-      </View>
+      <Content style={{ flex: 1 }}>
+        {!state.isLoaded ? <ActivityIndicator /> : renderCardMedicalHistory()}
+      </Content>
+      <Button onPress={() => bottomSheetRef.open()} style={styles.fab}>
+        <Icon name="add-outline" />
+      </Button>
+      <InputModal
+        refs={(ref) => {
+          bottomSheetRef = ref;
+        }}
+        onDateChange={(value) =>
+          handleChange('tanggal', DateFormatter.getShortDate(value))
+        }
+        onDiseaseChange={(value) => handleChange('namaPenyakit', value)}
+        onPressSaveButton={handleAddMedicalHistory}
+        onPressCancelButton={() => bottomSheetRef.close()}
+      />
     </Container>
   );
 };

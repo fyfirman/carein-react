@@ -9,16 +9,29 @@ import styles from './styles';
 const propTypes = {
   refs: PropTypes.func.isRequired,
   onDiseaseChange: PropTypes.func,
-  onDateChange: PropTypes.func
+  onDateChange: PropTypes.func,
+  onPressSaveButton: PropTypes.func,
+  onPressCancelButton: PropTypes.func,
+  onPressDeleteButton: PropTypes.func
 };
 
 const defaultProps = {
   onDiseaseChange: () => {},
-  onDateChange: () => {}
+  onDateChange: () => {},
+  onPressSaveButton: () => {},
+  onPressCancelButton: () => {},
+  onPressDeleteButton: () => {}
 };
 
 const StyledBottomSheet = (props) => {
-  const { refs, onDiseaseChange, onDateChange } = props;
+  const {
+    refs,
+    onDiseaseChange,
+    onDateChange,
+    onPressSaveButton,
+    onPressCancelButton,
+    onPressDeleteButton
+  } = props;
 
   return (
     <BottomSheet
@@ -32,7 +45,10 @@ const StyledBottomSheet = (props) => {
     >
       <View style={styles.modal}>
         <View style={styles.option}>
-          <Button style={styles.btnSuccessDetailThree}>
+          <Button
+            style={styles.btnSuccessDetailThree}
+            onPress={onPressDeleteButton}
+          >
             <Icon name="trash-outline" style={styles.btnSuccessTextThree} />
           </Button>
         </View>
@@ -41,10 +57,10 @@ const StyledBottomSheet = (props) => {
           <DatePicker label="Tanggal Diderita" onDateChange={onDateChange} />
         </View>
         <View style={styles.btnModal}>
-          <Button transparent>
+          <Button transparent onPress={onPressCancelButton}>
             <Text style={styles.btnModalKembali}>Kembali</Text>
           </Button>
-          <Button style={styles.btnModalSimpan}>
+          <Button style={styles.btnModalSimpan} onPress={onPressSaveButton}>
             <Text style={styles.btntextModalSimpan}>Simpan</Text>
           </Button>
         </View>

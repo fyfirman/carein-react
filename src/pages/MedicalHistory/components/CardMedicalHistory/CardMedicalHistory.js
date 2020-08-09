@@ -18,8 +18,8 @@ const CardMedicalHistory = (props) => {
   const { name, date, onPress } = props;
 
   return (
-    <CardItem button onPress={onPress}>
-      <Body style={styles.root}>
+    <CardItem button onPress={onPress} style={styles.root}>
+      <Body>
         <View style={styles.bubble}>
           <Title style={{ color: 'black', fontSize: 16, fontWeight: '700' }}>
             {name}
