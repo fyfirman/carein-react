@@ -69,7 +69,7 @@ const Login = (props) => {
   return (
     <View>
       <Header />
-      <Button transparent onPress={() => Actions.loginWorker()}>
+      <Button transparent onPress={() => Actions.pop()}>
         <Icon
           name="chevron-back-outline"
           style={{ color: 'white', fontSize: 30, position: 'absolute' }}
