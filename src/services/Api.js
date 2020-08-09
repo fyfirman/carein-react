@@ -21,6 +21,8 @@ const postGenerateTokenWorker = (data) =>
   post('auth?login=nakes&remember=true', data);
 const postOrder = async (id, data) =>
   post(`transaksi/${id}`, data, await config.withToken());
+const postMedicalHistoy = async (id, data) =>
+  post(`riwayat-kesehatan/${id}`, data, await config.withToken());
 
 // Put
 const putUser = async (id, data) =>
