@@ -16,10 +16,10 @@ import API from '../../../../services';
 import {
   Header,
   DatePicker,
-  PickerInput,
+  PairInputText,
   TextInput
 } from '../../../../components';
-import styles from './Styles';
+import styles from './styles';
 import { DateFormatter } from '../../../../helpers';
 import schema from './schema';
 import { MedicalHistoryInput } from './components';
@@ -61,8 +61,29 @@ const Register = () => {
     };
   };
 
+  const parseYearToDate = (year) =>
+    DateFormatter.getShortDate(new Date(parseInt(year, 10), 1, 1));
+
   const hasError = (field) =>
     !!(formState.touched[field] && formState.errors[field]);
+
+  const parsePairInputData = (data) =>
+    data.map((item) => {
+      return {
+        tanggal: parseYearToDate(item.valueOne),
+        namaPenyakit: item.valueTwo
+      };
+    });
+
+  const saveValuesPairInput = (newData) => {
+    setFormState({
+      ...formState,
+      values: {
+        ...formState.values,
+        riwayatKesehatan: parsePairInputData(newData)
+      }
+    });
+  };
 
   const handleSubmit = () => {
     API.postCheckRegister(getParsedFormData())
@@ -112,36 +133,11 @@ const Register = () => {
             {`Tambahkan \nRiwayat Penyakit`}
           </Text>
 
-          <View style={styles.input}>
-            <View style={styles.tahunInput}>
-              <TextInput
-                label="Tahun"
-                keyboardType="phone-pad"
-                onChangeText={(newValue) => handleChange('tahun', newValue)}
-                alertText={
-                  hasError('tahun') ? formState.errors.noTelp[0] : null
-                }
-              />
-            </View>
-            <View style={styles.penyakitInput}>
-              <TextInput
-                label="Penyakit"
-                onChangeText={(newValue) => handleChange('penyakit', newValue)}
-                alertText={
-                  hasError('penyakit') ? formState.errors.username[0] : null
-                }
-              />
-            </View>
-          </View>
-
-          <View style={styles.option}>
-            <Button rounded style={styles.btnTrash}>
-              <Icon name="trash-outline" style={styles.iconTrash} />
-            </Button>
-            <Button rounded style={styles.btnAdd}>
-              <Icon name="add-outline" style={styles.iconAdd} />
-            </Button>
-          </View>
+          <PairInputText
+            firstLabel="Tahun"
+            secondLabel="Nama Penyakit"
+            onValueChange={saveValuesPairInput}
+          />
 
           <View>
             {formState.errorUserExist !== null ? renderErrorUserExist() : null}
