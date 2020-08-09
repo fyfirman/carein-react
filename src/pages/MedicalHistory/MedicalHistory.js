@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { ActivityIndicator, View } from 'react-native';
-import {
-  Container,
-  Text,
-  Toast,
-  Content,
-  Fab,
-  Icon,
-  Button
-} from 'native-base';
+import { ActivityIndicator } from 'react-native';
+import { Container, Text, Toast, Content, Icon, Button } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import Api from '../../services';
@@ -30,11 +22,13 @@ const MedicalHistory = (props) => {
   const [state, setState] = useState({
     medicalHistory: [],
     isLoaded: false,
-    newValues: {},
-    isFabShown: true
+    newValues: { namaPenyakit: '', tanggal: '' },
+    isFabShown: true,
+    reload: false
   });
 
-  let bottomSheetRef;
+  let addBottomSheet;
+  let editBottomSheet;
 
   useEffect(() => {
     const fetchMedicalHistory = async () => {
@@ -47,7 +41,11 @@ const MedicalHistory = (props) => {
 
       Api.getMedicalHitory(user.id, params).then(
         (res) => {
-          setState({ medicalHistory: res.riwayatKesehatan, isLoaded: true });
+          setState({
+            ...state,
+            medicalHistory: res.riwayatKesehatan,
+            isLoaded: true
+          });
         },
         (error) => {
           setState({ ...state, isLoaded: true });
@@ -57,16 +55,22 @@ const MedicalHistory = (props) => {
     };
 
     fetchMedicalHistory();
-  }, []);
+  }, [state.reload]);
 
   useEffect(() => {
-    console.log(state.medicalHistory.length);
+    console.log(
+      DateFormatter.getLegibleDate(new Date(state.newValues.tanggal))
+    );
   }, [state]);
 
   const handleAddMedicalHistory = () => {
-    Api.postMedicalHistory(user.id, state.newValues).then(
+    const body = {
+      namaPenyakit: state.newValues.namaPenyakit,
+      tanggal: state.newValues.tanggal
+    };
+
+    Api.postMedicalHistory(user.id, body).then(
       (res) => {
-        console.log(bottomSheetRef);
         setState({
           ...state,
           medicalHistory: [state.newValues, ...state.medicalHistory]
@@ -79,9 +83,42 @@ const MedicalHistory = (props) => {
         Toast.show({
           text: `Telah terjadi error: ${error.response.data.message}`
         });
-        bottomSheetRef.close();
+        addBottomSheet.close();
       }
     );
+  };
+
+  const handleEditMedicalHistory = () => {
+    const body = {
+      namaPenyakit: state.newValues.namaPenyakit,
+      tanggal: state.newValues.tanggal
+    };
+
+    Api.putMedicalHistory(
+      state.medicalHistory[state.selectedEditValue],
+      body
+    ).then(
+      (res) => {
+        setState({
+          ...state,
+          reload: !state.reload
+        });
+        Toast.show({
+          text: 'Riwayat kesehatan berhasil diubah'
+        });
+      },
+      (error) => {
+        Toast.show({
+          text: `Telah terjadi error: ${error.response.data.message}`
+        });
+        editBottomSheet.close();
+      }
+    );
+  };
+
+  const handleEditButtonPress = (index) => {
+    setState({ ...state, newValues: state.medicalHistory[index] });
+    editBottomSheet.open();
   };
 
   const handleChange = (name, value) => {
@@ -101,7 +138,7 @@ const MedicalHistory = (props) => {
           key={index}
           name={item.namaPenyakit}
           date={DateFormatter.getLegibleDate(item.tanggal)}
-          onPress={() => bottomSheetRef.open()}
+          onPress={() => handleEditButtonPress(index)}
         />
       ));
     }
@@ -118,19 +155,32 @@ const MedicalHistory = (props) => {
       <Content style={{ flex: 1 }}>
         {!state.isLoaded ? <ActivityIndicator /> : renderCardMedicalHistory()}
       </Content>
-      <Button onPress={() => bottomSheetRef.open()} style={styles.fab}>
+      <Button onPress={() => addBottomSheet.open()} style={styles.fab}>
         <Icon name="add-outline" />
       </Button>
       <InputModal
         refs={(ref) => {
-          bottomSheetRef = ref;
+          addBottomSheet = ref;
         }}
         onDateChange={(value) =>
-          handleChange('tanggal', DateFormatter.getShortDate(value))
-        }
+          handleChange('tanggal', DateFormatter.getShortDate(value))}
         onDiseaseChange={(value) => handleChange('namaPenyakit', value)}
         onPressSaveButton={handleAddMedicalHistory}
-        onPressCancelButton={() => bottomSheetRef.close()}
+        onPressCancelButton={() => addBottomSheet.close()}
+      />
+      <InputModal
+        refs={(ref) => {
+          editBottomSheet = ref;
+        }}
+        onDateChange={(value) =>
+          handleChange('tanggal', DateFormatter.getShortDate(value))}
+        onDiseaseChange={(value) => handleChange('namaPenyakit', value)}
+        onPressSaveButton={handleEditMedicalHistory}
+        onPressCancelButton={() => editBottomSheet.close()}
+        valueDisease={state.newValues.namaPenyakit}
+        valueDate={DateFormatter.getLegibleDate(
+          new Date(state.newValues.tanggal)
+        )}
       />
     </Container>
   );

@@ -12,7 +12,9 @@ const propTypes = {
   onDateChange: PropTypes.func,
   onPressSaveButton: PropTypes.func,
   onPressCancelButton: PropTypes.func,
-  onPressDeleteButton: PropTypes.func
+  onPressDeleteButton: PropTypes.func,
+  valueDisease: PropTypes.string.isRequired,
+  valueDate: PropTypes.string.isRequired
 };
 
 const defaultProps = {
@@ -30,7 +32,9 @@ const StyledBottomSheet = (props) => {
     onDateChange,
     onPressSaveButton,
     onPressCancelButton,
-    onPressDeleteButton
+    onPressDeleteButton,
+    valueDisease,
+    valueDate
   } = props;
 
   return (
@@ -53,8 +57,16 @@ const StyledBottomSheet = (props) => {
           </Button>
         </View>
         <View>
-          <TextInput label="Penyakit" onChangeText={onDiseaseChange} />
-          <DatePicker label="Tanggal Diderita" onDateChange={onDateChange} />
+          <TextInput
+            label="Penyakit"
+            onChangeText={onDiseaseChange}
+            value={valueDisease}
+          />
+          <DatePicker
+            label="Tanggal Diderita"
+            onDateChange={onDateChange}
+            placeHolderText={valueDate}
+          />
         </View>
         <View style={styles.btnModal}>
           <Button transparent onPress={onPressCancelButton}>

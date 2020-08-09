@@ -29,6 +29,8 @@ const putUser = async (id, data) =>
   put(`pasien/${id}`, data, await config.withToken());
 const putTransaction = async (id, data) =>
   put(`transaksi/${id}`, data, await config.withToken());
+const putMedicalHistory = async (id, data) =>
+  put(`riwayat-kesehatan/${id}`, data, await config.withToken());
 
 const Api = {
   getCheckAuth,
@@ -43,7 +45,8 @@ const Api = {
   postMedicalHistory,
   postOrder,
   putUser,
-  putTransaction
+  putTransaction,
+  putMedicalHistory
 };
 
 export default Api;
