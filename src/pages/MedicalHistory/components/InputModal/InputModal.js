@@ -7,13 +7,18 @@ import { DatePicker, TextInput } from '../../../../components';
 import styles from './styles';
 
 const propTypes = {
-  refs: PropTypes.func.isRequired
+  refs: PropTypes.func.isRequired,
+  onDiseaseChange: PropTypes.func,
+  onDateChange: PropTypes.func
 };
 
-const defaultProps = {};
+const defaultProps = {
+  onDiseaseChange: () => {},
+  onDateChange: () => {}
+};
 
 const StyledBottomSheet = (props) => {
-  const { refs } = props;
+  const { refs, onDiseaseChange, onDateChange } = props;
 
   return (
     <BottomSheet
@@ -32,8 +37,8 @@ const StyledBottomSheet = (props) => {
           </Button>
         </View>
         <View>
-          <TextInput label="Penyakit" />
-          <DatePicker label="Tanggal Diderita" />
+          <TextInput label="Penyakit" onChangeText={onDiseaseChange} />
+          <DatePicker label="Tanggal Diderita" onDateChange={onDateChange} />
         </View>
         <View style={styles.btnModal}>
           <Button transparent>

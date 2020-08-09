@@ -21,7 +21,8 @@ const MedicalHistory = (props) => {
 
   const [state, setState] = useState({
     medicalHistory: [],
-    isLoaded: false
+    isLoaded: false,
+    newValues: {}
   });
 
   let bottomSheetRef;
@@ -48,6 +49,20 @@ const MedicalHistory = (props) => {
 
     fetchMedicalHistory();
   }, []);
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
+
+  const handleChange = (name, value) => {
+    setState({
+      ...state,
+      newValues: {
+        ...state.newValues,
+        [name]: value
+      }
+    });
+  };
 
   const renderCardMedicalHistory = () => {
     if (state.medicalHistory.length !== 0) {
@@ -90,6 +105,9 @@ const MedicalHistory = (props) => {
           refs={(ref) => {
             bottomSheetRef = ref;
           }}
+          onDateChange={(value) =>
+            handleChange('date', DateFormatter.getShortDate(value))}
+          onDiseaseChange={(value) => handleChange('disease', value)}
         />
       </View>
     </Container>
