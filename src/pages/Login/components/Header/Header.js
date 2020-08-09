@@ -12,6 +12,7 @@ import {
   Subtitle,
   Thumbnail
 } from 'native-base';
+import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 
 const propTypes = {
