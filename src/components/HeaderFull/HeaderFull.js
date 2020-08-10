@@ -5,6 +5,7 @@ import styles from './styles';
 
 const propTypes = {
   iconName: PropTypes.string.isRequired,
+  iconNameRight: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired
 };
@@ -12,7 +13,7 @@ const propTypes = {
 const defaultProps = {};
 
 const StyledHeader = (props) => {
-  const { iconName, onPress, title } = props;
+  const { iconName,iconNameRight, onPress, title } = props;
 
   return (
     <Header style={styles.header}>
@@ -24,7 +25,11 @@ const StyledHeader = (props) => {
       <Body style={styles.body}>
         <Text style={styles.text}>{title}</Text>
       </Body>
-      <Right/>
+      <Right>
+        <Button transparent onPress={onPress}>
+          <Icon name={iconNameRight} style={styles.iconRight}/>
+        </Button>
+      </Right>
     </Header>
   );
 };

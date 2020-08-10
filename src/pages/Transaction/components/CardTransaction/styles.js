@@ -32,6 +32,7 @@ module.exports = {
   distance: {
     color: 'yellow'
   },
+  
   card:{
     marginHorizontal:16,
     overflow: 'hidden', 
