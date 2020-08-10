@@ -5,7 +5,7 @@ module.exports = {
         backgroundColor:'white'
     },
     icon:{
-        fontSize:18,
+        fontSize:30,
         fontWeight:'bold',
         color:'rgba(6, 44, 60, 0.9)'
     },

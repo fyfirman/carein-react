@@ -5,11 +5,12 @@ module.exports = {
         backgroundColor:'white'
     },
     icon:{
-        fontSize:18,
+        fontSize:30,
         color:'red'
     },
     iconRight:{
         color:'green',
+        fontSize:30,
     },
     text:{
         color:'rgba(6, 44, 60, 0.9)',

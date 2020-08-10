@@ -34,7 +34,7 @@ const StyledHeader = (props) => {
         <Button transparent onPress={() => Actions.profile()}>
           <Icon
             name="person-circle-outline"
-            style={{ color: 'white', fontSize: 18 }}
+            style={{ color: 'white', fontSize: 30 }}
           />
         </Button>
       </View>
