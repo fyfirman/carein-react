@@ -32,51 +32,56 @@ module.exports = {
   distance: {
     color: 'yellow'
   },
-  
-  card:{
-    marginHorizontal:16,
-    overflow: 'hidden', 
-    paddingBottom:  5,
-    paddingRight:5,
-    borderRadius:24,
+
+  card: {
+    marginHorizontal: 16,
+    overflow: 'hidden',
+    paddingBottom: 5,
+    paddingRight: 5,
+    borderRadius: 24
   },
-  bundle:{
+  bundle: {
     backgroundColor: '#fff',
     shadowColor: '#000',
-    width:'auto',
-    height:106,
+    width: 'auto',
+    height: 106,
     shadowOffset: { width: 1, height: 1 },
-    shadowOpacity:  0.2,
+    shadowOpacity: 0.2,
     shadowRadius: 1,
     elevation: 5,
-    borderRadius:24
+    borderRadius: 24
   },
-  subcard:{
-    marginHorizontal:15,
-    marginVertical:9
+  subcard: {
+    marginHorizontal: 15,
+    marginVertical: 9
   },
-  textSubcard:{
-    color: 'rgba(6, 44, 60, 0.9)', 
-    fontWeight: 'bold', 
-    fontSize: 18 
+  textSubcard: {
+    color: 'rgba(6, 44, 60, 0.9)',
+    fontWeight: 'bold',
+    fontSize: 18
   },
-  subtextSubcard:{
-    color: 'rgba(6, 44, 60, 0.9)', 
-    fontSize: 12 
+  subtextSubcard: {
+    color: 'rgba(6, 44, 60, 0.9)',
+    fontSize: 12
   },
-  doneSubcard:{
+  doneSubcard: {
     color: 'rgba(6, 44, 60, 0.9)',
     fontSize: 14,
-    paddingLeft:'-5%'
+    paddingLeft: '-5%'
   },
-  doneInfoSubcard:{
-    color: 'green',
+  done: {
+    color: '#27AE60',
     fontSize: 14,
     fontWeight: '600'
   },
-  img:{
-    width:78,
-    height:78,
-    borderRadius:10
+  failed: {
+    color: '#EB5757',
+    fontSize: 14,
+    fontWeight: '600'
   },
+  img: {
+    width: 78,
+    height: 78,
+    borderRadius: 10
+  }
 };
