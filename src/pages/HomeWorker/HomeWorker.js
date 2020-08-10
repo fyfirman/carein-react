@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { BackHandler, Alert, View, Switch } from 'react-native';
+import {
+  BackHandler,
+  Alert,
+  View,
+  Switch,
+  TouchableOpacity
+} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -17,7 +23,7 @@ import {
   Thumbnail,
   Content
 } from 'native-base';
-// import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 import Api from '../../services';
 import { UserActions } from '../../redux/actions';
@@ -98,11 +104,13 @@ const Home = (props) => {
       <Content>
         <View style={styles.heading}>
           <Text style={{ fontWeight: 'bold', fontSize: 24 }}>Care.In</Text>
-          <Thumbnail
-            small
-            source={require('../../assets/marcell-white.jpg')}
-            style={styles.thumbnail}
-          />
+          <TouchableOpacity onPress={() => Actions.profile()}>
+            <Thumbnail
+              small
+              source={require('../../assets/marcell-white.jpg')}
+              style={styles.thumbnail}
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.infoMoney}>
           <View>
@@ -131,8 +139,7 @@ const Home = (props) => {
               mapRef.fitToCoordinates([userPosition, workerPosition], {
                 edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
                 animated: true
-              })
-            }
+              })}
           >
             <Marker coordinate={userPosition} onMapReady title="Lokasi Kamu" />
             <Marker coordinate={workerPosition} title="Lokasi Nakes" />
@@ -142,7 +149,9 @@ const Home = (props) => {
         <View style={{ marginHorizontal: 16 }}>
           <View style={styles.subtitle}>
             <Text style={styles.subHeadingLeft}>Pesanan</Text>
-            <Text style={styles.subHeadingRight}>Lihat Riwayat</Text>
+            <TouchableOpacity onPress={() => Actions.transaction()}>
+              <Text style={styles.subHeadingRight}>Lihat Riwayat</Text>
+            </TouchableOpacity>
           </View>
 
           <Card style={styles.card}>
@@ -166,7 +175,11 @@ const Home = (props) => {
                 </View>
               </Left>
               <Right>
-                <Button iconLeft style={styles.chatSubCardOne}>
+                <Button
+                  iconLeft
+                  style={styles.chatSubCardOne}
+                  onPress={() => Actions.chat()}
+                >
                   <Icon name="paper-plane" style={{ fontSize: 10 }} />
                   <Text style={styles.chatTextSubCardOne}>Chat</Text>
                 </Button>
