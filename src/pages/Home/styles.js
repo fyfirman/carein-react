@@ -19,16 +19,12 @@ module.exports = {
     justifyContent: 'space-between'
   },
   
-  img:{
-    width:78,
-    height:78,
-    borderRadius:10
-  },
   card:{
+    marginHorizontal:16,
     overflow: 'hidden', 
     paddingBottom:  5,
     paddingRight:5,
-    borderRadius:24
+    borderRadius:24,
   },
   bundle:{
     backgroundColor: '#fff',
@@ -36,13 +32,17 @@ module.exports = {
     width:'auto',
     height:106,
     shadowOffset: { width: 1, height: 1 },
-    shadowOpacity:  0.9,
+    shadowOpacity:  0.2,
     shadowRadius: 1,
-    elevation: 3,
+    elevation: 5,
     borderRadius:24
   },
   subcard:{
-    marginLeft:13
+    marginHorizontal:15,
+    alignSelf:'flex-start'
+  },
+  subcardBundle:{
+    marginHorizontal:13
   },
   textSubcard:{
     color: 'rgba(6, 44, 60, 0.9)', 
@@ -63,28 +63,46 @@ module.exports = {
     fontSize: 14,
     fontWeight: '600'
   },
+  img:{
+    width:78,
+    height:78,
+    borderRadius:10
+  },
 
   noTransSubcard:{
     textAlign: 'center',
-    marginVertical: 20,
     marginHorizontal: '12%',
     color: 'grey',
-    fontSize: 18
+    fontSize: 18,
+    alignSelf:'center',
+  },
+
+  textBundle:{
+    flexDirection:'column',
+    flex:1,
+    justifyContent:'center'
   },
   chat:{
     backgroundColor:'#497CFB',
     borderRadius:8,
     height:35,
-    width:58,
+    width:66, 
+    marginBottom:'-90%'
+  },
+  chatBundle:{
+    alignSelf:'center',
+    marginRight:'-10%'
   },
   chatText:{
     fontSize:14,
-    paddingLeft:15,
-    paddingRight:15,
     paddingTop:'5%',
     paddingBottom:'5%', 
     color:'white',
-    textAlign:'center'
+    textAlign:'center',
+  },
+  chatTextBundle:{
+    paddingLeft:'30%',
+    paddingRight:'30%'
   },
   feature:{
     marginTop:30

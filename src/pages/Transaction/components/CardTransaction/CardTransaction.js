@@ -34,23 +34,6 @@ const CardTransaction = (props) => {
   };
 
   return (
-    // <Card style={styles.root}>
-    //   <CardItem button style={styles.content}>
-    //     <View style={styles.imageContainer}>
-    //       <Image style={styles.image} source={photoSource} />
-    //     </View>
-    //     <View style={styles.information}>
-    //       <Text style={styles.name}>{name}</Text>
-    //       {status === 'selesai' && <Text style={styles.subinfo}>{date}</Text>}
-    //       <Text style={styles.subinfo}>{getSubInfo()}</Text>
-    //     </View>
-    //     {status !== 'selesai' && (
-    //       <Button onPress={onPress}>
-    //         <Text>Chat</Text>
-    //       </Button>
-    //     )}
-    //   </CardItem>
-    // </Card>
     <View style={styles.card}>
       <View noShadow >
         <CardItem style={styles.bundle}>

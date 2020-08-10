@@ -97,51 +97,50 @@ const Home = (props) => {
     switch (status) {
       case 'active':
         return (
-          <Card style={styles.card}>
-            <CardItem>
-              <Left>
-                <Thumbnail
-                  source={{
-                    uri: StringBuilder.addBaseURL(
-                      state.activeTransaction.worker.foto
-                    )
-                  }}
-                  style={styles.img}
-                />
-                <View style={styles.subcard}>
-                  <Text style={styles.textSubcard}>
-                    {state.activeTransaction.worker !== undefined
-                      ? state.activeTransaction.worker.nama
-                      : ''}
-                  </Text>
-                  <Text style={styles.subtextSubcard}>
-                    {state.activeTransaction.status}
-                  </Text>
-                </View>
-              </Left>
-              <Right>
-                <Button style={styles.chat} onPress={() => Actions.chat()}>
-                  <View >
-                  <Text><Text style={styles.chatText}>Chat</Text></Text>
-                  </View>
-                </Button>
-              </Right>
-            </CardItem>
-          </Card>
+          <View style={styles.card}>
+            <View noShadow >
+              <CardItem style={styles.bundle}>
+                 <Thumbnail
+                   source={{
+                     uri: StringBuilder.addBaseURL(
+                       state.activeTransaction.worker.foto
+                     )
+                   }}
+                   style={styles.img}
+                 />
+                 <View style={styles.subcard}>
+                   <Text style={styles.textSubcard}>
+                     {state.activeTransaction.worker !== undefined
+                       ? state.activeTransaction.worker.nama
+                       : ''}
+                   </Text>
+                   <Text style={styles.subtextSubcard}>
+                     {state.activeTransaction.status}
+                   </Text>
+                 </View>
+               <Right style={styles.chatBundle}>
+                 <Button style={styles.chat} onPress={() => Actions.chat()}>
+                   <Text style={styles.chatTextBundle}><Text style={styles.chatText}>Chat</Text></Text>
+                 </Button>
+               </Right>
+             </CardItem>
+           </View>
+          </View>
         );
       case 'inactive':
         return (
           <View style={styles.card}>
-            <View noShadow style={styles.bundle}>
-              <CardItem>
-                <Thumbnail source={{
-              // uri: StringBuilder.addBaseURL(state.activeTransaction.worker.foto)
-              uri: 'https://reactnative.dev/img/tiny_logo.png'
-            }}
+            <View noShadow >
+              <CardItem style={styles.bundle}>
+                <Thumbnail
+                  source={{
+                    // uri: StringBuilder.addBaseURL(state.activeTransaction.worker.foto)
+                    uri: 'https://reactnative.dev/img/tiny_logo.png'
+                  }}
                   style={styles.img}
                 />
-                <View style={styles.subcard}>
-                  <Text style={styles.textSubcard}>Marcell Antonius</Text>
+                <View style={styles.subcardBundle}>
+                  <Text style={styles.textSubcard}>Ucok</Text>
                   <Text style={styles.doneSubcard}>6 Agustus 2020</Text>
                   <Text style={styles.doneSubcard}>
                     Rp. 100.000 •
@@ -154,13 +153,17 @@ const Home = (props) => {
         );
       case 'no-transaction':
         return (
-          <Card style={styles.card}>
-            <CardItem>
+          <View style={styles.card}>
+            <View noShadow >
+            <CardItem  style={styles.bundle}>
+              <View style={styles.textBundle}>
               <Text style={styles.noTransSubcard}>
                 Tidak ada transaksi tersedia
               </Text>
+              </View>
             </CardItem>
-          </Card>
+            </View>
+          </View>
         );
       default:
         return null;

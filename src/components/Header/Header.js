@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Header, Title, Button, Left, Right, Body, Icon } from 'native-base';
+import { Header, Text, Title, Button, Left, Right, Body, Icon } from 'native-base';
 
 const propTypes = {
   iconName: PropTypes.string.isRequired,
@@ -21,7 +21,7 @@ const StyledHeader = (props) => {
         </Button>
       </Left>
       <Body>
-        <Title>{title}</Title>
+        <Text style={{textAlign:'center'}}>{title}</Text>
       </Body>
       <Right />
     </Header>
