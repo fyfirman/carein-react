@@ -129,22 +129,26 @@ const Home = (props) => {
         );
       case 'inactive':
         return (
-          <Card style={styles.card}>
-            <CardItem>
-              <Thumbnail
-                source={require('../../assets/me_here.jpeg')}
-                style={styles.img}
-              />
-              <View style={styles.subcard}>
-                <Text style={styles.textSubcard}>Marcell Antonius</Text>
-                <Text style={styles.doneSubcard}>6 Agustus 2020</Text>
-                <Text style={styles.doneSubcard}>
-                  Rp. 100.000 •
-                  <Text style={styles.doneInfoSubcard}> Selesai</Text>
-                </Text>
-              </View>
-            </CardItem>
-          </Card>
+          <View style={styles.card}>
+            <View noShadow style={styles.bundle}>
+              <CardItem>
+                <Thumbnail source={{
+              // uri: StringBuilder.addBaseURL(state.activeTransaction.worker.foto)
+              uri: 'https://reactnative.dev/img/tiny_logo.png'
+            }}
+                  style={styles.img}
+                />
+                <View style={styles.subcard}>
+                  <Text style={styles.textSubcard}>Marcell Antonius</Text>
+                  <Text style={styles.doneSubcard}>6 Agustus 2020</Text>
+                  <Text style={styles.doneSubcard}>
+                    Rp. 100.000 •
+                    <Text style={styles.doneInfoSubcard}> Selesai</Text>
+                  </Text>
+                </View>
+              </CardItem>
+            </View>
+          </View>
         );
       case 'no-transaction':
         return (
@@ -169,7 +173,7 @@ const Home = (props) => {
           <View style={styles.subtitle}>
             <Text style={styles.textSubHeading}>Transaksi</Text>
             <TouchableOpacity onPress={() => Actions.transaction()}>
-              <Text style={{ fontSize: 14 }}>Lihat Semua</Text>
+              <Text style={styles.textSubHeadingAll}>Lihat Semua</Text>
             </TouchableOpacity>
           </View>
 

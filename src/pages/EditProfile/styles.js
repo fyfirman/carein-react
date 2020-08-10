@@ -7,5 +7,8 @@ module.exports = {
   },
   button_save:{
     marginVertical:'5%'
+  },
+  loginFormWorker:{
+    marginVertical:'50%'
   }
 };

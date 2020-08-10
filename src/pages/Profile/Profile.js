@@ -60,7 +60,7 @@ const Profile = (props) => {
               warna="blue"
             />
             <ProfileItem
-              title="Telpon"
+              title="Nomor Telepon"
               item={user.noTelp}
               icon="call-outline"
               color="red"
@@ -75,6 +75,19 @@ const Profile = (props) => {
               title="Tinggi Badan"
               item={`${user.tinggiBadan} cm`}
               icon="resize-outline"
+              color="green"
+            />
+            {/* wokrer */}
+            <ProfileItem
+              title="Profesi"
+              item={`${user.tinggiBadan} cm`}
+              icon="medkit-outline"
+              color="green"
+            />
+            <ProfileItem
+              title="Harga"
+              item={`${user.tinggiBadan} cm`}
+              icon="cash-outline"
               color="green"
             />
           </List>

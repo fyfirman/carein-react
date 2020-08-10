@@ -9,9 +9,12 @@ module.exports = {
     fontSize: 14,
     fontWeight:'bold'
   },
+  textSubHeadingAll:{
+    fontSize: 14 ,color:'rgba(6, 44, 60, 0.9)'
+  },
   subtitle:{
     flexDirection: 'row',
-    marginTop:40,
+    marginTop:22,
     marginBottom:'7%', 
     justifyContent: 'space-between'
   },
@@ -21,6 +24,20 @@ module.exports = {
     borderRadius:10
   },
   card:{
+    overflow: 'hidden', 
+    paddingBottom:  5,
+    paddingRight:5,
+    borderRadius:24
+  },
+  bundle:{
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    width:'auto',
+    height:106,
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity:  0.9,
+    shadowRadius: 1,
+    elevation: 3,
     borderRadius:24
   },
   subcard:{
