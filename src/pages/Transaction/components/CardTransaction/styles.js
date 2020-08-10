@@ -37,7 +37,7 @@ module.exports = {
     overflow: 'hidden', 
     paddingBottom:  5,
     paddingRight:5,
-    borderRadius:24
+    borderRadius:24,
   },
   bundle:{
     backgroundColor: '#fff',
@@ -72,5 +72,10 @@ module.exports = {
     color: 'green',
     fontSize: 14,
     fontWeight: '600'
+  },
+  img:{
+    width:78,
+    height:78,
+    borderRadius:10
   },
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator,View } from 'react-native';
 import { Container, Content, Toast, Text } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { Header } from '../../components';
@@ -7,6 +7,7 @@ import { CardTransaction } from './components';
 import Api from '../../services';
 import { StringBuilder } from '../../helpers';
 import mockData from './mockData';
+import styles from '../../components/PairInputText/styles';
 
 const propTypes = {};
 

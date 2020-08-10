@@ -121,7 +121,9 @@ const Home = (props) => {
               </Left>
               <Right>
                 <Button style={styles.chat} onPress={() => Actions.chat()}>
-                  <Text style={styles.chatText}>Chat</Text>
+                  <View >
+                  <Text><Text style={styles.chatText}>Chat</Text></Text>
+                  </View>
                 </Button>
               </Right>
             </CardItem>

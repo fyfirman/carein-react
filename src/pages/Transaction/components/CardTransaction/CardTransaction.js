@@ -52,8 +52,8 @@ const CardTransaction = (props) => {
     //   </CardItem>
     // </Card>
     <View style={styles.card}>
-      <View noShadow style={styles.bundle}>
-        <CardItem>
+      <View noShadow >
+        <CardItem style={styles.bundle}>
           <Thumbnail
             source={photoSource} 
             style={styles.img}

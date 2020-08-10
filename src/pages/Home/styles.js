@@ -79,11 +79,12 @@ module.exports = {
   },
   chatText:{
     fontSize:14,
-    paddingLeft:10,
-    paddingRight:10,
+    paddingLeft:15,
+    paddingRight:15,
     paddingTop:'5%',
     paddingBottom:'5%', 
-    color:'white' 
+    color:'white',
+    textAlign:'center'
   },
   feature:{
     marginTop:30
