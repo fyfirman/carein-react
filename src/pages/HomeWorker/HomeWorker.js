@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { View, Switch, TouchableOpacity, Image } from 'react-native';
+import {
+  View,
+  Switch,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+  PermissionsAndroid
+} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MapView, { Marker } from 'react-native-maps';
+import Geolocation from '@react-native-community/geolocation';
 import {
   Container,
   Toast,
@@ -32,12 +40,12 @@ const defaultProps = {};
 const HomeWorker = (props) => {
   const { user, setUser } = props;
 
-  const userPosition = {
-    latitude: -6.9564084,
-    longitude: 107.6719725
-  };
+  const [state, setState] = useState({
+    isLoaded: false,
+    userLocation: {}
+  });
 
-  const workerPosition = {
+  const patientPosition = {
     latitude: -6.9562084,
     longitude: 107.6119725
   };
@@ -69,7 +77,28 @@ const HomeWorker = (props) => {
       );
     };
 
-    console.log(user);
+    const getUserLocation = async () => {
+      Geolocation.getCurrentPosition(
+        (position) => {
+          setState({
+            ...state,
+            userLocation: {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            },
+            isLoaded: true
+          });
+          console.log('userLocation setted', {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          });
+        },
+        (error) => Toast.show({ text: error.message }),
+        { enableHighAccuracy: false, timeout: 5000 }
+      );
+    };
+
+    getUserLocation();
     fetchUser();
   }, []);
 
@@ -104,27 +133,34 @@ const HomeWorker = (props) => {
         </View>
 
         <View style={styles.map}>
-          <MapView
-            ref={(ref) => {
-              mapRef = ref;
-            }}
-            style={styles.map}
-            region={{
-              latitude: userPosition.latitude,
-              longitude: userPosition.longitude,
-              latitudeDelta: 0.15,
-              longitudeDelta: 0.15
-            }}
-            onLayout={() =>
-              mapRef.fitToCoordinates([userPosition, workerPosition], {
-                edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
-                animated: true
-              })
-            }
-          >
-            <Marker coordinate={userPosition} onMapReady title="Lokasi Kamu" />
-            <Marker coordinate={workerPosition} title="Lokasi Nakes" />
-          </MapView>
+          {state.isLoaded ? (
+            <MapView
+              ref={(ref) => {
+                mapRef = ref;
+              }}
+              style={styles.map}
+              region={{
+                ...state.userLocation,
+                latitudeDelta: 0.15,
+                longitudeDelta: 0.15
+              }}
+              onLayout={() =>
+                mapRef.fitToCoordinates([state.userLocation, patientPosition], {
+                  edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+                  animated: true
+                })
+              }
+            >
+              <Marker
+                coordinate={state.userLocation}
+                onMapReady
+                title="Lokasi Kamu"
+              />
+              <Marker coordinate={patientPosition} title="Lokasi Nakes" />
+            </MapView>
+          ) : (
+            <ActivityIndicator />
+          )}
         </View>
 
         <View style={{ marginHorizontal: 16 }}>
