@@ -51,21 +51,7 @@ const Home = (props) => {
 
   let mapRef;
 
-  const backAction = () => {
-    Alert.alert('Hold on!', 'Are you sure you want to go back?', [
-      {
-        text: 'Cancel',
-        onPress: () => null,
-        style: 'cancel'
-      },
-      { text: 'YES', onPress: () => BackHandler.exitApp() }
-    ]);
-    return true;
-  };
-
   useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', backAction);
-
     const fetchUser = async () => {
       Api.getCheckAuth().then(
         (res) => {
@@ -76,8 +62,7 @@ const Home = (props) => {
           };
           Api.getWorker(params).then(
             (data) => {
-              // setUser(data.nakes);
-              Toast.show({ text: 'berhasil' });
+              setUser(data.nakes);
             },
             (e) => {
               Toast.show({ text: e.message });
@@ -92,10 +77,8 @@ const Home = (props) => {
     };
 
     fetchUser();
-
-    return () =>
-      BackHandler.removeEventListener('hardwareBackPress', backAction);
   }, []);
+
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
