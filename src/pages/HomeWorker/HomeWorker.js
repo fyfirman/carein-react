@@ -42,12 +42,13 @@ const HomeWorker = (props) => {
 
   const [state, setState] = useState({
     isLoaded: false,
-    userLocation: {},
     sharingLocation: false,
     activeTransaction: {
       status: OrderStatus.INACTIVE
     }
   });
+
+  const [userLocation, setUserLocation] = useState({});
 
   let mapRef;
 
@@ -78,15 +79,17 @@ const HomeWorker = (props) => {
     const getUserLocation = (data) => {
       Geolocation.getCurrentPosition(
         (position) => {
-          setState({
-            ...state,
-            ...data,
-            userLocation: {
+          setState(
+            {
+              ...state,
+              ...data,
+              isLoaded: true
+            },
+            setUserLocation({
               latitude: position.coords.latitude,
               longitude: position.coords.longitude
-            },
-            isLoaded: true
-          });
+            })
+          );
         },
         (error) => Toast.show({ text: error.message }),
         { enableHighAccuracy: false, timeout: 5000 }
@@ -129,7 +132,7 @@ const HomeWorker = (props) => {
     const body = {
       ...user,
       berbagiLokasi: !state.sharingLocation,
-      lokasi: { ...LocationFormatter.fromMapsToApi(state.userLocation) }
+      lokasi: { ...LocationFormatter.fromMapsToApi(userLocation) }
     };
 
     Api.putWorker(user.id, body).then(
@@ -144,7 +147,7 @@ const HomeWorker = (props) => {
   };
 
   const reCenterMaps = () => {
-    const coordinates = [state.userLocation];
+    const coordinates = [userLocation];
     if (Status.validToGetPatientLocation(state.activeTransaction.status)) {
       coordinates.push(state.activeTransaction.pasienLokasi);
     }
@@ -235,17 +238,13 @@ const HomeWorker = (props) => {
         }}
         style={styles.map}
         region={{
-          ...state.userLocation,
+          ...userLocation,
           latitudeDelta: 0.15,
           longitudeDelta: 0.15
         }}
         onLayout={reCenterMaps}
       >
-        <Marker
-          coordinate={state.userLocation}
-          onMapReady
-          title="Lokasi Kamu"
-        />
+        <Marker coordinate={userLocation} onMapReady title="Lokasi Kamu" />
         {Status.validToGetPatientLocation(state.activeTransaction.status) && (
           <Marker
             coordinate={state.activeTransaction.pasienLokasi}
