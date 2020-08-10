@@ -25,7 +25,7 @@ import {
 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import styles from './styles';
-import { StringBuilder } from '../../helpers';
+import { StringBuilder, Status, LocationFormatter } from '../../helpers';
 import Api from '../../services';
 import { UserActions } from '../../redux/actions';
 import { OrderStatus } from '../../constant';
@@ -43,7 +43,10 @@ const HomeWorker = (props) => {
   const [state, setState] = useState({
     isLoaded: false,
     userLocation: {},
-    sharingLocation: false
+    sharingLocation: false,
+    activeTransaction: {
+      status: OrderStatus.INACTIVE
+    }
   });
 
   const patientPosition = {
@@ -109,7 +112,13 @@ const HomeWorker = (props) => {
               unpaid: res.totalBelumSetor,
               paid: res.totalTelahSetor
             },
-            activeTransaction: res.transaksiBerjalan
+            activeTransaction: {
+              ...res.transaksiBerjalan,
+              pasienLokasi: LocationFormatter.fromApiToGmaps(
+                res.transaksiBerjalan.pasienLokasi
+              ),
+              status: Status.getStatus(res.transaksiBerjalan.status)
+            }
           };
         },
         (error) => {
@@ -199,9 +208,11 @@ const HomeWorker = (props) => {
           <Card style={styles.card}>
             <View style={styles.cardBundle}>
               <View style={{ marginLeft: '0%' }}>
-                <Text style={styles.nameSubCardOne}>Marcell Antonius</Text>
+                <Text style={styles.nameSubCardOne}>
+                  {state.activeTransaction.pasienId}
+                </Text>
                 <Text style={{ color: 'rgba(6, 44, 60, 0.9)', fontSize: 12 }}>
-                  Sedang dalam perjalanan
+                  {`${state.activeTransaction.meter} m`}
                 </Text>
                 <View style={styles.option}>
                   <Button style={styles.btnCancelDetailThree}>
@@ -219,6 +230,17 @@ const HomeWorker = (props) => {
       default:
         return null;
     }
+  };
+
+  const reCenterMaps = () => {
+    const coordinates = [state.userLocation];
+    if (Status.validToGetPatientLocation(state.activeTransaction.status)) {
+      coordinates.push(state.activeTransaction.pasienLokasi);
+    }
+    mapRef.fitToCoordinates(coordinates, {
+      edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+      animated: true
+    });
   };
 
   const toggleSwitch = () =>
@@ -263,18 +285,21 @@ const HomeWorker = (props) => {
                 latitudeDelta: 0.15,
                 longitudeDelta: 0.15
               }}
-              onLayout={() =>
-                mapRef.fitToCoordinates([state.userLocation, patientPosition], {
-                  edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
-                  animated: true
-                })}
+              onLayout={reCenterMaps}
             >
               <Marker
                 coordinate={state.userLocation}
                 onMapReady
                 title="Lokasi Kamu"
               />
-              <Marker coordinate={patientPosition} title="Lokasi Nakes" />
+              {Status.validToGetPatientLocation(
+                state.activeTransaction.status
+              ) && (
+                <Marker
+                  coordinate={state.activeTransaction.pasienLokasi}
+                  title="Lokasi Nakes"
+                />
+              )}
             </MapView>
           ) : (
             <ActivityIndicator />
@@ -288,8 +313,7 @@ const HomeWorker = (props) => {
               <Text style={styles.subHeadingRight}>Lihat Riwayat</Text>
             </TouchableOpacity>
           </View>
-
-          {renderTransactionCard(OrderStatus.INACTIVE)}
+          {renderTransactionCard(state.activeTransaction.status)}
         </View>
       </Content>
     </Container>
