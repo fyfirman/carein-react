@@ -21,6 +21,7 @@ import {
 import styles from './styles';
 import Api from '../../services';
 import { UserActions } from '../../redux/actions';
+import get from '../../services/Get';
 
 const propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -62,9 +63,15 @@ const Home = (props) => {
     const fetchUser = async () => {
       Api.getCheckAuth().then(
         (res) => {
-          Api.getUser(res.user.id).then(
+          const params = {
+            params: {
+              id: res.user.id
+            }
+          };
+          Api.getWorker(params).then(
             (data) => {
-              setUser(data.pasien);
+              // setUser(data.nakes);
+              Toast.show({ text: 'berhasil' });
             },
             (e) => {
               Toast.show({ text: e.message });
