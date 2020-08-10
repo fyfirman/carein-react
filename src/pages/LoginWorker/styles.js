@@ -37,7 +37,7 @@ module.exports = {
   },
 
   formContainer: {
-    marginTop:'65%',
+    marginTop:'75%',
     height: '45%',
     // paddingTop: CONST.LOGO_SIZE / 2 ,
     paddingLeft: SPACING.PADDING_HORIZONTAL,
@@ -45,9 +45,9 @@ module.exports = {
   },
 
   loginForm: {
-    flex: 2,
+    flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-around'
+    justifyContent: 'center'
   },
 
   separator: {

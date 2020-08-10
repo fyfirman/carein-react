@@ -18,6 +18,7 @@ module.exports = {
     marginBottom:'7%', 
     justifyContent: 'space-between'
   },
+  
   img:{
     width:78,
     height:78,
@@ -62,6 +63,7 @@ module.exports = {
     fontSize: 14,
     fontWeight: '600'
   },
+
   noTransSubcard:{
     textAlign: 'center',
     marginVertical: 20,

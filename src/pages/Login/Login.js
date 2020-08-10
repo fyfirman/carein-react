@@ -100,6 +100,7 @@ const Login = (props) => {
            <Button
              full
              primary
+             onPress={handleSubmit}
              style={styles.button_save}
            >
              <Text><Text style={styles.text}>Masuk</Text></Text>

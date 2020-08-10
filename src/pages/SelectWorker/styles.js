@@ -24,27 +24,7 @@ module.exports = {
     height:78,
     borderRadius:10
   },
-  card:{
-    borderRadius:24,
-    elevation:4
-  },
-  subcard:{
-    marginLeft:13
-  },
-  textSubcard:{
-    color: 'rgba(6, 44, 60, 0.9)', 
-    fontWeight: 'bold', 
-    fontSize: 18 
-  },
-  doneSubcard:{
-    color: 'rgba(6, 44, 60, 0.9)',
-    fontSize: 14,
-  },
-  done2Subcard:{
-    color: 'rgba(6, 44, 60, 0.9)',
-    fontSize: 14,
-    fontWeight:'600'
-  },
+ 
 
   //dont delete this
   root:{
