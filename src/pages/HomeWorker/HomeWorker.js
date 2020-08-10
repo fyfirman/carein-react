@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  BackHandler,
-  Alert,
-  View,
-  Switch,
-  TouchableOpacity
-} from 'react-native';
+import { View, Switch, TouchableOpacity } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -27,7 +21,6 @@ import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 import Api from '../../services';
 import { UserActions } from '../../redux/actions';
-import get from '../../services/Get';
 
 const propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired,
