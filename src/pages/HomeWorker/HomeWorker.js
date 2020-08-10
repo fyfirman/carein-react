@@ -232,6 +232,9 @@ const HomeWorker = (props) => {
     }
   };
 
+  const toggleSwitch = () =>
+    setState({ ...state, sharingLocation: !state.sharingLocation });
+
   const reCenterMaps = () => {
     const coordinates = [state.userLocation];
     if (Status.validToGetPatientLocation(state.activeTransaction.status)) {
@@ -243,8 +246,36 @@ const HomeWorker = (props) => {
     });
   };
 
-  const toggleSwitch = () =>
-    setState({ ...state, sharingLocation: !state.sharingLocation });
+  const renderMapView = () => {
+    return state.isLoaded ? (
+      <MapView
+        ref={(ref) => {
+          mapRef = ref;
+        }}
+        style={styles.map}
+        region={{
+          ...state.userLocation,
+          latitudeDelta: 0.15,
+          longitudeDelta: 0.15
+        }}
+        onLayout={reCenterMaps}
+      >
+        <Marker
+          coordinate={state.userLocation}
+          onMapReady
+          title="Lokasi Kamu"
+        />
+        {Status.validToGetPatientLocation(state.activeTransaction.status) && (
+          <Marker
+            coordinate={state.activeTransaction.pasienLokasi}
+            title="Lokasi Nakes"
+          />
+        )}
+      </MapView>
+    ) : (
+      <ActivityIndicator />
+    );
+  };
 
   return (
     <Container>
@@ -273,38 +304,7 @@ const HomeWorker = (props) => {
           </View>
         </View>
 
-        <View style={styles.map}>
-          {state.isLoaded ? (
-            <MapView
-              ref={(ref) => {
-                mapRef = ref;
-              }}
-              style={styles.map}
-              region={{
-                ...state.userLocation,
-                latitudeDelta: 0.15,
-                longitudeDelta: 0.15
-              }}
-              onLayout={reCenterMaps}
-            >
-              <Marker
-                coordinate={state.userLocation}
-                onMapReady
-                title="Lokasi Kamu"
-              />
-              {Status.validToGetPatientLocation(
-                state.activeTransaction.status
-              ) && (
-                <Marker
-                  coordinate={state.activeTransaction.pasienLokasi}
-                  title="Lokasi Nakes"
-                />
-              )}
-            </MapView>
-          ) : (
-            <ActivityIndicator />
-          )}
-        </View>
+        <View style={styles.map}>{renderMapView()}</View>
 
         <View style={{ marginHorizontal: 16 }}>
           <View style={styles.subtitle}>
