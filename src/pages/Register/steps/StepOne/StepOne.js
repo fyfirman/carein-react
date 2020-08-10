@@ -116,7 +116,7 @@ const Register = () => {
         <View style={styles.btnBundle}>
          <View style={styles.box}>
             <View style={styles.boxWrapper}>
-              <Button transparent >
+              <Button transparent style={styles.btn}>
                 <Icon name="chevron-forward-outline" style={styles.icon}/>
               </Button>
             </View>

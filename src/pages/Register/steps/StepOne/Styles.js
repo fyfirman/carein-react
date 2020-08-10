@@ -16,7 +16,10 @@ module.exports = {
   icon:{
     color: 'white',
     fontSize:50,
-    textAlign:'center'
+    textAlign:'center',
+  },
+  btn:{
+    marginVertical:5
   },
   btnBundle:{
     marginTop:50,
