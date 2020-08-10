@@ -8,7 +8,7 @@ import { Actions } from 'react-native-router-flux';
 import validate from 'validate.js';
 import Api from '../../services';
 import { UserActions } from '../../redux/actions';
-import { Header, DatePicker, PickerInput, TextInput } from '../../components';
+import { HeaderFull, DatePicker, PickerInput, TextInput } from '../../components';
 import styles from './styles';
 import { DateFormatter } from '../../helpers';
 import schema from './schema';
@@ -119,9 +119,10 @@ const EditProfile = (props) => {
 
   return (
     <Container>
-      <Header
-        iconName="chevron-back-outline"
-        title="Ubah profil"
+      <HeaderFull
+        iconNameRight="checkmark-outline"
+        iconName="close-outline"
+        title="Ubah Profil"
         onPress={() => Actions.pop()}
       />
       <Content style={styles.container}>

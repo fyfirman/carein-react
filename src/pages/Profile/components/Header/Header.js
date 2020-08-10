@@ -41,7 +41,15 @@ const StyledHeader = (props) => {
         <Button transparent onPress={onEditPress}>
           <Icon
             name="create-outline"
-            style={{ color: 'white', fontSize: 36 }}
+            style={{ color: 'white', fontSize: 30 }}
+          />
+        </Button>
+      </View>
+      <View style={{ position: 'absolute', alignSelf: 'flex-start' }}>
+        <Button transparent onPress={onEditPress}>
+          <Icon
+            name="chevron-back-outline"
+            style={{ color: 'white', fontSize: 30 }}
           />
         </Button>
       </View>

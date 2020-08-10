@@ -4,7 +4,8 @@ const { Right } = require('native-base');
 module.exports = {
   box:{
     overflow: 'hidden', 
-    paddingBottom:  5
+    paddingBottom:  3,
+    borderRadius:73,
   },
   boxWrapper:{
     backgroundColor: '#fff',
@@ -15,7 +16,7 @@ module.exports = {
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity:  0.4,
     shadowRadius: 1,
-    elevation: 5,
+    elevation: 2,
   },
   stylesIcon:{
     color:'red',
