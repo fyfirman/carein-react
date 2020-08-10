@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from 'react-native-dotenv';
 
-const delete = (path, config) => {
+const drop = (path, config) => {
   const promise = new Promise((resolve, reject) => {
     axios.delete(`${BASE_URL}/${path}`, config).then(
       (result) => {
@@ -16,4 +16,4 @@ const delete = (path, config) => {
   return promise;
 };
 
-export default delete;
+export default drop;

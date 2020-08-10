@@ -55,7 +55,7 @@ const HomeWorker = (props) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      Api.getCheckAuth().then(
+      return Api.getCheckAuth().then(
         (res) => {
           const params = {
             params: {
@@ -78,11 +78,12 @@ const HomeWorker = (props) => {
       );
     };
 
-    const getUserLocation = async () => {
+    const getUserLocation = (data) => {
       Geolocation.getCurrentPosition(
         (position) => {
           setState({
             ...state,
+            ...data,
             userLocation: {
               latitude: position.coords.latitude,
               longitude: position.coords.longitude
@@ -99,8 +100,27 @@ const HomeWorker = (props) => {
       );
     };
 
-    getUserLocation();
-    fetchUser();
+    const fetchTransaction = async () => {
+      return Api.getTransactionWorker().then(
+        (res) => {
+          return {
+            deposit: {
+              income: res.totalPendapatan,
+              unpaid: res.totalBelumSetor,
+              paid: res.totalTelahSetor
+            },
+            activeTransaction: res.transaksiBerjalan
+          };
+        },
+        (error) => {
+          Toast.show({ text: error.message });
+        }
+      );
+    };
+
+    fetchUser()
+      .then(() => fetchTransaction())
+      .then((data) => getUserLocation(data));
   }, []);
 
   const renderTransactionCard = (status) => {
@@ -209,11 +229,7 @@ const HomeWorker = (props) => {
       <Content>
         <View style={styles.heading}>
           <Text style={{ fontWeight: 'bold', fontSize: 24 }}>Care.In</Text>
-          <TouchableOpacity
-            onPress={() => {
-              console.log(StringBuilder.addBaseURL(user.foto));
-            }}
-          >
+          <TouchableOpacity onPress={() => Actions.profile()}>
             <Image
               style={styles.thumbnail}
               source={{ uri: StringBuilder.addBaseURL(user.foto) }}
@@ -222,12 +238,16 @@ const HomeWorker = (props) => {
         </View>
         <View style={styles.infoMoney}>
           <View>
-            <Text style={styles.infoMoneyHeader}>Total Pemasukan</Text>
-            <Text style={styles.infoMoneyTotal}>600.000</Text>
+            <Text style={styles.infoMoneyHeader}>Total Pendapatan</Text>
+            <Text style={styles.infoMoneyTotal}>
+              {state.deposit ? state.deposit.income : '0'}
+            </Text>
           </View>
           <View>
             <Text style={styles.infoMoneyHeader}>Uang yang harus disetor</Text>
-            <Text style={styles.infoMoneyTotal}>600.000</Text>
+            <Text style={styles.infoMoneyTotal}>
+              {state.deposit ? state.deposit.unpaid : '0'}
+            </Text>
           </View>
         </View>
 
