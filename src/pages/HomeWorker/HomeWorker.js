@@ -4,8 +4,7 @@ import {
   Switch,
   TouchableOpacity,
   Image,
-  ActivityIndicator,
-  PermissionsAndroid
+  ActivityIndicator
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -29,6 +28,7 @@ import styles from './styles';
 import { StringBuilder } from '../../helpers';
 import Api from '../../services';
 import { UserActions } from '../../redux/actions';
+import { OrderStatus } from '../../constant';
 
 const propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -42,7 +42,8 @@ const HomeWorker = (props) => {
 
   const [state, setState] = useState({
     isLoaded: false,
-    userLocation: {}
+    userLocation: {},
+    sharingLocation: false
   });
 
   const patientPosition = {
@@ -102,8 +103,106 @@ const HomeWorker = (props) => {
     fetchUser();
   }, []);
 
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  const renderTransactionCard = (status) => {
+    switch (status) {
+      case OrderStatus.ACTIVE:
+        return (
+          <Card style={styles.card}>
+            <CardItem>
+              <Left>
+                <View>
+                  <View style={styles.subCardOne}>
+                    <Text style={styles.nameSubCardOne}>Marcell Antonius</Text>
+                    <Text style={styles.statusSubCardOne}>
+                      Sedang dalam perjalanan
+                    </Text>
+                  </View>
+                  <View style={styles.btnSubCardOne}>
+                    <Button style={styles.btnCancelDetailOne}>
+                      <Text style={styles.btnCancelTextOne}>Batalkan</Text>
+                    </Button>
+                    <Button style={styles.btnSuccessDetailOne}>
+                      <Text style={styles.btnSuccessTextOne}>Selesai</Text>
+                    </Button>
+                  </View>
+                </View>
+              </Left>
+              <Right>
+                <Button
+                  iconLeft
+                  style={styles.chatSubCardOne}
+                  onPress={() => Actions.chat()}
+                >
+                  <Icon name="paper-plane" style={{ fontSize: 10 }} />
+                  <Text style={styles.chatTextSubCardOne}>Chat</Text>
+                </Button>
+              </Right>
+            </CardItem>
+          </Card>
+        );
+      case OrderStatus.INACTIVE:
+        return (
+          <Card
+            style={
+              state.sharingLocation ? styles.noInfoCard : styles.noInfoCardOFF
+            }
+          >
+            <View style={styles.noInfoCardBundle}>
+              <Text style={styles.noInfoTextCard}>
+                {state.sharingLocation
+                  ? 'Tidak ada pesan yang masuk'
+                  : 'Kamu tidak akan menerima pesanan'}
+              </Text>
+              <View style={styles.switchCard}>
+                <View>
+                  <Switch
+                    style={{ width: 56, height: 28 }}
+                    trackColor={{
+                      false: 'rgba(255, 255, 255, 0.5)',
+                      true: 'rgba(255, 255, 255, 0.5)'
+                    }}
+                    thumbColor={state.sharingLocation ? '#f4f3f4' : '#f4f3f4'}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={toggleSwitch}
+                    value={state.sharingLocation}
+                  />
+                </View>
+                <View>
+                  <Text style={styles.textCard}>Terima Pesanan</Text>
+                </View>
+              </View>
+            </View>
+          </Card>
+        );
+      case OrderStatus.PENDING:
+        return (
+          <Card style={styles.card}>
+            <View style={styles.cardBundle}>
+              <View style={{ marginLeft: '0%' }}>
+                <Text style={styles.nameSubCardOne}>Marcell Antonius</Text>
+                <Text style={{ color: 'rgba(6, 44, 60, 0.9)', fontSize: 12 }}>
+                  Sedang dalam perjalanan
+                </Text>
+                <View style={styles.option}>
+                  <Button style={styles.btnCancelDetailThree}>
+                    <Text style={styles.btnCancelTextThree}>Tolak</Text>
+                  </Button>
+                  <Button success style={styles.btnSuccessDetailThree}>
+                    <Text style={styles.btnSuccessTextThree}>Terima</Text>
+                  </Button>
+                </View>
+              </View>
+            </View>
+          </Card>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  const toggleSwitch = () =>
+    setState({ ...state, sharingLocation: !state.sharingLocation });
 
   return (
     <Container>
@@ -148,8 +247,7 @@ const HomeWorker = (props) => {
                 mapRef.fitToCoordinates([state.userLocation, patientPosition], {
                   edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
                   animated: true
-                })
-              }
+                })}
             >
               <Marker
                 coordinate={state.userLocation}
@@ -171,109 +269,7 @@ const HomeWorker = (props) => {
             </TouchableOpacity>
           </View>
 
-          <Card style={styles.card}>
-            <CardItem>
-              <Left>
-                <View>
-                  <View style={styles.subCardOne}>
-                    <Text style={styles.nameSubCardOne}>Marcell Antonius</Text>
-                    <Text style={styles.statusSubCardOne}>
-                      Sedang dalam perjalanan
-                    </Text>
-                  </View>
-                  <View style={styles.btnSubCardOne}>
-                    <Button style={styles.btnCancelDetailOne}>
-                      <Text style={styles.btnCancelTextOne}>Batalkan</Text>
-                    </Button>
-                    <Button style={styles.btnSuccessDetailOne}>
-                      <Text style={styles.btnSuccessTextOne}>Selesai</Text>
-                    </Button>
-                  </View>
-                </View>
-              </Left>
-              <Right>
-                <Button
-                  iconLeft
-                  style={styles.chatSubCardOne}
-                  onPress={() => Actions.chat()}
-                >
-                  <Icon name="paper-plane" style={{ fontSize: 10 }} />
-                  <Text style={styles.chatTextSubCardOne}>Chat</Text>
-                </Button>
-              </Right>
-            </CardItem>
-          </Card>
-
-          <Card style={styles.card}>
-            <View style={styles.cardBundle}>
-              <View style={{ marginLeft: '0%' }}>
-                <Text style={styles.nameSubCardOne}>Marcell Antonius</Text>
-                <Text style={{ color: 'rgba(6, 44, 60, 0.9)', fontSize: 12 }}>
-                  Sedang dalam perjalanan
-                </Text>
-                <View style={styles.option}>
-                  <Button style={styles.btnCancelDetailThree}>
-                    <Text style={styles.btnCancelTextThree}>Tolak</Text>
-                  </Button>
-                  <Button success style={styles.btnSuccessDetailThree}>
-                    <Text style={styles.btnSuccessTextThree}>Terima</Text>
-                  </Button>
-                </View>
-              </View>
-            </View>
-          </Card>
-
-          <Card style={styles.noInfoCard}>
-            <View style={styles.noInfoCardBundle}>
-              <Text style={styles.noInfoTextCard}>
-                Tidak ada pesan yang masuk
-              </Text>
-              <View style={styles.switchCard}>
-                <View>
-                  <Switch
-                    style={{ width: 56, height: 28 }}
-                    trackColor={{
-                      false: 'rgba(255, 255, 255, 0.5)',
-                      true: 'rgba(255, 255, 255, 0.5)'
-                    }}
-                    thumbColor={isEnabled ? '#f4f3f4' : '#f4f3f4'}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={toggleSwitch}
-                    value={isEnabled}
-                  />
-                </View>
-                <View>
-                  <Text style={styles.textCard}>Terima Pesan</Text>
-                </View>
-              </View>
-            </View>
-          </Card>
-
-          <Card style={styles.noInfoCardOFF}>
-            <View style={styles.noInfoCardBundle}>
-              <Text style={styles.noInfoTextCard}>
-                Tidak ada pesan yang masuk
-              </Text>
-              <View style={styles.switchCard}>
-                <View>
-                  <Switch
-                    style={{ width: 56, height: 28 }}
-                    trackColor={{
-                      false: 'rgba(255, 255, 255, 0.5)',
-                      true: 'rgba(255, 255, 255, 0.5)'
-                    }}
-                    thumbColor={isEnabled ? '#f4f3f4' : '#f4f3f4'}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={toggleSwitch}
-                    value={isEnabled}
-                  />
-                </View>
-                <View>
-                  <Text style={styles.textCard}>Terima Pesan</Text>
-                </View>
-              </View>
-            </View>
-          </Card>
+          {renderTransactionCard(OrderStatus.INACTIVE)}
         </View>
       </Content>
     </Container>
