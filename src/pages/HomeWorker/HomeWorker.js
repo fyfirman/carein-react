@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Switch, TouchableOpacity } from 'react-native';
+import { View, Switch, TouchableOpacity, Image } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -14,11 +14,11 @@ import {
   Icon,
   Button,
   CardItem,
-  Thumbnail,
   Content
 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import styles from './styles';
+import { StringBuilder } from '../../helpers';
 import Api from '../../services';
 import { UserActions } from '../../redux/actions';
 
@@ -29,8 +29,8 @@ const propTypes = {
 
 const defaultProps = {};
 
-const Home = (props) => {
-  const { setUser } = props;
+const HomeWorker = (props) => {
+  const { user, setUser } = props;
 
   const userPosition = {
     latitude: -6.9564084,
@@ -55,7 +55,7 @@ const Home = (props) => {
           };
           Api.getWorker(params).then(
             (data) => {
-              setUser(data.nakes);
+              setUser(data.nakes[0]);
             },
             (e) => {
               Toast.show({ text: e.message });
@@ -69,6 +69,7 @@ const Home = (props) => {
       );
     };
 
+    console.log(user);
     fetchUser();
   }, []);
 
@@ -80,11 +81,14 @@ const Home = (props) => {
       <Content>
         <View style={styles.heading}>
           <Text style={{ fontWeight: 'bold', fontSize: 24 }}>Care.In</Text>
-          <TouchableOpacity onPress={() => Actions.profile()}>
-            <Thumbnail
-              small
-              source={require('../../assets/marcell-white.jpg')}
+          <TouchableOpacity
+            onPress={() => {
+              console.log(StringBuilder.addBaseURL(user.foto));
+            }}
+          >
+            <Image
               style={styles.thumbnail}
+              source={{ uri: StringBuilder.addBaseURL(user.foto) }}
             />
           </TouchableOpacity>
         </View>
@@ -94,7 +98,7 @@ const Home = (props) => {
             <Text style={styles.infoMoneyTotal}>600.000</Text>
           </View>
           <View>
-            <Text style={styles.infoMoneyHeader}>Uang yangg harus disetor</Text>
+            <Text style={styles.infoMoneyHeader}>Uang yang harus disetor</Text>
             <Text style={styles.infoMoneyTotal}>600.000</Text>
           </View>
         </View>
@@ -115,7 +119,8 @@ const Home = (props) => {
               mapRef.fitToCoordinates([userPosition, workerPosition], {
                 edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
                 animated: true
-              })}
+              })
+            }
           >
             <Marker coordinate={userPosition} onMapReady title="Lokasi Kamu" />
             <Marker coordinate={workerPosition} title="Lokasi Nakes" />
@@ -239,8 +244,8 @@ const Home = (props) => {
   );
 };
 
-Home.propTypes = propTypes;
-Home.defaultProps = defaultProps;
+HomeWorker.propTypes = propTypes;
+HomeWorker.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
   return {
@@ -252,4 +257,4 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(UserActions, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeWorker);

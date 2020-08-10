@@ -1,5 +1,7 @@
 import SPACING from '../../theme/Spacing';
 
+const PROFILE_PICTURE_SIZE = 40;
+
 module.exports = {
   content: {
     backgroundColor: 'green'
@@ -12,7 +14,13 @@ module.exports = {
     justifyContent: 'space-between'
   },
   thumbnail: {
-    borderRadius: 20
+    borderRadius: PROFILE_PICTURE_SIZE,
+    width: PROFILE_PICTURE_SIZE,
+    height: PROFILE_PICTURE_SIZE,
+    aspectRatio: 1 / 1,
+    backgroundColor: 'white',
+    borderColor: '#497CFB',
+    borderWidth: 2
   },
   infoMoney: {
     flexDirection: 'row',
