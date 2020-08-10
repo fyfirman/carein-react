@@ -115,17 +115,13 @@ const Register = () => {
           />
         </Form>
         <View style={styles.btnBundle}>
-          <View>
-            <Button
-              iconRight
-              style={styles.button}
-              full
-              onPress={handleSubmit}
-              disabled={!formState.isValid}
-            >
-              <Icon name="arrow-forward" style={styles.icon} />
-            </Button>
-          </View>
+         <View style={styles.box}>
+            <View style={styles.boxWrapper}>
+              <Button transparent >
+                <Icon name="chevron-forward-outline" style={styles.icon}/>
+              </Button>
+            </View>
+          </View> 
         </View>
       </Content>
     </Container>

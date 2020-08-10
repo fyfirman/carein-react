@@ -181,7 +181,7 @@ const Home = (props) => {
 
           <View style={styles.feature}>
             <Text style={styles.textSubHeading}>Pesan Tenaga Kesehatan</Text>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row' ,justifyContent:'center'}}>
               <Feature
                 title="Dokter"
                 imageSource={require('../../assets/dokter.png')}

@@ -69,9 +69,6 @@ const Login = (props) => {
   return (
     <View>
       <Header />
-      <Button onPress={() => Actions.loginWorker()}>
-        <Icon name="medkit-outline" />
-      </Button>
 
       {/* <View style={styles.logoContainer}>
         <Thumbnail
@@ -99,14 +96,15 @@ const Login = (props) => {
             label="Password"
             onChangeText={(newValue) => handleChange('password', newValue)}
           />
-          <Button
-            full
-            primary
-            onPress={handleSubmit}
-            style={styles.button_save}
-          >
-            <Text>Save</Text>
-          </Button>
+          <View>
+           <Button
+             full
+             primary
+             style={styles.button_save}
+           >
+             <Text><Text style={styles.text}>Masuk</Text></Text>
+           </Button>
+         </View>
         </Form>
         <Button
           transparent
@@ -115,7 +113,7 @@ const Login = (props) => {
           onPress={() => Actions.register()}
         >
           <Text style={styles.textseparator}>
-            Belum memiliki akun ? Daftar disini
+            <Text style={styles.preRegister}>Belum punya akun?</Text><Text style={styles.register}>  Daftar</Text> 
           </Text>
         </Button>
       </View>

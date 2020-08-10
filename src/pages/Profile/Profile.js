@@ -107,7 +107,8 @@ const Profile = (props) => {
               <Text style={{ fontSize: 14 }}>Lihat Semua</Text>
             </TouchableOpacity>
           </View>
-          <Card>
+
+          <Card style={styles.cardBundle}>
             {state.medicalHistory.map((item) => (
               <Riwayat
                 index={item.id}
