@@ -92,7 +92,7 @@ const Login = (props) => {
             onPress={() => handleSubmit()}
             style={styles.button_save}
           >
-            <Text>Masuk</Text>
+            <Text><Text style={styles.text}>Masuk</Text></Text>
           </Button>
         </Form>
       </View>
