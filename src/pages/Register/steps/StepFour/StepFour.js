@@ -19,7 +19,7 @@ import {
   PairInputText,
   TextInput
 } from '../../../../components';
-import styles from './styles';
+import styles from './Styles';
 import { DateFormatter } from '../../../../helpers';
 import schema from './schema';
 import { MedicalHistoryInput } from './components';

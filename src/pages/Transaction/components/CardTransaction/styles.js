@@ -31,5 +31,46 @@ module.exports = {
 
   distance: {
     color: 'yellow'
-  }
+  },
+  card:{
+    marginHorizontal:16,
+    overflow: 'hidden', 
+    paddingBottom:  5,
+    paddingRight:5,
+    borderRadius:24
+  },
+  bundle:{
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    width:'auto',
+    height:106,
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity:  0.2,
+    shadowRadius: 1,
+    elevation: 5,
+    borderRadius:24
+  },
+  subcard:{
+    marginHorizontal:15,
+    marginVertical:9
+  },
+  textSubcard:{
+    color: 'rgba(6, 44, 60, 0.9)', 
+    fontWeight: 'bold', 
+    fontSize: 18 
+  },
+  subtextSubcard:{
+    color: 'rgba(6, 44, 60, 0.9)', 
+    fontSize: 12 
+  },
+  doneSubcard:{
+    color: 'rgba(6, 44, 60, 0.9)',
+    fontSize: 14,
+    paddingLeft:'-5%'
+  },
+  doneInfoSubcard:{
+    color: 'green',
+    fontSize: 14,
+    fontWeight: '600'
+  },
 };

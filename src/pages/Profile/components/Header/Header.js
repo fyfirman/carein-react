@@ -27,11 +27,13 @@ const StyledHeader = (props) => {
         source={require('../../../../assets/WavyBackground.png')}
       />
       <View style={styles.textBundle}>
+        <View style={styles.imageBundle}>
         <Image
-          style={{ width: 150, height: 150, borderRadius: 75 }}
+          style={styles.img}
           large
           source={require('../../../../assets/marcell-white.jpg')}
         />
+        </View>
         <Text style={styles.text}>{name}</Text>
         <Text style={styles.sub_text}>{username}</Text>
       </View>

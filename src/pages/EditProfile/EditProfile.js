@@ -125,8 +125,29 @@ const EditProfile = (props) => {
         onPress={() => Actions.pop()}
       />
       <Content style={styles.container}>
-        <Form style={styles.loginForm}>
+        <Form style={styles.loginFormWorker}>
+          {/* worker */}
           <TextInput
+            label="Nama Lengkap"
+            onChangeText={(newValue) => handleChange('nama', newValue)}
+            alertText={hasError('nama') ? formState.errors.nama[0] : null}
+            value={formState.values.nama}
+          />
+          <TextInput
+            label="No telepon"
+            keyboardType="phone-pad"
+            onChangeText={(newValue) => handleChange('noTelp', newValue)}
+            alertText={hasError('noTelp') ? formState.errors.noTelp[0] : null}
+            value={formState.values.noTelp}
+          />
+          <TextInput
+            label="Email"
+            keyboardType="email-address"
+            onChangeText={(newValue) => handleChange('email', newValue)}
+            alertText={hasError('email') ? formState.errors.email[0] : null}
+            value={formState.values.email}
+          />
+          {/* <TextInput
             label="Nama Lengkap"
             onChangeText={(newValue) => handleChange('nama', newValue)}
             alertText={hasError('nama') ? formState.errors.nama[0] : null}
@@ -190,11 +211,11 @@ const EditProfile = (props) => {
             data={bloodType}
             onValueChange={(newValue) => handleChange('goldar', newValue)}
             selectedValue={formState.values.goldar}
-          />
+          /> */}
           <View>
             {formState.errorUserExist !== null ? renderErrorUserExist() : null}
           </View>
-          <Button
+          {/* <Button
             full
             primary
             onPress={handleSubmit}
@@ -202,7 +223,7 @@ const EditProfile = (props) => {
             style={styles.button_save}
           >
             <Text>Save</Text>
-          </Button>
+          </Button> */}
         </Form>
       </Content>
     </Container>

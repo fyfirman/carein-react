@@ -17,11 +17,11 @@ const StyledHeader = (props) => {
   const { penyakit,tanggal, ...rest } = props;
 
   return (
-    <CardItem>
+    <CardItem style={{elevation:10}}>
       <Body style={styles.root}>
         <View style={styles.bubble}>
-        <Text style={{color:'black',fontSize:16}}>{penyakit}</Text>
-        <Text style={{color:'black',fontSize:12}}>{tanggal}</Text>
+        <Text style={{color:'black',fontSize:16,color:'rgba(6, 44, 60, 0.9)'}}>{penyakit}</Text>
+        <Text style={{color:'black',fontSize:12,color:'rgba(6, 44, 60, 0.9)'}}>{tanggal}</Text>
         </View>
       </Body>
     </CardItem>

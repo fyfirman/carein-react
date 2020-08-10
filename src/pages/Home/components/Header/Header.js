@@ -18,7 +18,6 @@ const StyledHeader = (props) => {
 
   return (
     <View
-      style={{ flex: 1, flexDirection: 'column', position: 'relative' }}
       noShadow
       {...rest}
     >
@@ -28,8 +27,9 @@ const StyledHeader = (props) => {
       />
       <View style={styles.textBundle}>
         <Text style={styles.text}>{`Halo ${name}`}</Text>
-        <Text style={styles.welcomeText}>Kami siap datang membantu!</Text>
+        <Text style={styles.welcomeText}>{`Kami siap datang \nmembantu!`}</Text>
       </View>
+
       <View style={{ position: 'absolute', alignSelf: 'flex-end' }}>
         <Button transparent onPress={() => Actions.profile()}>
           <Icon

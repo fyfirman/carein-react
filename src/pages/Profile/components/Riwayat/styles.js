@@ -5,7 +5,7 @@ module.exports = {
   root: {
     backgroundColor:'white',
     borderRadius:50,
-    elevation:2
+    elevation:2,
   },
   bubble:{
     marginLeft:'10%',
