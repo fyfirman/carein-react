@@ -124,12 +124,6 @@ const Checkout = (props) => {
           </View>
       </View>
      </Content>
-
-      {/* <Footer>
-        <Button onPress={handleSubmit}>
-          <Text>Order</Text>
-        </Button>
-      </Footer> */}
     </Container>
   );
 };
