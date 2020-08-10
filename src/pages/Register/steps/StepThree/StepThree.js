@@ -30,7 +30,7 @@ const Register = (props) => {
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
-      jk: 'l'
+      goldar: 'ab'
     },
     errors: {},
     touched: {},
@@ -50,13 +50,6 @@ const Register = (props) => {
 
     validateData();
   }, [formState.values]);
-
-  const getParsedFormData = () => {
-    return {
-      ...formState.values,
-      tglLahir: DateFormatter.getShortDate(formState.values.tglLahir)
-    };
-  };
 
   const hasError = (field) =>
     !!(formState.touched[field] && formState.errors[field]);
@@ -122,7 +115,8 @@ const Register = (props) => {
               onPress={() =>
                 Actions.registerStepFour({
                   stepThreeValues: { ...stepTwoValues, ...formState.values }
-                })}
+                })
+              }
               // disabled={!formState.isValid}
             >
               <Icon name="arrow-forward" style={styles.icon} />

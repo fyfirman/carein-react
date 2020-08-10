@@ -78,7 +78,7 @@ const PairInputText = (props) => {
             </View>
 
             <View style={styles.buttonContainer}>
-              {inputList.length >= minRows && inputList.length === index + 1 && (
+              {inputList.length > minRows && inputList.length === index + 1 && (
                 <Button
                   rounded
                   style={styles.buttonDelete}
