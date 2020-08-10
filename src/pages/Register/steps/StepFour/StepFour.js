@@ -20,7 +20,7 @@ import {
   PairInputText,
   TextInput
 } from '../../../../components';
-import styles from './Styles';
+import styles from './styles';
 import { DateFormatter } from '../../../../helpers';
 import schema from './schema';
 
