@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import { Router, Scene } from 'react-native-router-flux';
+import { Router, Scene, ActionConst } from 'react-native-router-flux';
 import {
   Home,
   Login,
@@ -48,6 +48,7 @@ const Routes = () => {
               title="Login"
               initial={state.token === null}
               onBack={() => BackAction.exit()}
+              type={ActionConst.RESET}
             />
             <Scene key="register" hideNavBar>
               <Scene
@@ -88,6 +89,7 @@ const Routes = () => {
                 BackAction.exit();
                 console.log('back pressed');
               }}
+              type={ActionConst.RESET}
             />
             <Scene
               key="transaction"
@@ -140,6 +142,7 @@ const Routes = () => {
                 state.token !== null && state.userType === UserType.WORKER
               }
               hideNavBar
+              type={ActionConst.RESET}
             />
           </Scene>
         </Router>
