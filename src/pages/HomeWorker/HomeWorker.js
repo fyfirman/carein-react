@@ -49,11 +49,6 @@ const HomeWorker = (props) => {
     }
   });
 
-  const patientPosition = {
-    latitude: -6.9562084,
-    longitude: 107.6119725
-  };
-
   let mapRef;
 
   useEffect(() => {
@@ -112,13 +107,16 @@ const HomeWorker = (props) => {
               unpaid: res.totalBelumSetor,
               paid: res.totalTelahSetor
             },
-            activeTransaction: {
-              ...res.transaksiBerjalan,
-              pasienLokasi: LocationFormatter.fromApiToGmaps(
-                res.transaksiBerjalan.pasienLokasi
-              ),
-              status: Status.getStatus(res.transaksiBerjalan.status)
-            }
+            activeTransaction:
+              res.transaksiBerjalan !== undefined
+                ? {
+                    ...res.transaksiBerjalan,
+                    pasienLokasi: LocationFormatter.fromApiToGmaps(
+                      res.transaksiBerjalan.pasienLokasi
+                    ),
+                    status: Status.getStatus(res.transaksiBerjalan.status)
+                  }
+                : { ...state.activeTransaction }
           };
         },
         (error) => {
@@ -131,6 +129,124 @@ const HomeWorker = (props) => {
       .then(() => fetchTransaction())
       .then((data) => getUserLocation(data));
   }, []);
+
+  const toggleSwitch = () =>
+    setState({ ...state, sharingLocation: !state.sharingLocation });
+
+  const reCenterMaps = () => {
+    const coordinates = [state.userLocation];
+    if (Status.validToGetPatientLocation(state.activeTransaction.status)) {
+      coordinates.push(state.activeTransaction.pasienLokasi);
+    }
+    mapRef.fitToCoordinates(coordinates, {
+      edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+      animated: true
+    });
+  };
+
+  const handleUpdateTransaction = (response) => {
+    let body;
+    if (response) {
+      body = {
+        status: 'berjalan',
+        berhasil: false
+      };
+    } else {
+      body = {
+        status: 'selesai',
+        berhasil: true
+      };
+    }
+
+    Api.putTransaction(state.activeTransaction.id, body)
+      .then(
+        (res) => {
+          Toast.show({
+            text: response ? 'Pesanan diterima' : 'Pesanan ditolak'
+          });
+        },
+        (error) => {
+          Toast.show({
+            text: `Gagal untuk mengubah pesanan ${error.response.data.message}`
+          });
+        }
+      )
+      .then(
+        () => {
+          if (response) {
+            Api.getTransactionWorker().then(
+              (res) => {
+                return {
+                  deposit: {
+                    income: res.totalPendapatan,
+                    unpaid: res.totalBelumSetor,
+                    paid: res.totalTelahSetor
+                  },
+                  activeTransaction:
+                    res.transaksiBerjalan !== undefined
+                      ? {
+                          ...res.transaksiBerjalan,
+                          pasienLokasi: LocationFormatter.fromApiToGmaps(
+                            res.transaksiBerjalan.pasienLokasi
+                          ),
+                          status: Status.getStatus(res.transaksiBerjalan.status)
+                        }
+                      : { ...state.activeTransaction }
+                };
+              },
+              (error) => {
+                Toast.show({
+                  text: `Gagal untuk mengubah pesanan ${error.response.data.message}`
+                });
+              }
+            );
+          } else {
+            setState({
+              ...state,
+              activeTransaction: {
+                status: OrderStatus.INACTIVE
+              }
+            });
+          }
+        },
+        (error) => {
+          Toast.show({
+            text: `Gagal untuk mengubah pesanan ${error.response.data.message}`
+          });
+        }
+      );
+  };
+
+  const renderMapView = () => {
+    return state.isLoaded ? (
+      <MapView
+        ref={(ref) => {
+          mapRef = ref;
+        }}
+        style={styles.map}
+        region={{
+          ...state.userLocation,
+          latitudeDelta: 0.15,
+          longitudeDelta: 0.15
+        }}
+        onLayout={reCenterMaps}
+      >
+        <Marker
+          coordinate={state.userLocation}
+          onMapReady
+          title="Lokasi Kamu"
+        />
+        {Status.validToGetPatientLocation(state.activeTransaction.status) && (
+          <Marker
+            coordinate={state.activeTransaction.pasienLokasi}
+            title="Lokasi Nakes"
+          />
+        )}
+      </MapView>
+    ) : (
+      <ActivityIndicator />
+    );
+  };
 
   const renderTransactionCard = (status) => {
     switch (status) {
@@ -215,10 +331,17 @@ const HomeWorker = (props) => {
                   {`${state.activeTransaction.meter} m`}
                 </Text>
                 <View style={styles.option}>
-                  <Button style={styles.btnCancelDetailThree}>
+                  <Button
+                    style={styles.btnCancelDetailThree}
+                    onPress={() => handleUpdateTransaction(false)}
+                  >
                     <Text style={styles.btnCancelTextThree}>Tolak</Text>
                   </Button>
-                  <Button success style={styles.btnSuccessDetailThree}>
+                  <Button
+                    success
+                    style={styles.btnSuccessDetailThree}
+                    onPress={() => handleUpdateTransaction(true)}
+                  >
                     <Text style={styles.btnSuccessTextThree}>Terima</Text>
                   </Button>
                 </View>
@@ -230,51 +353,6 @@ const HomeWorker = (props) => {
       default:
         return null;
     }
-  };
-
-  const toggleSwitch = () =>
-    setState({ ...state, sharingLocation: !state.sharingLocation });
-
-  const reCenterMaps = () => {
-    const coordinates = [state.userLocation];
-    if (Status.validToGetPatientLocation(state.activeTransaction.status)) {
-      coordinates.push(state.activeTransaction.pasienLokasi);
-    }
-    mapRef.fitToCoordinates(coordinates, {
-      edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
-      animated: true
-    });
-  };
-
-  const renderMapView = () => {
-    return state.isLoaded ? (
-      <MapView
-        ref={(ref) => {
-          mapRef = ref;
-        }}
-        style={styles.map}
-        region={{
-          ...state.userLocation,
-          latitudeDelta: 0.15,
-          longitudeDelta: 0.15
-        }}
-        onLayout={reCenterMaps}
-      >
-        <Marker
-          coordinate={state.userLocation}
-          onMapReady
-          title="Lokasi Kamu"
-        />
-        {Status.validToGetPatientLocation(state.activeTransaction.status) && (
-          <Marker
-            coordinate={state.activeTransaction.pasienLokasi}
-            title="Lokasi Nakes"
-          />
-        )}
-      </MapView>
-    ) : (
-      <ActivityIndicator />
-    );
   };
 
   return (
