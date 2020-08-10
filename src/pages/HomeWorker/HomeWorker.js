@@ -69,9 +69,8 @@ const HomeWorker = (props) => {
             }
           );
         },
-        (error) => {
+        () => {
           Toast.show({ text: `Tidak terkoneksi dengan internet` });
-          console.log(error);
         }
       );
     };
@@ -87,10 +86,6 @@ const HomeWorker = (props) => {
               longitude: position.coords.longitude
             },
             isLoaded: true
-          });
-          console.log('userLocation setted', {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
           });
         },
         (error) => Toast.show({ text: error.message }),
@@ -130,8 +125,23 @@ const HomeWorker = (props) => {
       .then((data) => getUserLocation(data));
   }, []);
 
-  const toggleSwitch = () =>
-    setState({ ...state, sharingLocation: !state.sharingLocation });
+  const toggleSwitch = () => {
+    const body = {
+      ...user,
+      berbagiLokasi: !state.sharingLocation,
+      lokasi: { ...LocationFormatter.fromMapsToApi(state.userLocation) }
+    };
+
+    Api.putWorker(user.id, body).then(
+      (res) => {
+        Toast.show({ text: res.message });
+        setState({ ...state, sharingLocation: !state.sharingLocation });
+      },
+      (error) => {
+        Toast.show({ text: error.response.data.message });
+      }
+    );
+  };
 
   const reCenterMaps = () => {
     const coordinates = [state.userLocation];

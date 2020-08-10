@@ -34,6 +34,8 @@ const putTransaction = async (id, data) =>
   put(`transaksi/${id}`, data, await config.withToken());
 const putMedicalHistory = async (id, data) =>
   put(`riwayat-kesehatan/${id}`, data, await config.withToken());
+const putWorker = async (id, data) =>
+  put(`nakes/${id}`, data, await config.withToken());
 
 // Delete
 const deleteMedicalHistory = async (id) =>
@@ -55,6 +57,7 @@ const Api = {
   putUser,
   putTransaction,
   putMedicalHistory,
+  putWorker,
   deleteMedicalHistory
 };
 
