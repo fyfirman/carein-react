@@ -105,8 +105,7 @@ const Register = () => {
             label="Confirm Password"
             secureTextEntry
             onChangeText={(newValue) =>
-              handleChange('confirmPassword', newValue)
-            }
+              handleChange('confirmPassword', newValue)}
             alertText={
               hasError('confirmPassword')
                 ? formState.errors.confirmPassword[0]

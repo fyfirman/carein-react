@@ -11,6 +11,7 @@ import {
   Right
 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import PropTypes from 'prop-types';
 import validate from 'validate.js';
 import API from '../../../../services';
 import {
@@ -19,16 +20,23 @@ import {
   PairInputText,
   TextInput
 } from '../../../../components';
-import styles from './Styles';
+import styles from './styles';
 import { DateFormatter } from '../../../../helpers';
 import schema from './schema';
-import { MedicalHistoryInput } from './components';
 
-const Register = () => {
+const propTypes = {
+  stepThreeValues: PropTypes.objectOf(PropTypes.any).isRequired
+};
+
+const defaultProps = {};
+
+const Register = (props) => {
+  const { stepThreeValues } = props;
+
   const [formState, setFormState] = useState({
-    isValid: false,
+    isValid: true,
     values: {
-      jk: 'l'
+      riwayatKesehatan: []
     },
     errors: {},
     touched: {},
@@ -36,36 +44,18 @@ const Register = () => {
   });
 
   useEffect(() => {
-    const validateData = () => {
-      const errors = validate(formState.values, schema);
-
-      setFormState(() => ({
-        ...formState,
-        isValid: !errors,
-        errors: errors || {}
-      }));
-    };
-
-    validateData();
+    console.log(formState.values);
   }, [formState.values]);
 
-  const genderData = [
-    { label: 'Laki-Laki', value: 'l' },
-    { label: 'Perempuan', value: 'p' }
-  ];
-
-  const getParsedFormData = () => {
+  const getParsedFormData = (data) => {
     return {
-      ...formState.values,
-      tglLahir: DateFormatter.getShortDate(formState.values.tglLahir)
+      ...data,
+      tglLahir: DateFormatter.getShortDate(data.tglLahir)
     };
   };
 
   const parseYearToDate = (year) =>
-    DateFormatter.getShortDate(new Date(parseInt(year, 10), 1, 1));
-
-  const hasError = (field) =>
-    !!(formState.touched[field] && formState.errors[field]);
+    DateFormatter.getShortDate(new Date(parseInt(year, 10), 0, 1));
 
   const parsePairInputData = (data) =>
     data.map((item) => {
@@ -86,38 +76,22 @@ const Register = () => {
   };
 
   const handleSubmit = () => {
-    API.postCheckRegister(getParsedFormData())
-      .then(() => {
-        Actions.registerMedicalHistory({ registerData: getParsedFormData() });
-      })
-      .catch((error) => {
-        setFormState({
-          ...formState,
-          errorUserExist: error.response.data.constraints
-        });
+    const body = { ...stepThreeValues, ...formState.values };
+
+    console.log(getParsedFormData(body));
+    API.postRegister(body).then(
+      (res) => {
+        Toast.show({ text: res.message, duration: 3000 });
+        setTimeout(Actions.login(), 3000);
+      },
+      (error) => {
         Toast.show({
           text: error.response.data.message,
           duration: 3000
         });
-      });
-  };
-
-  const handleChange = (name, newValue) => {
-    setFormState({
-      ...formState,
-      values: {
-        ...formState.values,
-        [name]: newValue
-      },
-      touched: {
-        ...formState.touched,
-        [name]: true
       }
-    });
+    );
   };
-
-  const renderErrorUserExist = () =>
-    formState.errorUserExist.map((error) => <Text>{error.errors[0]}</Text>);
 
   return (
     <Container>
@@ -138,18 +112,13 @@ const Register = () => {
             secondLabel="Nama Penyakit"
             onValueChange={saveValuesPairInput}
           />
-
-          <View>
-            {formState.errorUserExist !== null ? renderErrorUserExist() : null}
-          </View>
         </Form>
         <View style={styles.btnBundle}>
           <Button
             iconRight
             style={styles.button}
             full
-            onPress={() => Actions.registerStepFour()}
-            // disabled={!formState.isValid}
+            onPress={() => handleSubmit()}
           >
             <Icon name="arrow-forward" style={styles.icon} />
           </Button>
@@ -158,5 +127,8 @@ const Register = () => {
     </Container>
   );
 };
+
+Register.propTypes = propTypes;
+Register.defaultProps = defaultProps;
 
 export default Register;

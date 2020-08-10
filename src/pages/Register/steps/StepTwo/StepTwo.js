@@ -14,13 +14,13 @@ import styles from './Styles';
 import schema from './schema';
 
 const propTypes = {
-  stepOneValue: PropTypes.objectOf(PropTypes.any).isRequired
+  stepOneValues: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
 const defaultProps = {};
 
 const Register = (props) => {
-  const { stepOneValue } = props;
+  const { stepOneValues } = props;
 
   const [formState, setFormState] = useState({
     isValid: false,
@@ -87,7 +87,8 @@ const Register = (props) => {
               <TextInput
                 label="Tempat Lahir"
                 onChangeText={(newValue) =>
-                  handleChange('tempatLahir', newValue)}
+                  handleChange('tempatLahir', newValue)
+                }
                 alertText={
                   hasError('tempatLahir')
                     ? formState.errors.tempatLahir[0]
@@ -112,8 +113,9 @@ const Register = (props) => {
                 full
                 onPress={() =>
                   Actions.registerStepThree({
-                    stepTwoValues: { ...stepOneValue, ...formState.values }
-                  })}
+                    stepTwoValues: { ...stepOneValues, ...formState.values }
+                  })
+                }
                 disabled={!formState.isValid}
               >
                 <Icon name="arrow-forward" style={styles.icon} />
