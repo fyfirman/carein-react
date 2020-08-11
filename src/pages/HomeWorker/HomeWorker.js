@@ -306,12 +306,12 @@ const HomeWorker = (props) => {
                   style={styles.chatSubCardOne}
                   onPress={() =>
                     Actions.chat({
-                      interlocutor: {
+                      listener: {
                         id: state.activeTransaction.pasienId,
                         ...state.activeTransaction.pasien
-                      }
-                    })
-                  }
+                      },
+                      transactionId: state.activeTransaction.id
+                    })}
                 >
                   <Icon name="paper-plane" style={{ fontSize: 10 }} />
                   <Text style={styles.chatTextSubCardOne}>Chat</Text>

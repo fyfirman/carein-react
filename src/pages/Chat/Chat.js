@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
-import {
-  Container,
-  Content,
-  Text,
-  Footer,
-  Thumbnail,
-  Input,
-  Right,
-  Icon,
-  Button
-} from 'native-base';
+import { Container, Content, Footer, Input, Icon, Button } from 'native-base';
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
 import { Header } from '../../components';
 import { BubbleChat } from './components';
 import styles from './styles';
+import { Socket } from '../../services';
+import { UserType } from '../../constant';
 
 const propTypes = {
   listener: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -29,9 +21,27 @@ const Chat = (props) => {
 
   const [messages, setMessages] = useState([]);
 
+  const [input, setInput] = useState('');
+
   useEffect(() => {
-    console.log(listener, transactionId);
+    Socket.initiateSocket(transactionId);
+
+    Socket.subscribeToChat((error, newMessage) => {
+      if (error) return;
+      setMessages((oldMessage) => [...oldMessage, newMessage]);
+    });
   }, []);
+
+  const handleSubmit = () => {
+    const data = {
+      transaksiId: transactionId,
+      message: input,
+      userType: UserType.WORKER,
+      time: Date.now()
+    };
+
+    Socket.sendMessage(data);
+  };
 
   return (
     <Container>
@@ -47,8 +57,7 @@ const Chat = (props) => {
               key={index}
               message={item.message}
               time={item.time}
-              listener={item.worker}
-              listenerPicture={listener.foto}
+              listener={item.userType === UserType.PATIENT}
             />
           ))}
         </View>
@@ -62,8 +71,18 @@ const Chat = (props) => {
           marginHorizontal: 10
         }}
       >
-        <Input placeholder="Masukkan Pesan" style={styles.input} />
-        <Button iconLeft transparent style={styles.button}>
+        <Input
+          placeholder="Masukkan Pesan"
+          style={styles.input}
+          value={input}
+          onChangeText={setInput}
+        />
+        <Button
+          iconLeft
+          transparent
+          style={styles.button}
+          onPress={handleSubmit}
+        >
           <Icon name="paper-plane" style={styles.buttonIcon} />
         </Button>
       </Footer>
