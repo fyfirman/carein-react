@@ -34,7 +34,7 @@ const Checkout = (props) => {
   const handleSubmit = () => {
     const body = {
       pasienLokasi: LocationFormatter.fromMapsToApi(userPosition),
-      jarak: worker.jarak.nilai + 1 // TODO: remove +1 when backend fixed
+      jarak: worker.jarak.nilai
     };
 
     Api.postOrder(worker.id, body).then(
