@@ -49,10 +49,7 @@ const Login = (props) => {
         }
       )
       .catch((error) => {
-        Toast.show(
-          { text: `Something went wrong:  ${error.response.data.message}` },
-          3000
-        );
+        Toast.show({ text: `Something went wrong:  ${error}` }, 3000);
       });
   };
 
@@ -97,15 +94,17 @@ const Login = (props) => {
             onChangeText={(newValue) => handleChange('password', newValue)}
           />
           <View>
-           <Button
-             full
-             primary
-             onPress={handleSubmit}
-             style={styles.button_save}
-           >
-             <Text><Text style={styles.text}>Masuk</Text></Text>
-           </Button>
-         </View>
+            <Button
+              full
+              primary
+              onPress={handleSubmit}
+              style={styles.button_save}
+            >
+              <Text>
+                <Text style={styles.text}>Masuk</Text>
+              </Text>
+            </Button>
+          </View>
         </Form>
         <Button
           transparent
@@ -114,7 +113,8 @@ const Login = (props) => {
           onPress={() => Actions.register()}
         >
           <Text style={styles.textseparator}>
-            <Text style={styles.preRegister}>Belum punya akun?</Text><Text style={styles.register}>  Daftar</Text> 
+            <Text style={styles.preRegister}>Belum punya akun?</Text>
+            <Text style={styles.register}> Daftar</Text>
           </Text>
         </Button>
       </View>

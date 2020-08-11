@@ -16,19 +16,19 @@ module.exports = {
     overflow: 'hidden', 
     paddingBottom:  5,
     paddingRight:5,
-    borderRadius:24,
+    borderRadius:54,
     marginHorizontal:16
   },
   bundle:{
     backgroundColor: '#fff',
     shadowColor: '#000',
     width:'auto',
-    height:60,
+    height:70,
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity:  0.9,
     shadowRadius: 1,
     elevation: 2,
-    borderRadius:24
+    borderRadius:54
   },
   subcard:{
     marginHorizontal:15,

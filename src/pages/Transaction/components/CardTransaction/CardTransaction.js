@@ -1,52 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Image, View } from 'react-native';
-import { Button, Thumbnail, Card, CardItem, Text } from 'native-base';
+import { View } from 'react-native';
+import { Thumbnail, CardItem, Text } from 'native-base';
 import styles from './styles';
 
 const propTypes = {
   name: PropTypes.string.isRequired,
   date: PropTypes.string,
-  status: PropTypes.string,
-  photoSource: PropTypes.objectOf(PropTypes.string).isRequired,
-  onPress: PropTypes.func.isRequired
+  status: PropTypes.bool,
+  photoSource: PropTypes.objectOf(PropTypes.string),
+  cost: PropTypes.number,
+  worker: PropTypes.bool,
+  onPress: PropTypes.func
 };
 
 const defaultProps = {
   date: '',
-  status: 'off'
+  status: false,
+  cost: 0,
+  photoSource: {},
+  worker: false,
+  onPress: () => {}
 };
 
 const CardTransaction = (props) => {
-  const { name, date, photoSource, onPress, status } = props;
-
-  const getSubInfo = () => {
-    switch (status) {
-      case 'pending':
-        return 'Sedang menunggu konfirmasi';
-      case 'berjalan':
-        return 'Tenaga kesehatan akan datang';
-      case 'selesai':
-        return 'Selesai';
-      default:
-        return 'Status tidak valid';
-    }
-  };
+  const { name, photoSource, status, date, worker, cost, onPress } = props;
 
   return (
     <View style={styles.card}>
-      <View noShadow >
+      <View noShadow>
         <CardItem style={styles.bundle}>
-          <Thumbnail
-            source={photoSource} 
-            style={styles.img}
-          />
+          {worker && <Thumbnail source={photoSource} style={styles.img} />}
           <View style={styles.subcard}>
             <Text style={styles.textSubcard}>{name}</Text>
-            <Text style={styles.doneSubcard}>6 Agustus 2020</Text>
+            <Text style={styles.doneSubcard}>{date}</Text>
             <Text style={styles.doneSubcard}>
-              Rp. 100.000 •
-              <Text style={styles.doneInfoSubcard}> Selesai</Text>
+              {`Rp. ${cost} • `}
+              <Text style={status ? styles.done : styles.failed}>
+                {status ? 'Selesai' : 'Gagal'}
+              </Text>
             </Text>
           </View>
         </CardItem>
