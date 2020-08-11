@@ -150,7 +150,11 @@ const HomeWorker = (props) => {
 
     Api.putWorker(user.id, body).then(
       (res) => {
-        Toast.show({ text: res.message });
+        Toast.show({
+          text: `Terima pesanan ${
+            !state.sharingLocation ? 'diaktifkan' : 'dimatikan'
+          }`
+        });
         setState({ ...state, sharingLocation: !state.sharingLocation });
       },
       (error) => {
@@ -301,8 +305,7 @@ const HomeWorker = (props) => {
                   onPress={() =>
                     Actions.chat({
                       patientId: state.activeTransaction.pasienId
-                    })
-                  }
+                    })}
                 >
                   <Icon name="paper-plane" style={{ fontSize: 10 }} />
                   <Text style={styles.chatTextSubCardOne}>Chat</Text>
