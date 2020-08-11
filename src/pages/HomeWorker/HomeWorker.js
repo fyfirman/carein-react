@@ -130,8 +130,8 @@ const Home = (props) => {
             </TouchableOpacity>
           </View>
 
-          <Card style={styles.card}>
-            <CardItem>
+          <View style={styles.card}>
+              <CardItem style={styles.bundle}>
               <Left>
                 <View>
                   <View style={styles.subCardOne}>
@@ -161,13 +161,14 @@ const Home = (props) => {
                 </Button>
               </Right>
             </CardItem>
-          </Card>
+            </View>
 
-          <Card style={styles.card}>
-            <View style={styles.cardBundle}>
-              <View style={{ marginLeft: '0%' }}>
+          <View style={styles.card}>
+            <View style={styles.bundle}>
+              <View style={styles.secondBundle}>
+                <View>
                 <Text style={styles.nameSubCardOne}>Marcell Antonius</Text>
-                <Text style={{ color: 'rgba(6, 44, 60, 0.9)', fontSize: 12 }}>
+                <Text style={styles.infoSubCardOne}>
                   Sedang dalam perjalanan
                 </Text>
                 <View style={styles.option}>
@@ -178,9 +179,10 @@ const Home = (props) => {
                     <Text style={styles.btnSuccessTextThree}>Terima</Text>
                   </Button>
                 </View>
+                </View>
               </View>
             </View>
-          </Card>
+          </View>
 
           <Card style={styles.noInfoCard}>
             <View style={styles.noInfoCardBundle}>

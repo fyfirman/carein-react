@@ -49,7 +49,7 @@ const StyledHeader = (props) => {
         <Button transparent onPress={() => Actions.loginWorker()}>
           <Icon
             name="medkit-outline"
-            style={{ color: 'white', fontSize: 36 }}
+            style={{ color: 'white', fontSize: 30 }}
           />
         </Button>
       </View>

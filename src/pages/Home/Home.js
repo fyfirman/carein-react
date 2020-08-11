@@ -97,35 +97,54 @@ const Home = (props) => {
     switch (status) {
       case 'active':
         return (
-          <View style={styles.card}>
-            <View noShadow >
-              <CardItem style={styles.bundle}>
-                 <Thumbnail
-                   source={{
-                     uri: StringBuilder.addBaseURL(
-                       state.activeTransaction.worker.foto
-                     )
-                   }}
-                   style={styles.img}
-                 />
-                 <View style={styles.subcard}>
-                   <Text style={styles.textSubcard}>
-                     {state.activeTransaction.worker !== undefined
-                       ? state.activeTransaction.worker.nama
-                       : ''}
-                   </Text>
-                   <Text style={styles.subtextSubcard}>
-                     {state.activeTransaction.status}
-                   </Text>
-                 </View>
-               <Right style={styles.chatBundle}>
-                 <Button style={styles.chat} onPress={() => Actions.chat()}>
-                   <Text style={styles.chatTextBundle}><Text style={styles.chatText}>Chat</Text></Text>
-                 </Button>
-               </Right>
-             </CardItem>
+           <View style={styles.card}>
+             <View noShadow >
+               <CardItem style={styles.bundle}>
+                  <Thumbnail
+                    source={{
+                      uri: StringBuilder.addBaseURL(
+                        state.activeTransaction.worker.foto
+                      )
+                    }}
+                    style={styles.img}
+                  />
+                  <View style={styles.subcard}>
+                    <Text style={styles.textSubcard}>
+                      {state.activeTransaction.worker !== undefined
+                        ? state.activeTransaction.worker.nama
+                        : ''}
+                    </Text>
+                    <Text style={styles.subtextSubcard}>
+                      {state.activeTransaction.status}
+                    </Text>
+                  </View>
+                <Right style={styles.chatBundle}>
+                  <Button style={styles.chat} onPress={() => Actions.chat()}>
+                    <View style={styles.chatTextBundle}>
+                    <Text ><Text style={styles.chatText}>Chat</Text></Text>
+                    </View>
+                  </Button>
+                </Right>
+              </CardItem>
+            </View>
            </View>
-          </View>
+        //   <View style={styles.card}>
+        //   <View style={styles.bundle}>
+        //     <View style={styles.secondBundle}>
+        //       <View>
+        //       <Text style={styles.nameSubCardOne}>Marcell Antonius</Text>
+        //       <Text style={styles.infoSubCardOne}>
+        //         Sedang dalam perjalanan
+        //       </Text>
+        //       <View style={styles.option}>
+        //         <Button success style={styles.btnSuccessDetailThree}>
+        //           <Text style={styles.btnSuccessTextThree}>Chat</Text>
+        //         </Button>
+        //       </View>
+        //       </View>
+        //     </View>
+        //   </View>
+        // </View>
         );
       case 'inactive':
         return (

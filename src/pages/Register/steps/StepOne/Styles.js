@@ -31,8 +31,8 @@ module.exports = {
   boxWrapper:{
     backgroundColor: '#497CFB',
     width: 56,
-    height: 56,
+    height: 55,
     borderRadius:196,
-    elevation: 5,
+    elevation: 3,
   },
 };

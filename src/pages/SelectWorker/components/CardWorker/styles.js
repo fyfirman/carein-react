@@ -43,6 +43,9 @@ module.exports = {
     paddingRight:5,
     borderRadius:24
   },
+  cardItem:{
+    borderRadius:24
+  },
   bundle:{
     backgroundColor: '#fff',
     shadowColor: '#000',

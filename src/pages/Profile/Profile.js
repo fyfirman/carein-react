@@ -100,11 +100,11 @@ const Profile = (props) => {
               justifyContent: 'space-between'
             }}
           >
-            <Text style={{ fontWeight: 'bold', fontSize: 14 }}>
+            <Text style={{ fontWeight: 'bold', color:'rgba(6, 44, 60, 0.9)' ,fontSize: 14 }}>
               Riwayat Kesehatan
             </Text>
             <TouchableOpacity onPress={() => Actions.medicalHistory()}>
-              <Text style={{ fontSize: 14 }}>Lihat Semua</Text>
+              <Text style={{ fontSize: 14 ,color:'rgba(6, 44, 60, 0.9)' }}>Lihat Semua</Text>
             </TouchableOpacity>
           </View>
 

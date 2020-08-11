@@ -20,7 +20,7 @@ const CardWorker = (props) => {
   return (
     <View style={styles.card}>
       <View noShadow style={styles.bundle}>
-        <CardItem button onPress={onPress}>
+        <CardItem button style={styles.cardItem} onPress={onPress}>
           <Thumbnail source={photoSource} style={styles.img} />
           <View style={styles.subcard}>
             <Text style={styles.textSubcard}>{name}</Text>
