@@ -283,7 +283,9 @@ const HomeWorker = (props) => {
               <Left>
                 <View>
                   <View style={styles.subCardOne}>
-                    <Text style={styles.nameSubCardOne}>Marcell Antonius</Text>
+                    <Text style={styles.nameSubCardOne}>
+                      {state.activeTransaction.pasien.nama}
+                    </Text>
                     <Text style={styles.statusSubCardOne}>
                       Sedang dalam perjalanan
                     </Text>
@@ -354,7 +356,7 @@ const HomeWorker = (props) => {
             <View style={styles.cardBundle}>
               <View style={{ marginLeft: '0%' }}>
                 <Text style={styles.nameSubCardOne}>
-                  {state.activeTransaction.pasienId}
+                  {state.activeTransaction.pasien.nama}
                 </Text>
                 <Text style={{ color: 'rgba(6, 44, 60, 0.9)', fontSize: 12 }}>
                   {`${state.activeTransaction.meter} m`}
