@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
-import { Container, Content, Text, Footer, Thumbnail, Input, Right,Icon, Button } from 'native-base';
+import {
+  Container,
+  Content,
+  Text,
+  Footer,
+  Thumbnail,
+  Input,
+  Right,
+  Icon,
+  Button
+} from 'native-base';
+import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
 import { Header } from '../../components';
 import { BubbleChat } from './components';
 import styles from './styles';
 
-const propTypes = {};
+const propTypes = {
+  interlocutor: PropTypes.objectOf(PropTypes.any).isRequired
+};
 
 const defaultProps = {};
 
@@ -60,10 +73,22 @@ const mockData = [
     message: 'Hi',
     time: '19:50',
     worker: false
+  },
+  {
+    message: 'Hi',
+    time: '19:50',
+    worker: false
   }
 ];
 
-const Chat = () => {
+const Chat = (props) => {
+  const { interlocutor } = props;
+
+  useEffect(() => {
+    console.log(interlocutor);
+    return () => {};
+  }, []);
+
   return (
     <Container>
       <Header
@@ -78,22 +103,24 @@ const Chat = () => {
               key={index}
               message={item.message}
               time={item.time}
-              worker={item.item}
+              interlocutor={item.worker}
             />
           ))}
         </View>
       </Content>
-      {/* <Footer>
-        <Input style={styles.input}/>
+      <Footer
+        transparent
+        style={{
+          backgroundColor: 'white',
+          opacity: 0.9,
+          borderRadius: 20,
+          marginHorizontal: 10
+        }}
+      >
+        <Input placeholder="Masukkan Pesan" style={styles.input} />
         <Button iconLeft transparent style={styles.button}>
-            <Icon name='paper-plane' style={styles.buttonIcon} />
-          </Button>
-      </Footer> */} 
-      <Footer transparent style={{backgroundColor:'white',opacity:0.9,borderRadius:20,marginHorizontal:10}}>
-        <Input placeholder="Masukkan Pesan" style={styles.input}/>
-        <Button iconLeft transparent style={styles.button}>
-            <Icon name='paper-plane' style={styles.buttonIcon} />
-          </Button>
+          <Icon name="paper-plane" style={styles.buttonIcon} />
+        </Button>
       </Footer>
     </Container>
   );
