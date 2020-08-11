@@ -112,24 +112,48 @@ const EditProfile = (props) => {
   };
 
   const handleSubmit = () => {
-    console.log('data', getParsedFormData());
-    Api.putUser(user.id, getParsedFormData()).then(
-      (res) => {
-        Api.getUser(user.id).then(
-          (data) => {
-            setUser(data.pasien);
-            Toast.show({ text: res.message });
-            setTimeout(() => Actions.pop(), 2000);
-          },
-          (e) => {
-            Toast.show({ text: e.response.data.message });
-          }
-        );
-      },
-      (error) => {
-        Toast.show({ text: error.response.data.message });
-      }
-    );
+    if (userType === UserType.PATIENT) {
+      Api.putUser(user.id, getParsedFormData()).then(
+        (res) => {
+          Api.getUser(user.id).then(
+            (data) => {
+              setUser(data.pasien);
+              Toast.show({ text: res.message });
+              setTimeout(() => Actions.pop(), 1500);
+            },
+            (e) => {
+              Toast.show({ text: e.response.data.message });
+            }
+          );
+        },
+        (error) => {
+          Toast.show({ text: error.response.data.message });
+        }
+      );
+    } else {
+      Api.putWorker(user.id, formState.values).then(
+        (res) => {
+          const params = {
+            params: {
+              id: user.id
+            }
+          };
+          Api.getWorker(params).then(
+            (data) => {
+              setUser(data.nakes[0]);
+              Toast.show({ text: res.message });
+              setTimeout(() => Actions.pop(), 1500);
+            },
+            (e) => {
+              Toast.show({ text: e.message });
+            }
+          );
+        },
+        () => {
+          Toast.show({ text: `Tidak terkoneksi dengan internet` });
+        }
+      );
+    }
   };
 
   const renderErrorUserExist = () =>
@@ -184,8 +208,7 @@ const EditProfile = (props) => {
               <TextInput
                 label="Tempat Lahir"
                 onChangeText={(newValue) =>
-                  handleChange('tempatLahir', newValue)
-                }
+                  handleChange('tempatLahir', newValue)}
                 alertText={
                   hasError('tempatLahir')
                     ? formState.errors.tempatLahir[0]
@@ -225,8 +248,7 @@ const EditProfile = (props) => {
               <TextInput
                 label="Berat Badan"
                 onChangeText={(newValue) =>
-                  handleChange('beratBadan', newValue)
-                }
+                  handleChange('beratBadan', newValue)}
                 alertText={
                   hasError('beratBadan') ? formState.errors.beratBadan[0] : null
                 }
@@ -236,8 +258,7 @@ const EditProfile = (props) => {
               <TextInput
                 label="Tinggi Badan"
                 onChangeText={(newValue) =>
-                  handleChange('tinggiBadan', newValue)
-                }
+                  handleChange('tinggiBadan', newValue)}
                 alertText={
                   hasError('tinggiBadan')
                     ? formState.errors.tinggiBadan[0]
