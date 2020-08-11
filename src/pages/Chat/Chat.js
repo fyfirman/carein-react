@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import {
   Container,
@@ -18,92 +18,37 @@ import { BubbleChat } from './components';
 import styles from './styles';
 
 const propTypes = {
-  interlocutor: PropTypes.objectOf(PropTypes.any).isRequired
+  listener: PropTypes.objectOf(PropTypes.any).isRequired,
+  transactionId: PropTypes.string.isRequired
 };
 
 const defaultProps = {};
 
-const mockData = [
-  {
-    message: 'Halo, apa kabar denganmu hari ini ada yang bisa saya bantu ? ',
-    time: '19:48',
-    worker: true
-  },
-  {
-    message: 'Hi  sdadad sdada',
-    time: '19:50',
-    worker: false
-  },
-  {
-    message: 'Halo',
-    time: '19:48',
-    worker: true
-  },
-  {
-    message: 'Hi adasdasdasd asdasd',
-    time: '19:50',
-    worker: false
-  },
-  {
-    message: 'Halo',
-    time: '19:48',
-    worker: true
-  },
-  {
-    message: 'Hi',
-    time: '19:50',
-    worker: false
-  },
-  {
-    message: 'Halo',
-    time: '19:48',
-    worker: true
-  },
-  {
-    message: 'Hi',
-    time: '19:50',
-    worker: false
-  },
-  {
-    message: 'Halo',
-    time: '19:48',
-    worker: true
-  },
-  {
-    message: 'Hi',
-    time: '19:50',
-    worker: false
-  },
-  {
-    message: 'Hi',
-    time: '19:50',
-    worker: false
-  }
-];
-
 const Chat = (props) => {
-  const { interlocutor } = props;
+  const { listener, transactionId } = props;
+
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    console.log(interlocutor);
-    return () => {};
+    console.log(listener, transactionId);
   }, []);
 
   return (
     <Container>
       <Header
         iconName="chevron-back-outline"
-        title="Obrolan"
+        title={listener.nama}
         onPress={() => Actions.pop()}
       />
       <Content>
         <View>
-          {mockData.map((item, index) => (
+          {messages.map((item, index) => (
             <BubbleChat
               key={index}
               message={item.message}
               time={item.time}
-              interlocutor={item.worker}
+              listener={item.worker}
+              listenerPicture={listener.foto}
             />
           ))}
         </View>
