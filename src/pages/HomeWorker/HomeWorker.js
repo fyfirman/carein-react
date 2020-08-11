@@ -76,26 +76,6 @@ const HomeWorker = (props) => {
       );
     };
 
-    const getUserLocation = (data) => {
-      Geolocation.getCurrentPosition(
-        (position) => {
-          setState(
-            {
-              ...state,
-              ...data,
-              isLoaded: true
-            },
-            setUserLocation({
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude
-            })
-          );
-        },
-        (error) => Toast.show({ text: error.message }),
-        { enableHighAccuracy: false, timeout: 5000 }
-      );
-    };
-
     const fetchTransaction = async () => {
       return Api.getTransactionWorker().then(
         (res) => {
@@ -123,9 +103,43 @@ const HomeWorker = (props) => {
       );
     };
 
+    const getUserLocation = (data) => {
+      Geolocation.getCurrentPosition(
+        (position) => {
+          setState(
+            {
+              ...state,
+              ...data,
+              isLoaded: true
+            },
+            setUserLocation({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            })
+          );
+        },
+        (error) => Toast.show({ text: error.message }),
+        { enableHighAccuracy: false, timeout: 5000 }
+      );
+    };
+
+    const watchUserLocation = () => {
+      Geolocation.watchPosition((lastPosition) => {
+        setUserLocation({
+          latitude: lastPosition.coords.latitude,
+          longitude: lastPosition.coords.longitude
+        });
+        console.log('location set : ', {
+          latitude: lastPosition.coords.latitude,
+          longitude: lastPosition.coords.longitude
+        });
+      });
+    };
+
     fetchUser()
       .then(() => fetchTransaction())
       .then((data) => getUserLocation(data));
+    watchUserLocation();
   }, []);
 
   const toggleSwitch = () => {

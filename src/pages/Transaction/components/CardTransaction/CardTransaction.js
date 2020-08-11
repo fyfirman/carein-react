@@ -9,7 +9,7 @@ const propTypes = {
   date: PropTypes.string,
   status: PropTypes.bool,
   photoSource: PropTypes.objectOf(PropTypes.string),
-  cost: PropTypes.string,
+  cost: PropTypes.number,
   worker: PropTypes.bool,
   onPress: PropTypes.func
 };
