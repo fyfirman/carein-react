@@ -144,7 +144,6 @@ const HomeWorker = (props) => {
 
   const toggleSwitch = () => {
     const body = {
-      ...user,
       berbagiLokasi: !state.sharingLocation,
       lokasi: { ...LocationFormatter.fromMapsToApi(userLocation) }
     };
@@ -302,7 +301,8 @@ const HomeWorker = (props) => {
                   onPress={() =>
                     Actions.chat({
                       patientId: state.activeTransaction.pasienId
-                    })}
+                    })
+                  }
                 >
                   <Icon name="paper-plane" style={{ fontSize: 10 }} />
                   <Text style={styles.chatTextSubCardOne}>Chat</Text>
