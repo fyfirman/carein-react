@@ -299,7 +299,10 @@ const HomeWorker = (props) => {
                 <Button
                   iconLeft
                   style={styles.chatSubCardOne}
-                  onPress={() => Actions.chat()}
+                  onPress={() =>
+                    Actions.chat({
+                      patientId: state.activeTransaction.pasienId
+                    })}
                 >
                   <Icon name="paper-plane" style={{ fontSize: 10 }} />
                   <Text style={styles.chatTextSubCardOne}>Chat</Text>
