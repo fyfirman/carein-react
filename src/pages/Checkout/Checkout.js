@@ -34,7 +34,7 @@ const Checkout = (props) => {
   const handleSubmit = () => {
     const body = {
       pasienLokasi: LocationFormatter.fromMapsToApi(userPosition),
-      jarak: worker.jarak.nilai
+      jarak: worker.jarak.nilai + 1 // TODO: remove +1 when backend fixed
     };
 
     Api.postOrder(worker.id, body).then(
@@ -62,35 +62,37 @@ const Checkout = (props) => {
         onPress={() => Actions.pop()}
       />
       <Content>
-          <View>
-            <MapView
-              ref={(ref) => {
-                mapRef = ref;
-              }}
-              style={styles.mapView}
-              region={{
-                latitude: userPosition.latitude,
-                longitude: userPosition.longitude,
-                latitudeDelta: 0.15,
-                longitudeDelta: 0.15
-              }}
-              onLayout={() =>
-                mapRef.fitToCoordinates([userPosition, workerPosition], {
-                  edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
-                  animated: true
-                })
-              }
-            >
-              <Marker coordinate={userPosition} onMapReady title="Lokasi Kamu" />
-              <Marker coordinate={workerPosition} title="Lokasi Nakes" />
-            </MapView>
-          </View>
+        <View>
+          <MapView
+            ref={(ref) => {
+              mapRef = ref;
+            }}
+            style={styles.mapView}
+            region={{
+              latitude: userPosition.latitude,
+              longitude: userPosition.longitude,
+              latitudeDelta: 0.15,
+              longitudeDelta: 0.15
+            }}
+            onLayout={() =>
+              mapRef.fitToCoordinates([userPosition, workerPosition], {
+                edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+                animated: true
+              })
+            }
+          >
+            <Marker coordinate={userPosition} onMapReady title="Lokasi Kamu" />
+            <Marker coordinate={workerPosition} title="Lokasi Nakes" />
+          </MapView>
+        </View>
 
-          <View style={styles.root}>
-
+        <View style={styles.root}>
           <View style={styles.cardProfil}>
             <View>
-              <Thumbnail source={{uri: StringBuilder.addBaseURL(worker.foto)}} style={styles.img} />
+              <Thumbnail
+                source={{ uri: StringBuilder.addBaseURL(worker.foto) }}
+                style={styles.img}
+              />
             </View>
             <View style={styles.subCardProfil}>
               <Text style={styles.textProfil}>{`dr. ${worker.nama}`}</Text>
@@ -119,11 +121,13 @@ const Checkout = (props) => {
               onPress={handleSubmit}
               style={styles.button_save}
             >
-              <Text><Text style={styles.text}>Pesan</Text></Text>
+              <Text>
+                <Text style={styles.text}>Pesan</Text>
+              </Text>
             </Button>
           </View>
-      </View>
-     </Content>
+        </View>
+      </Content>
     </Container>
   );
 };
