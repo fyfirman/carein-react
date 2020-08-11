@@ -6,7 +6,9 @@ module.exports = {
   content: {
     backgroundColor: 'green'
   },
-
+  cardOne:{
+    marginHorizontal:40
+  },
   subCardOne: {
     marginLeft: '-20%'
   },
@@ -20,8 +22,7 @@ module.exports = {
     fontSize: 12
   },
   btnSubCardOne: {
-    flexDirection: 'row',
-    marginTop: 5
+    marginTop: 5,
   },
   btnCancelDetailOne: {
     backgroundColor: '#EB5757',
@@ -92,12 +93,11 @@ module.exports = {
     color: 'rgba(6, 44, 60, 0.9)'
   },
   subCardOne: {
-    marginLeft: '-20%'
   },
   nameSubCardOne: {
     color: 'rgba(6, 44, 60, 0.9)',
     fontWeight: 'bold',
-    fontSize: 18
+    fontSize: 18, 
   },
   statusSubCardOne: {
     color: 'rgba(6, 44, 60, 0.9)',
@@ -167,8 +167,8 @@ module.exports = {
 
   subtitle: {
     flexDirection: 'row',
-    marginTop: 40,
-    marginBottom: '7%',
+    marginTop: 13,
+    marginBottom: 8,
     justifyContent: 'space-between'
   },
   chatSubCardOne: {
@@ -268,5 +268,26 @@ module.exports = {
   cek: {
     color: 'red'
   },
-
+  card:{
+    overflow: 'hidden', 
+    paddingBottom:  5,
+    paddingRight:5,
+    borderRadius:24,
+  },
+  bundle: {
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    width: 'auto',
+    height: 106,
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity:  0.7,
+    shadowRadius: 1,
+    elevation: 5,
+    borderRadius: 24,
+  },
+  chatBundle: {
+    alignSelf: 'center',
+    marginRight: '-13%',
+    marginTop:5
+  },
 };

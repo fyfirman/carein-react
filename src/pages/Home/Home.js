@@ -198,43 +198,43 @@ const Home = (props) => {
         );
       case OrderStatus.INACTIVE:
         return (
-          <View style={styles.card}>
-            <TouchableOpacity noShadow onPress={Actions.transaction}>
-              <CardItem style={styles.bundle}>
-                <Thumbnail
-                  source={{
-                    uri: StringBuilder.addBaseURL(
-                      state.lastTransaction.nakes.foto
-                    )
-                  }}
-                  style={styles.img}
-                />
-                <View style={styles.subcardBundle}>
-                  <Text style={styles.textSubcard}>
-                    {state.lastTransaction.nakes.nama}
-                  </Text>
-                  <Text style={styles.doneSubcard}>
-                    {DateFormatter.getLegibleDate(
-                      state.lastTransaction.waktuDibuat
-                    )}
-                  </Text>
-                  <Text style={styles.doneSubcard}>
-                    <Text>{`Rp. ${Cost.getTotal(state.lastTransaction)}`}</Text>
-                    {` • `}
-                    <Text
-                      style={
-                        state.lastTransaction.sakit
-                          ? styles.done
-                          : styles.failed
-                      }
-                    >
-                      {state.lastTransaction.sakit ? 'Berhasil' : 'Gagal'}
-                    </Text>
-                  </Text>
-                </View>
-              </CardItem>
-            </TouchableOpacity>
-          </View>
+           <View style={styles.card}>
+             <TouchableOpacity noShadow onPress={Actions.transaction}>
+               <CardItem style={styles.bundle}>
+                 <Thumbnail
+                   source={{
+                     uri: StringBuilder.addBaseURL(
+                       state.lastTransaction.nakes.foto
+                     )
+                   }}
+                   style={styles.img}
+                 />
+                 <View style={styles.subcardBundle}>
+                   <Text style={styles.textSubcard}>
+                     {state.lastTransaction.nakes.nama}
+                   </Text>
+                   <Text style={styles.doneSubcard}>
+                     {DateFormatter.getLegibleDate(
+                       state.lastTransaction.waktuDibuat
+                     )}
+                   </Text>
+                   <Text style={styles.doneSubcard}>
+                     <Text  style={styles.doneSubcardTwo}>{`Rp. ${Cost.getTotal(state.lastTransaction)}`}</Text>
+                     {` • `}
+                     <Text
+                       style={
+                         state.lastTransaction.sakit
+                           ? styles.done
+                           : styles.failed
+                       }
+                     >
+                       {state.lastTransaction.sakit ? 'Berhasil' : 'Gagal'}
+                     </Text>
+                   </Text>
+                 </View>
+               </CardItem>
+             </TouchableOpacity>
+           </View>
         );
       case OrderStatus.NOTRANCACTION:
         return (

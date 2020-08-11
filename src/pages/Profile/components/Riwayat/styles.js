@@ -17,7 +17,8 @@ module.exports = {
     paddingBottom:  5,
     paddingRight:5,
     borderRadius:54,
-    marginHorizontal:16
+    marginHorizontal:16,
+    marginTop:9
   },
   bundle:{
     backgroundColor: '#fff',

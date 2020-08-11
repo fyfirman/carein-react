@@ -130,7 +130,7 @@ const Profile = (props) => {
                   </TouchableOpacity>
                 </View>
 
-                <Card style={styles.cardBundle}>
+                <Card noShadow style={styles.cardBundle}>
                   {state.medicalHistory.map((item) => (
                     <Riwayat
                       index={item.id}

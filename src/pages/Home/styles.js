@@ -55,7 +55,15 @@ module.exports = {
   doneSubcard: {
     color: 'rgba(6, 44, 60, 0.9)',
     fontSize: 14,
-    paddingLeft: '-5%'
+    paddingLeft: '-5%',
+    paddingTop:5
+  },
+  doneSubcardTwo: {
+    color: 'rgba(6, 44, 60, 0.9)',
+    fontSize: 14,
+    paddingLeft: '-5%',
+    fontWeight:'bold',
+    paddingTop:8
   },
   done: {
     color: '#27AE60',
@@ -116,11 +124,13 @@ module.exports = {
   },
   chatBundleBatalkan: {
     alignSelf: 'center',
-    marginRight: '-5%'
+    marginRight: '-5%',
+    marginTop:5
   },
   chatBundle: {
     alignSelf: 'center',
-    marginRight: '-10%'
+    marginRight: '-5%',
+    marginTop:5
   },
   chatText: {
     fontSize: 14,

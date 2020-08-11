@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ImageBackground } from 'react-native';
+import { View, ImageBackground, Dimensions  } from 'react-native';
 import PropTypes from 'prop-types';
 import { Text, Button, Icon } from 'native-base';
 import { Actions } from 'react-native-router-flux';
@@ -13,6 +13,9 @@ const defaultProps = {
   name: 'User'
 };
 
+const win = Dimensions.get('window');
+const ratio = win.width/360; 
+
 const StyledHeader = (props) => {
   const { name, ...rest } = props;
 
@@ -22,7 +25,8 @@ const StyledHeader = (props) => {
       {...rest}
     >
       <ImageBackground
-        style={styles.background}
+        style={{width: win.width,
+          height: 301 * ratio,}}
         source={require('../../../../assets/WavyBackground.png')}
       />
       <View style={styles.textBundle}>
