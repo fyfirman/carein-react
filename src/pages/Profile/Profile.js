@@ -79,7 +79,7 @@ const Profile = (props) => {
                 title="Nomor Telepon"
                 item={user.noTelp}
                 icon="call-outline"
-                color="red"
+                warna="red"
               />
 
               {userType === UserType.PATIENT && (
@@ -88,13 +88,13 @@ const Profile = (props) => {
                     title="Berat Badan"
                     item={`${user.beratBadan} kg`}
                     icon="man-outline"
-                    color="yellow"
+                    warna="orange"
                   />
                   <ProfileItem
                     title="Tinggi Badan"
                     item={`${user.tinggiBadan} cm`}
                     icon="resize-outline"
-                    color="green"
+                    warna="green"
                   />
                 </View>
               )}
@@ -105,13 +105,13 @@ const Profile = (props) => {
                     title="Profesi"
                     item={`${StringBuilder.capitalizeLetter(user.jenis)}`}
                     icon="medkit-outline"
-                    color="green"
+                    warna="orange"
                   />
                   <ProfileItem
                     title="Harga"
                     item={`Rp. ${user.harga}`}
                     icon="cash-outline"
-                    color="green"
+                    warna="green"
                   />
                 </View>
               )}
