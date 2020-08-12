@@ -59,7 +59,7 @@ const Profile = (props) => {
 
   return (
     <Container>
-      <Content>
+      <Content showsVerticalScrollIndicator={false}>
         <Header
           name={user.nama}
           username={user.username}
@@ -79,7 +79,7 @@ const Profile = (props) => {
                 title="Nomor Telepon"
                 item={user.noTelp}
                 icon="call-outline"
-                color="red"
+                warna="red"
               />
 
               {userType === UserType.PATIENT && (
@@ -88,13 +88,13 @@ const Profile = (props) => {
                     title="Berat Badan"
                     item={`${user.beratBadan} kg`}
                     icon="man-outline"
-                    color="yellow"
+                    warna="orange"
                   />
                   <ProfileItem
                     title="Tinggi Badan"
                     item={`${user.tinggiBadan} cm`}
                     icon="resize-outline"
-                    color="green"
+                    warna="green"
                   />
                 </View>
               )}
@@ -105,13 +105,13 @@ const Profile = (props) => {
                     title="Profesi"
                     item={`${StringBuilder.capitalizeLetter(user.jenis)}`}
                     icon="medkit-outline"
-                    color="green"
+                    warna="orange"
                   />
                   <ProfileItem
                     title="Harga"
                     item={`Rp. ${user.harga}`}
                     icon="cash-outline"
-                    color="green"
+                    warna="green"
                   />
                 </View>
               )}
@@ -120,23 +120,17 @@ const Profile = (props) => {
             {userType === UserType.PATIENT && (
               <View>
                 <View
-                  style={{
-                    flexDirection: 'row',
-                    marginHorizontal: 15,
-                    marginTop: 30,
-                    marginBottom: '3%',
-                    justifyContent: 'space-between'
-                  }}
+                  style={styles.bundleRiwayat}
                 >
-                  <Text style={{ fontWeight: 'bold', fontSize: 14 }}>
+                  <Text style={styles.textRiwayat}>
                     Riwayat Kesehatan
                   </Text>
                   <TouchableOpacity onPress={() => Actions.medicalHistory()}>
-                    <Text style={{ fontSize: 14 }}>Lihat Semua</Text>
+                    <Text style={styles.textLihat}>Lihat Semua</Text>
                   </TouchableOpacity>
                 </View>
 
-                <Card style={styles.cardBundle}>
+                <Card noShadow style={styles.cardBundle}>
                   {state.medicalHistory.map((item) => (
                     <Riwayat
                       index={item.id}

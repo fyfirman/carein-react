@@ -38,7 +38,8 @@ module.exports = {
     overflow: 'hidden',
     paddingBottom: 5,
     paddingRight: 5,
-    borderRadius: 24
+    borderRadius: 24,
+    marginTop:15
   },
   bundle: {
     backgroundColor: '#fff',
@@ -67,7 +68,15 @@ module.exports = {
   doneSubcard: {
     color: 'rgba(6, 44, 60, 0.9)',
     fontSize: 14,
-    paddingLeft: '-5%'
+    paddingLeft: '-5%',
+    marginTop:6
+  },
+  doneSubcardCost: {
+    color: 'rgba(6, 44, 60, 0.9)',
+    fontSize: 14,
+    paddingLeft: '-5%',
+    marginTop:7,
+    fontWeight:'bold'
   },
   done: {
     color: '#27AE60',

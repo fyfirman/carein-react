@@ -34,7 +34,7 @@ const CardTransaction = (props) => {
           <View style={styles.subcard}>
             <Text style={styles.textSubcard}>{name}</Text>
             <Text style={styles.doneSubcard}>{date}</Text>
-            <Text style={styles.doneSubcard}>
+            <Text style={styles.doneSubcardCost}>
               {`Rp. ${cost} • `}
               <Text style={status ? styles.done : styles.failed}>
                 {status ? 'Selesai' : 'Gagal'}

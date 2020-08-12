@@ -22,7 +22,7 @@ module.exports = {
   },
   background:{
     width:'auto',
-    height:350,
-    marginTop:-50,
+    height:350,flex:1,
+    marginTop:0,
   }
 };

@@ -283,9 +283,8 @@ const HomeWorker = (props) => {
     switch (status) {
       case OrderStatus.ACTIVE:
         return (
-          <Card style={styles.card}>
-            <CardItem>
-              <Left>
+          <View style={styles.card}>
+            <CardItem style={styles.bundle}>
                 <View>
                   <View style={styles.subCardOne}>
                     <Text style={styles.nameSubCardOne}>
@@ -312,8 +311,7 @@ const HomeWorker = (props) => {
                     </Button>
                   </View>
                 </View>
-              </Left>
-              <Right>
+              <Right style={styles.chatBundle}>
                 <Button
                   iconLeft
                   style={styles.chatSubCardOne}
@@ -327,12 +325,11 @@ const HomeWorker = (props) => {
                       sender: user
                     })}
                 >
-                  <Icon name="paper-plane" style={{ fontSize: 10 }} />
-                  <Text style={styles.chatTextSubCardOne}>Chat</Text>
+                  <Text style={styles.chatTextSubCardOne}><Text style={{color:'white'}}>Chat</Text></Text>
                 </Button>
               </Right>
             </CardItem>
-          </Card>
+          </View>
         );
       case OrderStatus.INACTIVE:
         return (
@@ -385,7 +382,7 @@ const HomeWorker = (props) => {
                     onPress={() =>
                       handleUpdateTransaction(TransactionStatus.FAILED)}
                   >
-                    <Text style={styles.btnCancelTextThree}>Tolak</Text>
+                    <Text style={styles.btnCancelTextThree}><Text>Tolak</Text></Text>
                   </Button>
                   <Button
                     success
@@ -393,7 +390,7 @@ const HomeWorker = (props) => {
                     onPress={() =>
                       handleUpdateTransaction(TransactionStatus.ONPROCCESS)}
                   >
-                    <Text style={styles.btnSuccessTextThree}>Terima</Text>
+                    <Text style={styles.btnSuccessTextThree}><Text style={{color:'white'}}>Terima</Text></Text>
                   </Button>
                 </View>
               </View>
@@ -408,9 +405,9 @@ const HomeWorker = (props) => {
 
   return (
     <Container>
-      <Content>
+      <Content showsVerticalScrollIndicator={false}>
         <View style={styles.heading}>
-          <Text style={{ fontWeight: 'bold', fontSize: 24 }}>Care.In</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 24 }}>Care.in</Text>
           <TouchableOpacity onPress={() => Actions.profile()}>
             <Image
               style={styles.thumbnail}

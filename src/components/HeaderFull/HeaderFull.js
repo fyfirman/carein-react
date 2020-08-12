@@ -27,7 +27,7 @@ const StyledHeader = (props) => {
 
   return (
     <Header style={styles.header}>
-      <Left>
+      <Left style={styles.left}>
         <Button transparent onPress={onLeftPress}>
           <Icon name={iconName} style={styles.icon} />
         </Button>
