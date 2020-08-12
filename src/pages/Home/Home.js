@@ -274,16 +274,19 @@ const Home = (props) => {
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
               <Feature
                 title="Dokter"
+                color="blue"
                 imageSource={require('../../assets/dokter.png')}
                 onPress={() => Actions.selectWorker({ workerType: 'dokter' })}
               />
               <Feature
                 title="Psikolog"
+                color='red'
                 imageSource={require('../../assets/psikolog.png')}
                 onPress={() => Actions.selectWorker({ workerType: 'psikolog' })}
               />
               <Feature
                 title="Perawat"
+                color="orange"
                 imageSource={require('../../assets/perawat.png')}
                 onPress={() => Actions.selectWorker({ workerType: 'perawat' })}
               />
