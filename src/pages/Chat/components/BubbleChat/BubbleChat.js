@@ -24,19 +24,6 @@ const BubbleChat = (props) => {
   return (
     <View>
       {listener ? (
-        <View style={styles.largeBundle_receiver}>
-          <Card style={styles.root_receiver}>
-            <CardItem button style={styles.content_receiver}>
-              <View style={styles.information_sender}>
-                <View style={styles.chatBundle_sender}>
-                  <Text style={styles.name_receiver}>{message}</Text>
-                </View>
-                <Subtitle style={styles.time_receiver}>{time}</Subtitle>
-              </View>
-            </CardItem>
-          </Card>
-        </View>
-      ) : (
         <View style={styles.largeBundle_sender}>
           <Thumbnail small source={listenerPicture} style={styles.img_sender} />
           <Card style={styles.root_sender}>
@@ -46,6 +33,19 @@ const BubbleChat = (props) => {
                   <Text style={styles.name_sender}>{message}</Text>
                 </View>
                 <Subtitle style={styles.time_sender}>{time}</Subtitle>
+              </View>
+            </CardItem>
+          </Card>
+        </View>
+      ) : (
+        <View style={styles.largeBundle_receiver}>
+          <Card style={styles.root_receiver}>
+            <CardItem button style={styles.content_receiver}>
+              <View style={styles.information_sender}>
+                <View style={styles.chatBundle_sender}>
+                  <Text style={styles.name_receiver}>{message}</Text>
+                </View>
+                <Subtitle style={styles.time_receiver}>{time}</Subtitle>
               </View>
             </CardItem>
           </Card>

@@ -74,7 +74,6 @@ const Home = (props) => {
 
       Api.getTransaction(params).then(
         (res) => {
-          console.log(res.transaksiBerjalan);
           // When active transaction exist
           if (res.transaksiBerjalan !== undefined) {
             setState({
@@ -89,7 +88,6 @@ const Home = (props) => {
           }
           // When medicalHisory exist
           else if (res.riwayatTransaksi.length !== 0) {
-            console.log(res.riwayatTransaksi[0]);
             setState({
               ...state,
               lastTransaction: res.riwayatTransaksi[0]
@@ -104,6 +102,7 @@ const Home = (props) => {
     };
 
     fetchTransaction();
+    console.log(state.activeTransaction);
   }, [reload]);
 
   const handleCancelTransaction = () => {
@@ -153,7 +152,17 @@ const Home = (props) => {
                   </Text>
                 </View>
                 <Right style={styles.chatBundle}>
-                  <Button style={styles.chat} onPress={() => Actions.chat()}>
+                  <Button
+                    style={styles.chat}
+                    onPress={() =>
+                      Actions.chat({
+                        listener: {
+                          id: state.activeTransaction.nakesId,
+                          ...state.activeTransaction.nakes
+                        },
+                        transactionId: state.activeTransaction.id
+                      })}
+                  >
                     <Text style={styles.chatTextBundle}>
                       <Text style={styles.chatText}>Chat</Text>
                     </Text>

@@ -8,7 +8,7 @@ import { BubbleChat } from './components';
 import styles from './styles';
 import { Socket } from '../../services';
 import { UserType } from '../../constant';
-import { DateFormatter } from '../../helpers';
+import { DateFormatter, LocalStorage } from '../../helpers';
 
 const propTypes = {
   listener: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -24,7 +24,10 @@ const Chat = (props) => {
 
   const [input, setInput] = useState('');
 
+  const [userType, setUserType] = useState(null);
+
   useEffect(() => {
+    LocalStorage.getUserType().then(setUserType);
     Socket.initiateSocket(transactionId);
 
     Socket.subscribeToChat((error, newMessage) => {
@@ -37,7 +40,7 @@ const Chat = (props) => {
     const data = {
       transaksiId: transactionId,
       message: input,
-      userType: UserType.WORKER,
+      userType,
       time: Date.now()
     };
 
@@ -59,7 +62,7 @@ const Chat = (props) => {
               key={index}
               message={item.message}
               time={DateFormatter.getTime(item.time)}
-              listener={item.userType === UserType.PATIENT}
+              listener={item.userType !== userType}
             />
           ))}
         </View>
