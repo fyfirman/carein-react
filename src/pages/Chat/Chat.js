@@ -41,6 +41,7 @@ const Chat = (props) => {
     };
 
     Socket.sendMessage(data);
+    setInput('');
   };
 
   return (
