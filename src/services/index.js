@@ -1,2 +1,2 @@
 export default from './Api';
-export { default as Socket } from './Socket';
+export { default as useChat } from './Chat';

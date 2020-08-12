@@ -6,7 +6,8 @@ import { Actions } from 'react-native-router-flux';
 import { Header } from '../../components';
 import { BubbleChat } from './components';
 import styles from './styles';
-import { DateFormatter, LocalStorage, useChat } from '../../helpers';
+import { DateFormatter, LocalStorage } from '../../helpers';
+import { useChat } from '../../services';
 
 const propTypes = {
   listener: PropTypes.objectOf(PropTypes.any).isRequired,

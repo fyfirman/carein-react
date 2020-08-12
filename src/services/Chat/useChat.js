@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import socketIOClient from 'socket.io-client';
+import { SOCKET_SERVER_URL } from 'react-native-dotenv';
 
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage';
-const SOCKET_SERVER_URL = 'http://192.168.1.8:5000';
 
 const useChat = (roomId) => {
   const [messages, setMessages] = useState([]);
