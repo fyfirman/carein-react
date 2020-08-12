@@ -8,6 +8,7 @@ import { BubbleChat } from './components';
 import styles from './styles';
 import { Socket } from '../../services';
 import { UserType } from '../../constant';
+import { DateFormatter } from '../../helpers';
 
 const propTypes = {
   listener: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -57,7 +58,7 @@ const Chat = (props) => {
             <BubbleChat
               key={index}
               message={item.message}
-              time={item.time}
+              time={DateFormatter.getTime(item.time)}
               listener={item.userType === UserType.PATIENT}
             />
           ))}

@@ -6,7 +6,7 @@ import styles from './styles';
 
 const propTypes = {
   message: PropTypes.string.isRequired,
-  time: PropTypes.number.isRequired,
+  time: PropTypes.string.isRequired,
   listener: PropTypes.bool,
   listenerPicture: PropTypes.objectOf(PropTypes.any)
 };
