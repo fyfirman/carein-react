@@ -59,7 +59,7 @@ const Profile = (props) => {
 
   return (
     <Container>
-      <Content>
+      <Content showsVerticalScrollIndicator={false}>
         <Header
           name={user.nama}
           username={user.username}

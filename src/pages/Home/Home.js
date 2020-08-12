@@ -257,7 +257,7 @@ const Home = (props) => {
 
   return (
     <Container>
-      <Content>
+      <Content showsVerticalScrollIndicator={false}>
         <Header name={user !== undefined ? user.nama : ''} />
         <View style={styles.root}>
           <View style={styles.subtitle}>

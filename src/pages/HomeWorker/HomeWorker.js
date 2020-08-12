@@ -286,10 +286,10 @@ const HomeWorker = (props) => {
                   </View>
                   <View style={styles.btnSubCardOne}>
                     <Button style={styles.btnCancelDetailOne}>
-                      <Text style={styles.btnCancelTextOne}>Batalkan</Text>
+                      <Text style={styles.btnCancelTextOne}><Text>Batalkan</Text></Text>
                     </Button>
                     <Button style={styles.btnSuccessDetailOne}>
-                      <Text style={styles.btnSuccessTextOne}>Selesai</Text>
+                      <Text style={styles.btnSuccessTextOne}><Text>Selesai</Text></Text>
                     </Button>
                   </View>
                 </View>
@@ -302,8 +302,7 @@ const HomeWorker = (props) => {
                       patientId: state.activeTransaction.pasienId
                     })}
                 >
-                  <Icon name="paper-plane" style={{ fontSize: 10 }} />
-                  <Text style={styles.chatTextSubCardOne}>Chat</Text>
+                  <Text style={styles.chatTextSubCardOne}><Text style={{color:'white'}}>Chat</Text></Text>
                 </Button>
               </Right>
             </CardItem>
@@ -359,14 +358,14 @@ const HomeWorker = (props) => {
                     style={styles.btnCancelDetailThree}
                     onPress={() => handleUpdateTransaction(false)}
                   >
-                    <Text style={styles.btnCancelTextThree}>Tolak</Text>
+                    <Text style={styles.btnCancelTextThree}><Text>Tolak</Text></Text>
                   </Button>
                   <Button
                     success
                     style={styles.btnSuccessDetailThree}
                     onPress={() => handleUpdateTransaction(true)}
                   >
-                    <Text style={styles.btnSuccessTextThree}>Terima</Text>
+                    <Text style={styles.btnSuccessTextThree}><Text style={{color:'white'}}>Terima</Text></Text>
                   </Button>
                 </View>
               </View>
@@ -381,7 +380,7 @@ const HomeWorker = (props) => {
 
   return (
     <Container>
-      <Content>
+      <Content showsVerticalScrollIndicator={false}>
         <View style={styles.heading}>
           <Text style={{ fontWeight: 'bold', fontSize: 24 }}>Care.in</Text>
           <TouchableOpacity onPress={() => Actions.profile()}>
