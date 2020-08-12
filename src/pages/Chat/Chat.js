@@ -6,21 +6,20 @@ import { Actions } from 'react-native-router-flux';
 import { Header } from '../../components';
 import { BubbleChat } from './components';
 import styles from './styles';
-import { Socket } from '../../services';
-import { UserType } from '../../constant';
-import { DateFormatter, LocalStorage } from '../../helpers';
+import { DateFormatter, LocalStorage, useChat } from '../../helpers';
 
 const propTypes = {
   listener: PropTypes.objectOf(PropTypes.any).isRequired,
+  sender: PropTypes.objectOf(PropTypes.any).isRequired,
   transactionId: PropTypes.string.isRequired
 };
 
 const defaultProps = {};
 
 const Chat = (props) => {
-  const { listener, transactionId } = props;
+  const { listener, transactionId, sender } = props;
 
-  const [messages, setMessages] = useState([]);
+  const { messages, sendMessage } = useChat(transactionId);
 
   const [input, setInput] = useState('');
 
@@ -28,24 +27,21 @@ const Chat = (props) => {
 
   useEffect(() => {
     LocalStorage.getUserType().then(setUserType);
-    Socket.initiateSocket(transactionId);
-
-    Socket.subscribeToChat((error, newMessage) => {
-      if (error) return;
-      setMessages((oldMessage) => [...oldMessage, newMessage]);
-    });
   }, []);
 
   const handleSubmit = () => {
     const data = {
       transaksiId: transactionId,
-      message: input,
+      isi: input,
+      pengirimId: sender.id,
       userType,
       time: Date.now()
     };
 
-    Socket.sendMessage(data);
+    sendMessage(data);
     setInput('');
+
+    // TODO : postChat
   };
 
   return (
@@ -60,9 +56,9 @@ const Chat = (props) => {
           {messages.map((item, index) => (
             <BubbleChat
               key={index}
-              message={item.message}
+              message={item.isi}
               time={DateFormatter.getTime(item.time)}
-              listener={item.userType !== userType}
+              listener={item.pengirimId !== sender.id}
             />
           ))}
         </View>

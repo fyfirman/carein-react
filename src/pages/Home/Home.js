@@ -160,7 +160,8 @@ const Home = (props) => {
                           id: state.activeTransaction.nakesId,
                           ...state.activeTransaction.nakes
                         },
-                        transactionId: state.activeTransaction.id
+                        transactionId: state.activeTransaction.id,
+                        sender: user
                       })}
                   >
                     <Text style={styles.chatTextBundle}>

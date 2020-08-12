@@ -323,7 +323,8 @@ const HomeWorker = (props) => {
                         id: state.activeTransaction.pasienId,
                         ...state.activeTransaction.pasien
                       },
-                      transactionId: state.activeTransaction.id
+                      transactionId: state.activeTransaction.id,
+                      sender: user
                     })}
                 >
                   <Icon name="paper-plane" style={{ fontSize: 10 }} />

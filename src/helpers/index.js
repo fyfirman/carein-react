@@ -7,3 +7,4 @@ export { default as LocationFormatter } from './LocationFormatter';
 export { default as BackAction } from './BackAction';
 export { default as Status } from './Status';
 export { default as Cost } from './Cost';
+export { default as useChat } from './useChat';
