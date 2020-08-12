@@ -26,7 +26,7 @@ const useChat = (roomId) => {
     socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, message);
   };
 
-  return { messages, sendMessage };
+  return { messages, sendMessage, setMessages };
 };
 
 export default useChat;

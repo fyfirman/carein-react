@@ -28,14 +28,33 @@ const defaultProps = {};
 const Chat = (props) => {
   const { listener, transactionId, sender } = props;
 
-  const { messages, sendMessage } = useChat(transactionId);
+  const { messages, sendMessage, setMessages } = useChat(transactionId);
 
   const [input, setInput] = useState('');
 
-  const [userType, setUserType] = useState(null);
-
   useEffect(() => {
-    LocalStorage.getUserType().then(setUserType);
+    const fetchChat = () => {
+      Api.getChat(transactionId).then(
+        (res) => {
+          setMessages(
+            res.chat.map((item) => {
+              return {
+                ...item,
+                time: new Date(item.waktuDibuat).getTime()
+              };
+            })
+          );
+        },
+        (error) => {
+          Toast.show({
+            text: error.response.data.message,
+            duration: 3000
+          });
+        }
+      );
+    };
+
+    fetchChat();
   }, []);
 
   const handleSubmit = () => {
@@ -43,11 +62,9 @@ const Chat = (props) => {
       transaksiId: transactionId,
       isi: input,
       pengirimId: sender.id,
-      userType,
       time: Date.now()
     };
 
-    console.log('Transaksi ID : ', transactionId);
     sendMessage(data);
     setInput('');
 
