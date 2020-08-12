@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
-import { Container, Content, Footer, Input, Icon, Button } from 'native-base';
+import {
+  Container,
+  Content,
+  Footer,
+  Input,
+  Icon,
+  Button,
+  Toast
+} from 'native-base';
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
+import Api, { useChat } from '../../services';
 import { Header } from '../../components';
 import { BubbleChat } from './components';
 import styles from './styles';
 import { DateFormatter, LocalStorage } from '../../helpers';
-import { useChat } from '../../services';
 
 const propTypes = {
   listener: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -39,10 +47,21 @@ const Chat = (props) => {
       time: Date.now()
     };
 
+    console.log('Transaksi ID : ', transactionId);
     sendMessage(data);
     setInput('');
 
-    // TODO : postChat
+    Api.postChat(transactionId, { isi: input }).then(
+      (res) => {
+        console.log('Message sent');
+      },
+      (error) => {
+        Toast.show({
+          text: error.response.data.message,
+          duration: 3000
+        });
+      }
+    );
   };
 
   return (
