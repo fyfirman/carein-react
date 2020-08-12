@@ -16,7 +16,7 @@ const defaultProps = {
 };
 const getColor = (warna) => {
   switch(warna){
-    case 'blue' : return ('blue');
+    case 'blue' : return ('#497CFB');
     case 'red' : return ('red');
     case 'orange' : return ('orange');
     case 'green' : return ('green');
