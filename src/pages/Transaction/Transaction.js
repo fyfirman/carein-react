@@ -92,7 +92,7 @@ const Transaction = () => {
     };
 
     setUserType().then((userType) => fetchTransaction(userType));
-    console.log(state.transactionHistory);
+    console.log(state);
   }, []);
 
   const renderTransactionCard = () => {
@@ -110,10 +110,15 @@ const Transaction = () => {
           photoSource={{
             uri: StringBuilder.addBaseURL(item.nakes.foto)
           }}
-          status={item.sakit}
-          cost={item.totalBiaya}
+          status={item.berhasil} // TODO: fix this
+          cost={item.totalBiaya + item.biayaAdmin}
+          costDetail={{
+            biayaAdmin: item.biayaAdmin,
+            biayaJasa: item.biayaJasa,
+            biayaTranspor: item.biayaTranspor
+          }}
           date={DateFormatter.getLegibleDate(item.waktuDibuat)}
-          worker={state.userType === UserType.PATIENT}
+          worker={state.userType === UserType.WORKER}
         />
       )
     );
