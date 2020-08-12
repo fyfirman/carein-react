@@ -74,6 +74,7 @@ const Home = (props) => {
 
       Api.getTransaction(params).then(
         (res) => {
+          console.log(res.transaksiBerjalan);
           // When active transaction exist
           if (res.transaksiBerjalan !== undefined) {
             setState({
@@ -108,7 +109,7 @@ const Home = (props) => {
   const handleCancelTransaction = () => {
     const body = {
       status: 'selesai',
-      berhasil: true
+      berhasil: false
     };
 
     Api.putTransaction(state.activeTransaction.id, body).then(

@@ -28,7 +28,7 @@ import styles from './styles';
 import { StringBuilder, Status, LocationFormatter } from '../../helpers';
 import Api from '../../services';
 import { UserActions } from '../../redux/actions';
-import { OrderStatus } from '../../constant';
+import { OrderStatus, TransactionStatus, ToastMessage } from '../../constant';
 
 const propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -174,25 +174,30 @@ const HomeWorker = (props) => {
     });
   };
 
-  const handleUpdateTransaction = (response) => {
-    let body;
-    if (response) {
-      body = {
-        status: 'berjalan',
-        berhasil: false
-      };
-    } else {
-      body = {
-        status: 'selesai',
-        berhasil: true
-      };
+  const handleUpdateTransaction = (body) => {
+    let toastMessage;
+    switch (body) {
+      case TransactionStatus.ONPROCCESS:
+        toastMessage = ToastMessage.Transaction.ACCEPT;
+        break;
+      case TransactionStatus.FAILED:
+        toastMessage =
+          state.activeTransaction.status === OrderStatus.PENDING
+            ? ToastMessage.Transaction.DECLINE
+            : ToastMessage.Transaction.CANCEL;
+        break;
+      case TransactionStatus.DONE:
+        toastMessage = ToastMessage.Transaction.DONE;
+        break;
+      default:
+        break;
     }
 
     Api.putTransaction(state.activeTransaction.id, body)
       .then(
         (res) => {
           Toast.show({
-            text: response ? 'Pesanan diterima' : 'Pesanan ditolak'
+            text: toastMessage
           });
         },
         (error) => {
@@ -203,7 +208,7 @@ const HomeWorker = (props) => {
       )
       .then(
         () => {
-          if (response) {
+          if (body !== TransactionStatus.FAILED) {
             Api.getTransactionWorker().then(
               (res) => {
                 return {
@@ -291,10 +296,18 @@ const HomeWorker = (props) => {
                     </Text>
                   </View>
                   <View style={styles.btnSubCardOne}>
-                    <Button style={styles.btnCancelDetailOne}>
+                    <Button
+                      style={styles.btnCancelDetailOne}
+                      onPress={() =>
+                        handleUpdateTransaction(TransactionStatus.FAILED)}
+                    >
                       <Text style={styles.btnCancelTextOne}>Batalkan</Text>
                     </Button>
-                    <Button style={styles.btnSuccessDetailOne}>
+                    <Button
+                      style={styles.btnSuccessDetailOne}
+                      onPress={() =>
+                        handleUpdateTransaction(TransactionStatus.DONE)}
+                    >
                       <Text style={styles.btnSuccessTextOne}>Selesai</Text>
                     </Button>
                   </View>
@@ -368,14 +381,16 @@ const HomeWorker = (props) => {
                 <View style={styles.option}>
                   <Button
                     style={styles.btnCancelDetailThree}
-                    onPress={() => handleUpdateTransaction(false)}
+                    onPress={() =>
+                      handleUpdateTransaction(TransactionStatus.FAILED)}
                   >
                     <Text style={styles.btnCancelTextThree}>Tolak</Text>
                   </Button>
                   <Button
                     success
                     style={styles.btnSuccessDetailThree}
-                    onPress={() => handleUpdateTransaction(true)}
+                    onPress={() =>
+                      handleUpdateTransaction(TransactionStatus.ONPROCCESS)}
                   >
                     <Text style={styles.btnSuccessTextThree}>Terima</Text>
                   </Button>
