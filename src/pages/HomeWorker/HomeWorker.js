@@ -14,16 +14,15 @@ import Geolocation from '@react-native-community/geolocation';
 import {
   Container,
   Toast,
-  Left,
   Text,
   Card,
   Right,
-  Icon,
   Button,
   CardItem,
   Content
 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import { interval } from 'rxjs';
 import styles from './styles';
 import { StringBuilder, Status, LocationFormatter } from '../../helpers';
 import Api from '../../services';
@@ -41,16 +40,18 @@ const HomeWorker = (props) => {
   const { user, setUser } = props;
 
   const [state, setState] = useState({
-    isLoaded: false,
     sharingLocation: false,
     activeTransaction: {
       status: OrderStatus.INACTIVE
     }
   });
 
+  const [isLoaded, setIsLoaded] = useState(false);
+
   const [userLocation, setUserLocation] = useState({});
 
   let mapRef;
+  const userMarkerRef = null;
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -79,7 +80,7 @@ const HomeWorker = (props) => {
     const fetchTransaction = async () => {
       return Api.getTransactionWorker().then(
         (res) => {
-          return {
+          setState({
             deposit: {
               income: res.totalPendapatan,
               unpaid: res.totalBelumSetor,
@@ -95,7 +96,7 @@ const HomeWorker = (props) => {
                     status: Status.getStatus(res.transaksiBerjalan.status)
                   }
                 : { ...state.activeTransaction }
-          };
+          });
         },
         (error) => {
           Toast.show({ text: error.message });
@@ -103,43 +104,39 @@ const HomeWorker = (props) => {
       );
     };
 
-    const getUserLocation = (data) => {
-      Geolocation.getCurrentPosition(
-        (position) => {
-          setState(
-            {
-              ...state,
-              ...data,
-              isLoaded: true
-            },
-            setUserLocation({
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude
-            })
-          );
-        },
-        (error) => Toast.show({ text: error.message }),
-        { enableHighAccuracy: false, timeout: 5000 }
-      );
-    };
+    fetchUser().then(() => fetchTransaction());
+  }, []);
 
-    const watchUserLocation = () => {
-      Geolocation.watchPosition((lastPosition) => {
-        setUserLocation({
-          latitude: lastPosition.coords.latitude,
-          longitude: lastPosition.coords.longitude
-        });
-        console.log('location set : ', {
-          latitude: lastPosition.coords.latitude,
-          longitude: lastPosition.coords.longitude
-        });
-      });
-    };
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      (newPosition) => {
+        const position = {
+          latitude: newPosition.coords.latitude,
+          longitude: newPosition.coords.longitude
+        };
+        setUserLocation(position);
+        setIsLoaded(true);
+        console.log('Location is set');
+      },
+      (error) => console.log('Error get location: ', error),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
+    Geolocation.watchPosition(
+      (newPosition) => {
+        console.log('test');
+        const position = {
+          latitude: newPosition.coords.latitude,
+          longitude: newPosition.coords.longitude
+        };
+        setUserLocation(position);
+        setIsLoaded(true);
 
-    fetchUser()
-      .then(() => fetchTransaction())
-      .then((data) => getUserLocation(data));
-    watchUserLocation();
+        if (userMarkerRef !== null)
+          userMarkerRef.animateMarkerToCoordinate(position, 500);
+      },
+      (error) => console.log('Error watching location: ', error)
+    );
+    console.log('12321312');
   }, []);
 
   const toggleSwitch = () => {
@@ -253,7 +250,7 @@ const HomeWorker = (props) => {
   };
 
   const renderMapView = () => {
-    return state.isLoaded ? (
+    return isLoaded ? (
       <MapView
         ref={(ref) => {
           mapRef = ref;
@@ -265,8 +262,8 @@ const HomeWorker = (props) => {
           longitudeDelta: 0.15
         }}
         onLayout={reCenterMaps}
+        showsUserLocation
       >
-        <Marker coordinate={userLocation} onMapReady title="Lokasi Kamu" />
         {Status.validToGetPatientLocation(state.activeTransaction.status) && (
           <Marker
             coordinate={state.activeTransaction.pasienLokasi}
