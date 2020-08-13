@@ -13,6 +13,7 @@ import {
 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import MapView, { Marker } from 'react-native-maps';
+import { COST_ADMIN } from 'react-native-dotenv';
 import { Header } from '../../components';
 import styles from './styles';
 import { LocationFormatter, StringBuilder } from '../../helpers';
@@ -78,8 +79,7 @@ const Checkout = (props) => {
               mapRef.fitToCoordinates([userPosition, workerPosition], {
                 edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
                 animated: true
-              })
-            }
+              })}
           >
             <Marker coordinate={userPosition} onMapReady title="Lokasi Kamu" />
             <Marker coordinate={workerPosition} title="Lokasi Nakes" />
@@ -95,7 +95,7 @@ const Checkout = (props) => {
               />
             </View>
             <View style={styles.subCardProfil}>
-              <Text style={styles.textProfil}>{`dr. ${worker.nama}`}</Text>
+              <Text style={styles.textProfil}>{`${worker.nama}`}</Text>
               <Text style={styles.doneProfil}>{`${worker.jarak.teks}`}</Text>
             </View>
           </View>
@@ -103,15 +103,23 @@ const Checkout = (props) => {
           <View>
             <View style={styles.detailCheckOut}>
               <Text style={styles.titleCheckOut}>Jasa</Text>
-              <Text style={styles.titleCheckOut}>{`${worker.harga}`}</Text>
+              <Text style={styles.titleCheckOut}>
+                {`${StringBuilder.formatCurrency(worker.harga)}`}
+              </Text>
             </View>
             <View style={styles.detailCheckOut}>
               <Text style={styles.titleCheckOut}>Biaya Transportasi</Text>
-              <Text style={styles.titleCheckOut}>20.000</Text>
+              <Text style={styles.titleCheckOut}>
+                {`${StringBuilder.formatCurrency(worker.biayaTranspor)}`}
+              </Text>
             </View>
             <View style={styles.detailCheckOut}>
               <Text style={styles.totalCheckOut}>Total Pembayaran</Text>
-              <Text style={styles.totalCheckOut}>120.000</Text>
+              <Text style={styles.totalCheckOut}>
+                {StringBuilder.formatCurrency(
+                  worker.harga * COST_ADMIN + worker.biayaTranspor
+                )}
+              </Text>
             </View>
           </View>
           <View>
