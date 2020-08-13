@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Container, List, Card, Content, Toast } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { LocalStorage, StringBuilder } from '../../helpers';
+import { LocalStorage, StringBuilder, DateFormatter } from '../../helpers';
 import Api from '../../services';
 import styles from './styles';
 import { Header, ProfileItem, Riwayat } from './components';
@@ -131,7 +131,7 @@ const Profile = (props) => {
                     <Riwayat
                       index={item.id}
                       penyakit={item.namaPenyakit}
-                      tanggal={item.tanggal}
+                      tanggal={DateFormatter.getLegibleDate(item.tanggal)}
                     />
                   ))}
                 </Card>
