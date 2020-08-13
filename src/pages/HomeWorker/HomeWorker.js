@@ -149,7 +149,7 @@ const HomeWorker = (props) => {
     };
 
     Api.putWorker(user.id, body).then(
-      (res) => {
+      () => {
         Toast.show({
           text: `Terima pesanan ${
             !state.sharingLocation ? 'diaktifkan' : 'dimatikan'
@@ -195,7 +195,7 @@ const HomeWorker = (props) => {
 
     Api.putTransaction(state.activeTransaction.id, body)
       .then(
-        (res) => {
+        () => {
           Toast.show({
             text: toastMessage
           });
@@ -285,32 +285,32 @@ const HomeWorker = (props) => {
         return (
           <View style={styles.card}>
             <CardItem style={styles.bundle}>
-                <View>
-                  <View style={styles.subCardOne}>
-                    <Text style={styles.nameSubCardOne}>
-                      {state.activeTransaction.pasien.nama}
-                    </Text>
-                    <Text style={styles.statusSubCardOne}>
-                      Sedang dalam perjalanan
-                    </Text>
-                  </View>
-                  <View style={styles.btnSubCardOne}>
-                    <Button
-                      style={styles.btnCancelDetailOne}
-                      onPress={() =>
-                        handleUpdateTransaction(TransactionStatus.FAILED)}
-                    >
-                      <Text style={styles.btnCancelTextOne}>Batalkan</Text>
-                    </Button>
-                    <Button
-                      style={styles.btnSuccessDetailOne}
-                      onPress={() =>
-                        handleUpdateTransaction(TransactionStatus.DONE)}
-                    >
-                      <Text style={styles.btnSuccessTextOne}>Selesai</Text>
-                    </Button>
-                  </View>
+              <View>
+                <View style={styles.subCardOne}>
+                  <Text style={styles.nameSubCardOne}>
+                    {state.activeTransaction.pasien.nama}
+                  </Text>
+                  <Text style={styles.statusSubCardOne}>
+                    Sedang dalam perjalanan
+                  </Text>
                 </View>
+                <View style={styles.btnSubCardOne}>
+                  <Button
+                    style={styles.btnCancelDetailOne}
+                    onPress={() =>
+                      handleUpdateTransaction(TransactionStatus.FAILED)}
+                  >
+                    <Text style={styles.btnCancelTextOne}>Batalkan</Text>
+                  </Button>
+                  <Button
+                    style={styles.btnSuccessDetailOne}
+                    onPress={() =>
+                      handleUpdateTransaction(TransactionStatus.DONE)}
+                  >
+                    <Text style={styles.btnSuccessTextOne}>Selesai</Text>
+                  </Button>
+                </View>
+              </View>
               <Right style={styles.chatBundle}>
                 <Button
                   iconLeft
@@ -325,7 +325,9 @@ const HomeWorker = (props) => {
                       sender: user
                     })}
                 >
-                  <Text style={styles.chatTextSubCardOne}><Text style={{color:'white'}}>Chat</Text></Text>
+                  <Text style={styles.chatTextSubCardOne}>
+                    <Text style={{ color: 'white' }}>Chat</Text>
+                  </Text>
                 </Button>
               </Right>
             </CardItem>
@@ -382,7 +384,9 @@ const HomeWorker = (props) => {
                     onPress={() =>
                       handleUpdateTransaction(TransactionStatus.FAILED)}
                   >
-                    <Text style={styles.btnCancelTextThree}><Text>Tolak</Text></Text>
+                    <Text style={styles.btnCancelTextThree}>
+                      <Text>Tolak</Text>
+                    </Text>
                   </Button>
                   <Button
                     success
@@ -390,7 +394,9 @@ const HomeWorker = (props) => {
                     onPress={() =>
                       handleUpdateTransaction(TransactionStatus.ONPROCCESS)}
                   >
-                    <Text style={styles.btnSuccessTextThree}><Text style={{color:'white'}}>Terima</Text></Text>
+                    <Text style={styles.btnSuccessTextThree}>
+                      <Text style={{ color: 'white' }}>Terima</Text>
+                    </Text>
                   </Button>
                 </View>
               </View>
@@ -419,13 +425,17 @@ const HomeWorker = (props) => {
           <View>
             <Text style={styles.infoMoneyHeader}>Total Pendapatan</Text>
             <Text style={styles.infoMoneyTotal}>
-              {state.deposit ? state.deposit.income : '0'}
+              {state.deposit
+                ? StringBuilder.formatCurrency(state.deposit.income)
+                : '0'}
             </Text>
           </View>
           <View>
             <Text style={styles.infoMoneyHeader}>Uang yang harus disetor</Text>
             <Text style={styles.infoMoneyTotal}>
-              {state.deposit ? state.deposit.unpaid : '0'}
+              {state.deposit
+                ? StringBuilder.formatCurrency(state.deposit.unpaid)
+                : '0'}
             </Text>
           </View>
         </View>
