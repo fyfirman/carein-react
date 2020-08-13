@@ -110,7 +110,7 @@ const Transaction = () => {
           photoSource={{
             uri: StringBuilder.addBaseURL(item.nakes.foto)
           }}
-          status={item.berhasil} // TODO: fix this
+          status={item.berhasil}
           cost={item.totalBiaya + item.biayaAdmin}
           costDetail={{
             biayaAdmin: item.biayaAdmin,

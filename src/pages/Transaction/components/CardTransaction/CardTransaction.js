@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Thumbnail, CardItem, Text } from 'native-base';
 import styles from './styles';
+import { StringBuilder } from '../../../../helpers';
 
 const propTypes = {
   name: PropTypes.string.isRequired,
@@ -11,8 +12,7 @@ const propTypes = {
   photoSource: PropTypes.objectOf(PropTypes.string),
   cost: PropTypes.number,
   costDetail: PropTypes.objectOf(PropTypes.any),
-  worker: PropTypes.bool,
-  onPress: PropTypes.func
+  worker: PropTypes.bool
 };
 
 const defaultProps = {
@@ -21,21 +21,11 @@ const defaultProps = {
   cost: 0,
   photoSource: {},
   costDetail: {},
-  worker: false,
-  onPress: () => {}
+  worker: false
 };
 
 const CardTransaction = (props) => {
-  const {
-    name,
-    photoSource,
-    status,
-    date,
-    worker,
-    cost,
-    costDetail,
-    onPress
-  } = props;
+  const { name, photoSource, status, date, worker, cost, costDetail } = props;
 
   return (
     <View style={styles.card}>
@@ -48,18 +38,24 @@ const CardTransaction = (props) => {
             {worker && (
               <View>
                 <Text style={styles.detailTranscaction}>
-                  {`Pendapatan bersih : ${costDetail.biayaJasa}`}
+                  {`Pendapatan bersih : ${StringBuilder.formatCurrency(
+                    costDetail.biayaJasa
+                  )}`}
                 </Text>
                 <Text style={styles.detailTranscaction}>
-                  {`Biaya yang harus disetor (5%) : ${costDetail.biayaAdmin}`}
+                  {`Biaya yang harus disetor (5%) : ${StringBuilder.formatCurrency(
+                    costDetail.biayaAdmin
+                  )}`}
                 </Text>
                 <Text style={styles.detailTranscaction}>
-                  {`Biaya Transportasi : ${costDetail.biayaTranspor}`}
+                  {`Biaya Transportasi : ${StringBuilder.formatCurrency(
+                    costDetail.biayaTranspor
+                  )}`}
                 </Text>
               </View>
             )}
             <Text style={styles.doneSubcardCost}>
-              {`Rp. ${cost} • `}
+              {`Rp. ${StringBuilder.formatCurrency(cost)} • `}
               <Text style={status ? styles.done : styles.failed}>
                 {status ? 'Selesai' : 'Gagal'}
               </Text>
