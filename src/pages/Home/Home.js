@@ -14,6 +14,7 @@ import {
   Button
 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import { interval } from 'rxjs';
 import { Header, Feature } from './components';
 import styles from './styles';
 import Api from '../../services';
@@ -53,9 +54,8 @@ const Home = (props) => {
             }
           );
         },
-        (error) => {
+        () => {
           Toast.show({ text: `Tidak terkoneksi dengan internet` });
-          console.log(error);
         }
       );
     };
@@ -101,8 +101,7 @@ const Home = (props) => {
       );
     };
 
-    fetchTransaction();
-    console.log(state.activeTransaction);
+    interval(500).subscribe(() => fetchTransaction());
   }, [reload]);
 
   const handleCancelTransaction = () => {
@@ -162,7 +161,8 @@ const Home = (props) => {
                         },
                         transactionId: state.activeTransaction.id,
                         sender: user
-                      })}
+                      })
+                    }
                   >
                     <Text style={styles.chatTextBundle}>
                       <Text style={styles.chatText}>Chat</Text>
@@ -176,76 +176,81 @@ const Home = (props) => {
       case OrderStatus.PENDING:
         return (
           <View style={styles.card}>
-             <View noShadow >
-               <CardItem style={styles.bundle}>
-               <Thumbnail
-                   source={{
-                     uri: StringBuilder.addBaseURL(
-                       state.activeTransaction.nakes.foto
-                     )
-                   }}
-                   style={styles.img}
-                 />
-                  <View style={styles.subcard}>
-                    <Text style={styles.textSubcard}>
+            <View noShadow>
+              <CardItem style={styles.bundle}>
+                <Thumbnail
+                  source={{
+                    uri: StringBuilder.addBaseURL(
+                      state.activeTransaction.nakes.foto
+                    )
+                  }}
+                  style={styles.img}
+                />
+                <View style={styles.subcard}>
+                  <Text style={styles.textSubcard}>
                     {state.activeTransaction.nakes !== undefined
-                       ? state.activeTransaction.nakes.nama
-                       : ''}
-                    </Text>
-                    <Text style={styles.subtextSubcard}>
-                        Sedang menunggu konfirmasi
-                    </Text>
-                  </View>
+                      ? state.activeTransaction.nakes.nama
+                      : ''}
+                  </Text>
+                  <Text style={styles.subtextSubcard}>
+                    Sedang menunggu konfirmasi
+                  </Text>
+                </View>
                 <Right style={styles.chatBundleBatalkan}>
-                  <Button style={styles.chatBatalkan} onPress={handleCancelTransaction}>
-                  <Text style={styles.chatTextBundle}>
+                  <Button
+                    style={styles.chatBatalkan}
+                    onPress={handleCancelTransaction}
+                  >
+                    <Text style={styles.chatTextBundle}>
                       <Text style={styles.chatTextBatalkan}>Batalkan</Text>
                     </Text>
                   </Button>
                 </Right>
               </CardItem>
             </View>
-           </View>
+          </View>
         );
       case OrderStatus.INACTIVE:
         return (
-           <View style={styles.card}>
-             <TouchableOpacity noShadow onPress={Actions.transaction}>
-               <CardItem style={styles.bundle}>
-                 <Thumbnail
-                   source={{
-                     uri: StringBuilder.addBaseURL(
-                       state.lastTransaction.nakes.foto
-                     )
-                   }}
-                   style={styles.img}
-                 />
-                 <View style={styles.subcardBundle}>
-                   <Text style={styles.textSubcard}>
-                     {state.lastTransaction.nakes.nama}
-                   </Text>
-                   <Text style={styles.doneSubcard}>
-                     {DateFormatter.getLegibleDate(
-                       state.lastTransaction.waktuDibuat
-                     )}
-                   </Text>
-                   <Text style={styles.doneSubcard}>
-                     <Text  style={styles.doneSubcardTwo}>{`Rp. ${Cost.getTotal(state.lastTransaction)}`}</Text>
-                     {` • `}
-                     <Text
-                       style={
-                         state.lastTransaction.sakit
-                           ? styles.done
-                           : styles.failed
-                       }
-                     >
-                       {state.lastTransaction.sakit ? 'Berhasil' : 'Gagal'}
-                     </Text>
-                   </Text>
-                 </View>
-               </CardItem>
-             </TouchableOpacity>
-           </View>
+          <View style={styles.card}>
+            <TouchableOpacity noShadow onPress={Actions.transaction}>
+              <CardItem style={styles.bundle}>
+                <Thumbnail
+                  source={{
+                    uri: StringBuilder.addBaseURL(
+                      state.lastTransaction.nakes.foto
+                    )
+                  }}
+                  style={styles.img}
+                />
+                <View style={styles.subcardBundle}>
+                  <Text style={styles.textSubcard}>
+                    {state.lastTransaction.nakes.nama}
+                  </Text>
+                  <Text style={styles.doneSubcard}>
+                    {DateFormatter.getLegibleDate(
+                      state.lastTransaction.waktuDibuat
+                    )}
+                  </Text>
+                  <Text style={styles.doneSubcard}>
+                    <Text style={styles.doneSubcardTwo}>
+                      {`Rp. ${Cost.getTotal(state.lastTransaction)}`}
+                    </Text>
+                    {` • `}
+                    <Text
+                      style={
+                        state.lastTransaction.sakit
+                          ? styles.done
+                          : styles.failed
+                      }
+                    >
+                      {state.lastTransaction.sakit ? 'Berhasil' : 'Gagal'}
+                    </Text>
+                  </Text>
+                </View>
+              </CardItem>
+            </TouchableOpacity>
+          </View>
         );
       case OrderStatus.NOTRANCACTION:
         return (
@@ -291,7 +296,7 @@ const Home = (props) => {
               />
               <Feature
                 title="Psikolog"
-                color='red'
+                color="red"
                 imageSource={require('../../assets/psikolog.png')}
                 onPress={() => Actions.selectWorker({ workerType: 'psikolog' })}
               />
