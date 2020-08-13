@@ -109,7 +109,7 @@ const Profile = (props) => {
                   />
                   <ProfileItem
                     title="Harga"
-                    item={`Rp. ${user.harga}`}
+                    item={`Rp. ${StringBuilder.formatCurrency(user.harga)}`}
                     icon="cash-outline"
                     warna="green"
                   />
@@ -119,12 +119,8 @@ const Profile = (props) => {
 
             {userType === UserType.PATIENT && (
               <View>
-                <View
-                  style={styles.bundleRiwayat}
-                >
-                  <Text style={styles.textRiwayat}>
-                    Riwayat Kesehatan
-                  </Text>
+                <View style={styles.bundleRiwayat}>
+                  <Text style={styles.textRiwayat}>Riwayat Kesehatan</Text>
                   <TouchableOpacity onPress={() => Actions.medicalHistory()}>
                     <Text style={styles.textLihat}>Lihat Semua</Text>
                   </TouchableOpacity>
