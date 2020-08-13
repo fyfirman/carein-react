@@ -47,7 +47,7 @@ const Chat = (props) => {
         },
         (error) => {
           Toast.show({
-            text: error.response.data.message,
+            text: `Gagal untuk mengambil pesan. Error:  ${error.response.data.message}`,
             duration: 3000
           });
         }
