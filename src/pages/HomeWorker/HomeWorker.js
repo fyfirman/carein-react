@@ -116,14 +116,12 @@ const HomeWorker = (props) => {
         };
         setUserLocation(position);
         setIsLoaded(true);
-        console.log('Location is set');
       },
       (error) => console.log('Error get location: ', error),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
     Geolocation.watchPosition(
       (newPosition) => {
-        console.log('test');
         const position = {
           latitude: newPosition.coords.latitude,
           longitude: newPosition.coords.longitude
@@ -136,7 +134,6 @@ const HomeWorker = (props) => {
       },
       (error) => console.log('Error watching location: ', error)
     );
-    console.log('12321312');
   }, []);
 
   const toggleSwitch = () => {
