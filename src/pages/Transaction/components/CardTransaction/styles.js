@@ -52,6 +52,17 @@ module.exports = {
     elevation: 5,
     borderRadius: 24
   },
+  bundleWorker: {
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    width: 'auto',
+    height: 120,
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+    elevation: 5,
+    borderRadius: 24
+  },
   subcard: {
     marginHorizontal: 15,
     marginVertical: 9

@@ -30,7 +30,7 @@ const CardTransaction = (props) => {
   return (
     <View style={styles.card}>
       <View noShadow>
-        <CardItem style={styles.bundle}>
+        <CardItem style={!worker ? styles.bundleWorker : styles.bundle}>
           {!worker && <Thumbnail source={photoSource} style={styles.img} />}
           <View style={styles.subcard}>
             <Text style={styles.textSubcard}>{name}</Text>
