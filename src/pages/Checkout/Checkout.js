@@ -44,7 +44,7 @@ const Checkout = (props) => {
           text: res.message,
           duration: 3000
         });
-        setTimeout(() => Actions.chat(), 2000);
+        setTimeout(() => Actions.home(), 2000);
       },
       (error) => {
         Toast.show({
