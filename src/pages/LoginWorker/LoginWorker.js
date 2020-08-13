@@ -87,6 +87,7 @@ const Login = (props) => {
           <TextInput
             label="Password"
             onChangeText={(newValue) => handleChange('password', newValue)}
+            secureTextEntry
           />
           <Button
             full
