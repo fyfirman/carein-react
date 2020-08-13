@@ -104,7 +104,7 @@ const Checkout = (props) => {
             <View style={styles.detailCheckOut}>
               <Text style={styles.titleCheckOut}>Jasa</Text>
               <Text style={styles.titleCheckOut}>
-                {`${StringBuilder.formatCurrency(worker.harga)}`}
+                {`${StringBuilder.formatCurrency(worker.harga * COST_ADMIN)}`}
               </Text>
             </View>
             <View style={styles.detailCheckOut}>
