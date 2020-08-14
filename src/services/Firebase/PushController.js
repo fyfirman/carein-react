@@ -9,6 +9,9 @@ const PushController = () => {
       },
 
       onNotification(notification) {
+        if (notification.foreground) {
+          PushNotification.localNotification(notification);
+        }
         console.log('NOTIFICATION:', notification);
       },
       senderID: '378976790564',
