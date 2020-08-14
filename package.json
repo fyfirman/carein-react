@@ -19,6 +19,7 @@
     "axios": "^0.19.2",
     "color": "^3.1.2",
     "currency-formatter": "^1.5.6",
+    "firebase": "^7.18.0",
     "moment": "^2.27.0",
     "native-base": "^2.13.12",
     "prop-types": "^15.7.2",
