@@ -18,6 +18,7 @@ import { Header } from '../../components';
 import styles from './styles';
 import { LocationFormatter, StringBuilder } from '../../helpers';
 import Api from '../../services';
+import { CloudMessaging } from '../../services/Firebase';
 
 const propTypes = {
   userPosition: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -40,6 +41,13 @@ const Checkout = (props) => {
 
     Api.postOrder(worker.id, body).then(
       (res) => {
+        const data = {
+          userId: worker.id,
+          title: 'Anda mendapat pesanan!',
+          body: 'Cek aplikasi untuk menerima pesanan'
+        };
+        CloudMessaging.sendNotification(data);
+
         Toast.show({
           text: res.message,
           duration: 3000

@@ -39,16 +39,23 @@ const sendTokenToServer = (userId) => {
   return promise;
 };
 
-const sendNotification = (payload) => {
+const sendNotification = (data) => {
   const promise = new Promise((resolve, reject) => {
-    Api.postNotification(payload).then(
-      (res) => {
-        resolve(res);
-      },
-      (error) => {
-        reject(error);
-      }
-    );
+    Database.getToken(data.userId).then((token) => {
+      const payload = {
+        token,
+        title: data.title,
+        body: data.body
+      };
+      Api.postNotification(payload).then(
+        (res) => {
+          resolve(res);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
   });
 
   return promise;

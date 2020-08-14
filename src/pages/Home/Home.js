@@ -28,13 +28,6 @@ const propTypes = {
   setUser: PropTypes.func.isRequired
 };
 
-const payload = {
-  token:
-    'f2qYTpZ8QM2wZKurcxIjkf:APA91bGCY_jKKO16LfXunyiiLU46m0bq7dbXKXc_u43ojZBFzRazaSYUDpMhjREhiu2RshvKs7HikLYRmNCdcxFV7PfaXr_wpGfUgDVYsBWoZMgp8DZJwo2Gnxc-X1s20xutYAUQGhjM',
-  title: 'Akhirnya bisaa :)',
-  body: 'Yeeeeeeeeeeee!!!!!!!! '
-};
-
 const Home = (props) => {
   const { user, setUser } = props;
 
@@ -112,7 +105,7 @@ const Home = (props) => {
       );
     };
 
-    interval(500).subscribe(() => fetchTransaction());
+    fetchTransaction();
   }, [reload]);
 
   const handleCancelTransaction = () => {
@@ -288,12 +281,7 @@ const Home = (props) => {
         <View style={styles.root}>
           <View style={styles.subtitle}>
             <Text style={styles.textSubHeading}>Transaksi</Text>
-            <TouchableOpacity
-              onPress={() => {
-                Actions.transaction();
-                CloudMessaging.sendNotification(payload);
-              }}
-            >
+            <TouchableOpacity onPress={Actions.transaction}>
               <Text style={styles.textSubHeadingAll}>Lihat Semua</Text>
             </TouchableOpacity>
           </View>
