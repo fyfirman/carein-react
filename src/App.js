@@ -3,13 +3,12 @@ import { StatusBar, View } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { Root } from 'native-base';
 import { Provider } from 'react-redux';
-import Firebase, { PushController } from './services/Firebase';
+import { PushController } from './services/Firebase';
 import Routes from './Routes';
 import { store } from './helpers';
 
 const App = () => {
   useEffect(() => {
-    // Firebase.init();
     SplashScreen.hide();
   }, []);
 
