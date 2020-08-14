@@ -4,7 +4,8 @@ import {
   Switch,
   TouchableOpacity,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
+  PermissionsAndroid
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -104,36 +105,68 @@ const HomeWorker = (props) => {
       );
     };
 
-    fetchUser().then(() => fetchTransaction());
+    fetchUser();
+    fetchTransaction();
+    // interval(2000).subscribe(() => {
+    //   console.log('Transaction fetched');
+    // });
   }, []);
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(
-      (newPosition) => {
-        const position = {
-          latitude: newPosition.coords.latitude,
-          longitude: newPosition.coords.longitude
-        };
-        setUserLocation(position);
-        setIsLoaded(true);
-      },
-      (error) => console.log('Error get location: ', error),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    );
-    Geolocation.watchPosition(
-      (newPosition) => {
-        const position = {
-          latitude: newPosition.coords.latitude,
-          longitude: newPosition.coords.longitude
-        };
-        setUserLocation(position);
-        setIsLoaded(true);
+    const requestLocationPermission = async () => {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: 'Location Permission',
+            message: 'MyMapApp needs access to your location'
+          }
+        );
 
-        if (userMarkerRef !== null)
-          userMarkerRef.animateMarkerToCoordinate(position, 500);
-      },
-      (error) => console.log('Error watching location: ', error)
-    );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          Geolocation.getCurrentPosition(
+            (newPosition) => {
+              console.log('Getting location...');
+              const position = {
+                latitude: newPosition.coords.latitude,
+                longitude: newPosition.coords.longitude
+              };
+              setUserLocation(position);
+              setIsLoaded(true);
+            },
+            (error) => {
+              Toast.show({ text: error.message });
+              console.log('Error getting location: ', error);
+            }
+          );
+          Geolocation.watchPosition(
+            (newPosition) => {
+              console.log('Watching location...');
+              const position = {
+                latitude: newPosition.coords.latitude,
+                longitude: newPosition.coords.longitude
+              };
+              setUserLocation(position);
+              setIsLoaded(true);
+
+              if (userMarkerRef !== null)
+                userMarkerRef.animateMarkerToCoordinate(position, 500);
+            },
+            (error) => {
+              Toast.show({ text: error.message });
+              console.log('Error watching location: ', error);
+            }
+          );
+          console.log('Location permission granted');
+        } else {
+          console.log('Location permission denied');
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    };
+
+    requestLocationPermission();
   }, []);
 
   const toggleSwitch = () => {
@@ -292,14 +325,16 @@ const HomeWorker = (props) => {
                   <Button
                     style={styles.btnCancelDetailOne}
                     onPress={() =>
-                      handleUpdateTransaction(TransactionStatus.FAILED)}
+                      handleUpdateTransaction(TransactionStatus.FAILED)
+                    }
                   >
                     <Text style={styles.btnCancelTextOne}>Batalkan</Text>
                   </Button>
                   <Button
                     style={styles.btnSuccessDetailOne}
                     onPress={() =>
-                      handleUpdateTransaction(TransactionStatus.DONE)}
+                      handleUpdateTransaction(TransactionStatus.DONE)
+                    }
                   >
                     <Text style={styles.btnSuccessTextOne}>Selesai</Text>
                   </Button>
@@ -317,7 +352,8 @@ const HomeWorker = (props) => {
                       },
                       transactionId: state.activeTransaction.id,
                       sender: user
-                    })}
+                    })
+                  }
                 >
                   <Text style={styles.chatTextSubCardOne}>
                     <Text style={{ color: 'white' }}>Chat</Text>
@@ -376,7 +412,8 @@ const HomeWorker = (props) => {
                   <Button
                     style={styles.btnCancelDetailThree}
                     onPress={() =>
-                      handleUpdateTransaction(TransactionStatus.FAILED)}
+                      handleUpdateTransaction(TransactionStatus.FAILED)
+                    }
                   >
                     <Text style={styles.btnCancelTextThree}>
                       <Text>Tolak</Text>
@@ -386,7 +423,8 @@ const HomeWorker = (props) => {
                     success
                     style={styles.btnSuccessDetailThree}
                     onPress={() =>
-                      handleUpdateTransaction(TransactionStatus.ONPROCCESS)}
+                      handleUpdateTransaction(TransactionStatus.ONPROCCESS)
+                    }
                   >
                     <Text style={styles.btnSuccessTextThree}>
                       <Text style={{ color: 'white' }}>Terima</Text>
