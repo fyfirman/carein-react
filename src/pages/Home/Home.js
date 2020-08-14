@@ -18,6 +18,7 @@ import { interval } from 'rxjs';
 import { Header, Feature } from './components';
 import styles from './styles';
 import Api from '../../services';
+import { CloudMessaging } from '../../services/Firebase';
 import { UserActions } from '../../redux/actions';
 import { StringBuilder, DateFormatter, Cost } from '../../helpers';
 import { OrderStatus } from '../../constant';
@@ -60,7 +61,10 @@ const Home = (props) => {
       );
     };
 
-    fetchUser();
+    fetchUser().then(
+      () => CloudMessaging.sendTokenToServer(user.id),
+      (error) => Toast.show({ text: error.message })
+    );
   }, []);
 
   useEffect(() => {
@@ -161,8 +165,7 @@ const Home = (props) => {
                         },
                         transactionId: state.activeTransaction.id,
                         sender: user
-                      })
-                    }
+                      })}
                   >
                     <Text style={styles.chatTextBundle}>
                       <Text style={styles.chatText}>Chat</Text>
