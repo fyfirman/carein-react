@@ -65,8 +65,6 @@ const Home = (props) => {
       () => CloudMessaging.sendTokenToServer(user.id),
       (error) => Toast.show({ text: error.message })
     );
-
-    console.log('State global load', load);
   }, []);
 
   useEffect(() => {
@@ -108,7 +106,8 @@ const Home = (props) => {
     };
 
     fetchTransaction();
-  }, [reload]);
+    console.log('Global state load :', load);
+  }, [reload, load]);
 
   const handleCancelTransaction = () => {
     const body = {
@@ -177,8 +176,7 @@ const Home = (props) => {
                         },
                         transactionId: state.activeTransaction.id,
                         sender: user
-                      })
-                    }
+                      })}
                   >
                     <Text style={styles.chatTextBundle}>
                       <Text style={styles.chatText}>Chat</Text>

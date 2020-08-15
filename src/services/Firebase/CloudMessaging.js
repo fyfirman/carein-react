@@ -39,14 +39,18 @@ const sendTokenToServer = (userId) => {
   return promise;
 };
 
-const sendNotification = (data) => {
+const sendNotification = (notificationData) => {
   const promise = new Promise((resolve, reject) => {
-    Database.getToken(data.userId).then((token) => {
+    Database.getToken(notificationData.userId).then((token) => {
       const payload = {
         token,
-        title: data.title,
-        body: data.body
+        data: {
+          type: 'ORDER_ACCEPTED'
+        },
+        title: notificationData.title,
+        body: notificationData.body
       };
+      console.log(payload);
       Api.postNotification(payload).then(
         (res) => {
           resolve(res);

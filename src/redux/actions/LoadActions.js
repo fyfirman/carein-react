@@ -1,9 +1,9 @@
 import { LoadConstants } from '../constants';
 
-const setLoad = (load) => ({ type: LoadConstants.SET_LOAD, load });
+const setLoad = () => ({ type: LoadConstants.SET_LOAD });
 
-const UserActions = {
+const LoadActions = {
   setLoad
 };
 
-export default UserActions;
+export default LoadActions;

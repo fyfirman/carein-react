@@ -5,7 +5,8 @@ const initialState = { load: false };
 const loadReducer = (state = initialState, action) => {
   switch (action.type) {
     case LoadConstants.SET_LOAD:
-      return { load: !initialState };
+      console.log('state changed : ', { load: !state.load });
+      return { load: !state.load };
     default:
       return state;
   }
