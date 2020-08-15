@@ -119,6 +119,13 @@ const Home = (props) => {
         Toast.show({
           text: 'Pesanan dibatalkan'
         });
+        const data = {
+          userId: state.activeTransaction.nakesId,
+          title: 'Pesanan anda dibatalkan',
+          body: `${user.nama} telah membatalkan pemesanan`
+        };
+        CloudMessaging.sendNotification(data);
+
         setReload(!reload);
       },
       (error) => {
@@ -165,7 +172,8 @@ const Home = (props) => {
                         },
                         transactionId: state.activeTransaction.id,
                         sender: user
-                      })}
+                      })
+                    }
                   >
                     <Text style={styles.chatTextBundle}>
                       <Text style={styles.chatText}>Chat</Text>

@@ -15,7 +15,8 @@ import Api, { useChat } from '../../services';
 import { Header } from '../../components';
 import { BubbleChat } from './components';
 import styles from './styles';
-import { DateFormatter, LocalStorage } from '../../helpers';
+import { DateFormatter } from '../../helpers';
+import { CloudMessaging } from '../../services/Firebase';
 
 const propTypes = {
   listener: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -69,8 +70,13 @@ const Chat = (props) => {
     setInput('');
 
     Api.postChat(transactionId, { isi: input }).then(
-      (res) => {
-        console.log('Message sent');
+      () => {
+        const notificationData = {
+          userId: listener.id,
+          title: sender.nama,
+          body: input
+        };
+        CloudMessaging.sendNotification(notificationData);
       },
       (error) => {
         Toast.show({

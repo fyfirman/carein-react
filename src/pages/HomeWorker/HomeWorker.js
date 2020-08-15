@@ -209,18 +209,34 @@ const HomeWorker = (props) => {
 
   const handleUpdateTransaction = (body) => {
     let toastMessage;
+    let data = {};
     switch (body) {
       case TransactionStatus.ONPROCCESS:
         toastMessage = ToastMessage.Transaction.ACCEPT;
+        data = {
+          userId: state.activeTransaction.pasienId,
+          title: 'Pesanan anda telah diterima',
+          body: `${user.nama} akan segera datang`
+        };
         break;
       case TransactionStatus.FAILED:
         toastMessage =
           state.activeTransaction.status === OrderStatus.PENDING
             ? ToastMessage.Transaction.DECLINE
             : ToastMessage.Transaction.CANCEL;
+        data = {
+          userId: state.activeTransaction.pasienId,
+          title: 'Pesanan anda ditolak',
+          body: `Buka aplikasi untuk memesan lagi`
+        };
         break;
       case TransactionStatus.DONE:
         toastMessage = ToastMessage.Transaction.DONE;
+        data = {
+          userId: state.activeTransaction.pasienId,
+          title: 'Pesanan sudah selesai',
+          body: `Terimakasih sudah memesan`
+        };
         break;
       default:
         break;
@@ -232,6 +248,7 @@ const HomeWorker = (props) => {
           Toast.show({
             text: toastMessage
           });
+          CloudMessaging.sendNotification(data);
         },
         (error) => {
           Toast.show({
@@ -331,16 +348,14 @@ const HomeWorker = (props) => {
                   <Button
                     style={styles.btnCancelDetailOne}
                     onPress={() =>
-                      handleUpdateTransaction(TransactionStatus.FAILED)
-                    }
+                      handleUpdateTransaction(TransactionStatus.FAILED)}
                   >
                     <Text style={styles.btnCancelTextOne}>Batalkan</Text>
                   </Button>
                   <Button
                     style={styles.btnSuccessDetailOne}
                     onPress={() =>
-                      handleUpdateTransaction(TransactionStatus.DONE)
-                    }
+                      handleUpdateTransaction(TransactionStatus.DONE)}
                   >
                     <Text style={styles.btnSuccessTextOne}>Selesai</Text>
                   </Button>
@@ -358,8 +373,7 @@ const HomeWorker = (props) => {
                       },
                       transactionId: state.activeTransaction.id,
                       sender: user
-                    })
-                  }
+                    })}
                 >
                   <Text style={styles.chatTextSubCardOne}>
                     <Text style={{ color: 'white' }}>Chat</Text>
@@ -418,8 +432,7 @@ const HomeWorker = (props) => {
                   <Button
                     style={styles.btnCancelDetailThree}
                     onPress={() =>
-                      handleUpdateTransaction(TransactionStatus.FAILED)
-                    }
+                      handleUpdateTransaction(TransactionStatus.FAILED)}
                   >
                     <Text style={styles.btnCancelTextThree}>
                       <Text>Tolak</Text>
@@ -429,8 +442,7 @@ const HomeWorker = (props) => {
                     success
                     style={styles.btnSuccessDetailThree}
                     onPress={() =>
-                      handleUpdateTransaction(TransactionStatus.ONPROCCESS)
-                    }
+                      handleUpdateTransaction(TransactionStatus.ONPROCCESS)}
                   >
                     <Text style={styles.btnSuccessTextThree}>
                       <Text style={{ color: 'white' }}>Terima</Text>
