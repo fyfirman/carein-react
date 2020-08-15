@@ -44,13 +44,10 @@ const sendNotification = (notificationData) => {
     Database.getToken(notificationData.userId).then((token) => {
       const payload = {
         token,
-        data: {
-          type: 'ORDER_ACCEPTED'
-        },
+        data: notificationData.data,
         title: notificationData.title,
         body: notificationData.body
       };
-      console.log(payload);
       Api.postNotification(payload).then(
         (res) => {
           resolve(res);

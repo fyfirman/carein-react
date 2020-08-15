@@ -105,8 +105,7 @@ const Home = (props) => {
       );
     };
 
-    fetchTransaction();
-    console.log('Global state load :', load);
+    fetchTransaction().then(() => console.log('Fethcing transaction...'));
   }, [reload, load]);
 
   const handleCancelTransaction = () => {

@@ -29,9 +29,6 @@ const PushController = (props) => {
         console.log(`Notification received :`, notification.data.type);
         switch (notification.data.type) {
           case NotificationType.NEW_ORDER:
-            // reload home worker
-            // set state reload home to redux
-            console.log('Masukkk');
             setLoad(load);
             break;
           case NotificationType.ORDER_CANCELED:

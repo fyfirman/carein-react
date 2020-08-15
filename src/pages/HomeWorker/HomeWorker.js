@@ -27,7 +27,7 @@ import styles from './styles';
 import { StringBuilder, Status, LocationFormatter } from '../../helpers';
 import Api from '../../services';
 import { CloudMessaging } from '../../services/Firebase';
-import { UserActions } from '../../redux/actions';
+import { UserActions, LoadActions } from '../../redux/actions';
 import {
   OrderStatus,
   TransactionStatus,
@@ -38,21 +38,22 @@ import {
 const propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired,
   setUser: PropTypes.func.isRequired,
-  load: PropTypes.bool.isRequired
+  load: PropTypes.bool.isRequired,
+  setLoad: PropTypes.func.isRequired
 };
 
 const defaultProps = {};
 
 const HomeWorker = (props) => {
-  const { user, setUser, load } = props;
+  const { user, setUser, load, setLoad } = props;
 
   const [state, setState] = useState({
-    sharingLocation: false,
     activeTransaction: {
       status: OrderStatus.INACTIVE
     }
   });
 
+  const [sharingLocation, setSharingLocation] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const [userLocation, setUserLocation] = useState({});
@@ -97,6 +98,7 @@ const HomeWorker = (props) => {
       return Api.getTransactionWorker().then(
         (res) => {
           setState({
+            ...state,
             deposit: {
               income: res.totalPendapatan,
               unpaid: res.totalBelumSetor,
@@ -111,7 +113,7 @@ const HomeWorker = (props) => {
                     ),
                     status: Status.getStatus(res.transaksiBerjalan.status)
                   }
-                : { ...state.activeTransaction }
+                : { ...state.activeTransaction, status: OrderStatus.INACTIVE }
           });
         },
         (error) => {
@@ -120,8 +122,7 @@ const HomeWorker = (props) => {
       );
     };
 
-    fetchTransaction();
-    console.log('State global load', load);
+    fetchTransaction().then(() => console.log('Fethcing transaction...'));
   }, [load]);
 
   useEffect(() => {
@@ -183,7 +184,7 @@ const HomeWorker = (props) => {
 
   const toggleSwitch = () => {
     const body = {
-      berbagiLokasi: !state.sharingLocation,
+      berbagiLokasi: !sharingLocation,
       lokasi: { ...LocationFormatter.fromMapsToApi(userLocation) }
     };
 
@@ -191,10 +192,10 @@ const HomeWorker = (props) => {
       () => {
         Toast.show({
           text: `Terima pesanan ${
-            !state.sharingLocation ? 'diaktifkan' : 'dimatikan'
+            !sharingLocation ? 'diaktifkan' : 'dimatikan'
           }`
         });
-        setState({ ...state, sharingLocation: !state.sharingLocation });
+        setSharingLocation(!sharingLocation);
       },
       (error) => {
         Toast.show({ text: error.response.data.message });
@@ -257,64 +258,20 @@ const HomeWorker = (props) => {
         break;
     }
 
-    Api.putTransaction(state.activeTransaction.id, body)
-      .then(
-        () => {
-          Toast.show({
-            text: toastMessage
-          });
-          CloudMessaging.sendNotification(data);
-        },
-        (error) => {
-          Toast.show({
-            text: `Gagal untuk mengubah pesanan ${error.response.data.message}`
-          });
-        }
-      )
-      .then(
-        () => {
-          if (body !== TransactionStatus.FAILED) {
-            Api.getTransactionWorker().then(
-              (res) => {
-                return {
-                  deposit: {
-                    income: res.totalPendapatan,
-                    unpaid: res.totalBelumSetor,
-                    paid: res.totalTelahSetor
-                  },
-                  activeTransaction:
-                    res.transaksiBerjalan !== undefined
-                      ? {
-                          ...res.transaksiBerjalan,
-                          pasienLokasi: LocationFormatter.fromApiToGmaps(
-                            res.transaksiBerjalan.pasienLokasi
-                          ),
-                          status: Status.getStatus(res.transaksiBerjalan.status)
-                        }
-                      : { ...state.activeTransaction }
-                };
-              },
-              (error) => {
-                Toast.show({
-                  text: `Gagal untuk mengubah pesanan ${error.response.data.message}`
-                });
-              }
-            );
-          } else {
-            setState({
-              ...state,
-              activeTransaction: {
-                status: OrderStatus.INACTIVE
-              }
-            });
-          }
-        },
-        (error) => {
-          Toast.show({
-            text: `Gagal untuk mengubah pesanan ${error.response.data.message}`
-          });
-        }
-      );
+    Api.putTransaction(state.activeTransaction.id, body).then(
+      () => {
+        Toast.show({
+          text: toastMessage
+        });
+        CloudMessaging.sendNotification(data);
+        setLoad(load);
+      },
+      (error) => {
+        Toast.show({
+          text: `Gagal untuk mengubah pesanan ${error.response.data.message}`
+        });
+      }
+    );
   };
 
   const renderMapView = () => {
@@ -401,13 +358,11 @@ const HomeWorker = (props) => {
       case OrderStatus.INACTIVE:
         return (
           <Card
-            style={
-              state.sharingLocation ? styles.noInfoCard : styles.noInfoCardOFF
-            }
+            style={sharingLocation ? styles.noInfoCard : styles.noInfoCardOFF}
           >
             <View style={styles.noInfoCardBundle}>
               <Text style={styles.noInfoTextCard}>
-                {state.sharingLocation
+                {sharingLocation
                   ? 'Tidak ada pesan yang masuk'
                   : 'Kamu tidak akan menerima pesanan'}
               </Text>
@@ -419,10 +374,10 @@ const HomeWorker = (props) => {
                       false: 'rgba(255, 255, 255, 0.5)',
                       true: 'rgba(255, 255, 255, 0.5)'
                     }}
-                    thumbColor={state.sharingLocation ? '#f4f3f4' : '#f4f3f4'}
+                    thumbColor={sharingLocation ? '#f4f3f4' : '#f4f3f4'}
                     ios_backgroundColor="#3e3e3e"
                     onValueChange={toggleSwitch}
-                    value={state.sharingLocation}
+                    value={sharingLocation}
                   />
                 </View>
                 <View>
@@ -532,7 +487,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(UserActions, dispatch);
+  return bindActionCreators({ ...UserActions, ...LoadActions }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeWorker);
