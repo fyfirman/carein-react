@@ -247,7 +247,9 @@ const Home = (props) => {
                   </Text>
                   <Text style={styles.doneSubcard}>
                     <Text style={styles.doneSubcardTwo}>
-                      {`Rp. ${Cost.getTotal(state.lastTransaction)}`}
+                      {`Rp. ${StringBuilder.formatCurrency(
+                        Cost.getTotal(state.lastTransaction)
+                      )}`}
                     </Text>
                     {` • `}
                     <Text
