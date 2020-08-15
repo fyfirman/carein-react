@@ -15,7 +15,7 @@ import Api, { useChat } from '../../services';
 import { Header } from '../../components';
 import { BubbleChat } from './components';
 import styles from './styles';
-import { DateFormatter } from '../../helpers';
+import { DateFormatter, StringBuilder } from '../../helpers';
 import { CloudMessaging } from '../../services/Firebase';
 import { NotificationType } from '../../constant';
 
@@ -106,6 +106,11 @@ const Chat = (props) => {
               message={item.isi}
               time={DateFormatter.getTime(item.time)}
               listener={item.pengirimId !== sender.id}
+              listenerPicture={{
+                uri: !sender.foto
+                  ? 'https://www.cornwallbusinessawards.co.uk/wp-content/uploads/2017/11/dummy450x450.jpg'
+                  : StringBuilder.addBaseURL(sender.foto)
+              }}
             />
           ))}
         </View>
