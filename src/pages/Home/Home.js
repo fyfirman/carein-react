@@ -175,7 +175,8 @@ const Home = (props) => {
                         },
                         transactionId: state.activeTransaction.id,
                         sender: user
-                      })}
+                      })
+                    }
                   >
                     <Text style={styles.chatTextBundle}>
                       <Text style={styles.chatText}>Chat</Text>
@@ -306,19 +307,19 @@ const Home = (props) => {
               <Feature
                 title="Dokter"
                 color="blue"
-                imageSource={require('../../assets/dokter.png')}
+                imageSource={require('../../assets/images/dokter-menu.png')}
                 onPress={() => Actions.selectWorker({ workerType: 'dokter' })}
               />
               <Feature
                 title="Psikolog"
                 color="red"
-                imageSource={require('../../assets/psikolog.png')}
+                imageSource={require('../../assets/images/psikolog-menu.png')}
                 onPress={() => Actions.selectWorker({ workerType: 'psikolog' })}
               />
               <Feature
                 title="Perawat"
                 color="orange"
-                imageSource={require('../../assets/perawat.png')}
+                imageSource={require('../../assets/images/perawat-menu.png')}
                 onPress={() => Actions.selectWorker({ workerType: 'perawat' })}
               />
             </View>
