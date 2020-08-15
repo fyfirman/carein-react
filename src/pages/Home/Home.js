@@ -25,7 +25,7 @@ import { OrderStatus, NotificationType } from '../../constant';
 const propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired,
   setUser: PropTypes.func.isRequired,
-  load: PropTypes.objectOf(PropTypes.any).isRequired
+  load: PropTypes.bool.isRequired
 };
 
 const Home = (props) => {
@@ -177,7 +177,8 @@ const Home = (props) => {
                         },
                         transactionId: state.activeTransaction.id,
                         sender: user
-                      })}
+                      })
+                    }
                   >
                     <Text style={styles.chatTextBundle}>
                       <Text style={styles.chatText}>Chat</Text>

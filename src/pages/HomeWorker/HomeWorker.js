@@ -38,7 +38,7 @@ import {
 const propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired,
   setUser: PropTypes.func.isRequired,
-  load: PropTypes.objectOf(PropTypes.any).isRequired
+  load: PropTypes.bool.isRequired
 };
 
 const defaultProps = {};
@@ -360,14 +360,16 @@ const HomeWorker = (props) => {
                   <Button
                     style={styles.btnCancelDetailOne}
                     onPress={() =>
-                      handleUpdateTransaction(TransactionStatus.FAILED)}
+                      handleUpdateTransaction(TransactionStatus.FAILED)
+                    }
                   >
                     <Text style={styles.btnCancelTextOne}>Batalkan</Text>
                   </Button>
                   <Button
                     style={styles.btnSuccessDetailOne}
                     onPress={() =>
-                      handleUpdateTransaction(TransactionStatus.DONE)}
+                      handleUpdateTransaction(TransactionStatus.DONE)
+                    }
                   >
                     <Text style={styles.btnSuccessTextOne}>Selesai</Text>
                   </Button>
@@ -385,7 +387,8 @@ const HomeWorker = (props) => {
                       },
                       transactionId: state.activeTransaction.id,
                       sender: user
-                    })}
+                    })
+                  }
                 >
                   <Text style={styles.chatTextSubCardOne}>
                     <Text style={{ color: 'white' }}>Chat</Text>
@@ -444,7 +447,8 @@ const HomeWorker = (props) => {
                   <Button
                     style={styles.btnCancelDetailThree}
                     onPress={() =>
-                      handleUpdateTransaction(TransactionStatus.FAILED)}
+                      handleUpdateTransaction(TransactionStatus.FAILED)
+                    }
                   >
                     <Text style={styles.btnCancelTextThree}>
                       <Text>Tolak</Text>
@@ -454,7 +458,8 @@ const HomeWorker = (props) => {
                     success
                     style={styles.btnSuccessDetailThree}
                     onPress={() =>
-                      handleUpdateTransaction(TransactionStatus.ONPROCCESS)}
+                      handleUpdateTransaction(TransactionStatus.ONPROCCESS)
+                    }
                   >
                     <Text style={styles.btnSuccessTextThree}>
                       <Text style={{ color: 'white' }}>Terima</Text>
