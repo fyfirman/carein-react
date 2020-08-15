@@ -19,7 +19,7 @@ const PushController = (props) => {
   useEffect(() => {
     PushNotification.configure({
       onRegister(token) {
-        console.log('TOKEN:', token);
+        console.log('FCM TOKEN :', token);
       },
 
       onNotification(notification) {
