@@ -21,7 +21,7 @@ import Api from '../../services';
 import { CloudMessaging } from '../../services/Firebase';
 import { UserActions } from '../../redux/actions';
 import { StringBuilder, DateFormatter, Cost } from '../../helpers';
-import { OrderStatus } from '../../constant';
+import { OrderStatus, NotificationType } from '../../constant';
 
 const propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -120,6 +120,9 @@ const Home = (props) => {
           text: 'Pesanan dibatalkan'
         });
         const data = {
+          data: {
+            type: NotificationType.ORDER_CANCELED
+          },
           userId: state.activeTransaction.nakesId,
           title: 'Pesanan anda dibatalkan',
           body: `${user.nama} telah membatalkan pemesanan`
@@ -172,8 +175,7 @@ const Home = (props) => {
                         },
                         transactionId: state.activeTransaction.id,
                         sender: user
-                      })
-                    }
+                      })}
                   >
                     <Text style={styles.chatTextBundle}>
                       <Text style={styles.chatText}>Chat</Text>

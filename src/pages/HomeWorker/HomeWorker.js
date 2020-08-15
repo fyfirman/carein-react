@@ -29,7 +29,12 @@ import { StringBuilder, Status, LocationFormatter } from '../../helpers';
 import Api from '../../services';
 import { CloudMessaging } from '../../services/Firebase';
 import { UserActions } from '../../redux/actions';
-import { OrderStatus, TransactionStatus, ToastMessage } from '../../constant';
+import {
+  OrderStatus,
+  TransactionStatus,
+  ToastMessage,
+  NotificationType
+} from '../../constant';
 
 const propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -214,6 +219,9 @@ const HomeWorker = (props) => {
       case TransactionStatus.ONPROCCESS:
         toastMessage = ToastMessage.Transaction.ACCEPT;
         data = {
+          data: {
+            type: NotificationType.ORDER_ACCEPTED
+          },
           userId: state.activeTransaction.pasienId,
           title: 'Pesanan anda telah diterima',
           body: `${user.nama} akan segera datang`
@@ -225,6 +233,9 @@ const HomeWorker = (props) => {
             ? ToastMessage.Transaction.DECLINE
             : ToastMessage.Transaction.CANCEL;
         data = {
+          data: {
+            type: NotificationType.ORDER_DECLINED
+          },
           userId: state.activeTransaction.pasienId,
           title: 'Pesanan anda ditolak',
           body: `Buka aplikasi untuk memesan lagi`
@@ -233,6 +244,9 @@ const HomeWorker = (props) => {
       case TransactionStatus.DONE:
         toastMessage = ToastMessage.Transaction.DONE;
         data = {
+          data: {
+            type: NotificationType.ORDER_DONE
+          },
           userId: state.activeTransaction.pasienId,
           title: 'Pesanan sudah selesai',
           body: `Terimakasih sudah memesan`

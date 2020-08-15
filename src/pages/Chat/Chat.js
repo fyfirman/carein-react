@@ -17,6 +17,7 @@ import { BubbleChat } from './components';
 import styles from './styles';
 import { DateFormatter } from '../../helpers';
 import { CloudMessaging } from '../../services/Firebase';
+import { NotificationType } from '../../constant';
 
 const propTypes = {
   listener: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -72,6 +73,9 @@ const Chat = (props) => {
     Api.postChat(transactionId, { isi: input }).then(
       () => {
         const notificationData = {
+          data: {
+            type: NotificationType.CHAT
+          },
           userId: listener.id,
           title: sender.nama,
           body: input
