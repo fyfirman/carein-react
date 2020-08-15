@@ -23,7 +23,6 @@ import {
   Content
 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-import { interval } from 'rxjs';
 import styles from './styles';
 import { StringBuilder, Status, LocationFormatter } from '../../helpers';
 import Api from '../../services';
@@ -38,13 +37,14 @@ import {
 
 const propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired,
-  setUser: PropTypes.func.isRequired
+  setUser: PropTypes.func.isRequired,
+  load: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
 const defaultProps = {};
 
 const HomeWorker = (props) => {
-  const { user, setUser } = props;
+  const { user, setUser, load } = props;
 
   const [state, setState] = useState({
     sharingLocation: false,
@@ -118,9 +118,7 @@ const HomeWorker = (props) => {
 
     fetchUser();
     fetchTransaction();
-    // interval(2000).subscribe(() => {
-    //   console.log('Transaction fetched');
-    // });
+    console.log('State global load', load);
   }, []);
 
   useEffect(() => {
@@ -525,7 +523,8 @@ HomeWorker.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer.user
+    user: state.userReducer.user,
+    load: state.loadReducer.load
   };
 };
 

@@ -14,7 +14,6 @@ import {
   Button
 } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-import { interval } from 'rxjs';
 import { Header, Feature } from './components';
 import styles from './styles';
 import Api from '../../services';
@@ -25,11 +24,12 @@ import { OrderStatus, NotificationType } from '../../constant';
 
 const propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired,
-  setUser: PropTypes.func.isRequired
+  setUser: PropTypes.func.isRequired,
+  load: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
 const Home = (props) => {
-  const { user, setUser } = props;
+  const { user, setUser, load } = props;
 
   const [state, setState] = useState({
     activeTransaction: {},
@@ -65,6 +65,8 @@ const Home = (props) => {
       () => CloudMessaging.sendTokenToServer(user.id),
       (error) => Toast.show({ text: error.message })
     );
+
+    console.log('State global load', load);
   }, []);
 
   useEffect(() => {
@@ -331,7 +333,8 @@ Home.propTypes = propTypes;
 
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer.user
+    user: state.userReducer.user,
+    load: state.loadReducer.load
   };
 };
 
