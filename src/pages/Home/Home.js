@@ -44,27 +44,34 @@ const Home = (props) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      Api.getCheckAuth().then(
-        (res) => {
-          Api.getUser(res.user.id).then(
-            (data) => {
-              setUser(data.pasien);
-            },
-            (e) => {
-              Toast.show({ text: e.response.data.message });
-            }
-          );
-        },
-        () => {
-          Toast.show({ text: `Tidak terkoneksi dengan internet` });
-        }
-      );
+      Api.getCheckAuth()
+        .then(
+          (res) => {
+            return res.user.id;
+          },
+          () => {
+            Toast.show({ text: `Tidak terkoneksi dengan internet` });
+          }
+        )
+        .then((userId) => {
+          return Api.getUser(userId);
+        })
+        .then(
+          (data) => {
+            setUser(data.pasien);
+            return data.pasien.id;
+          },
+          (e) => {
+            Toast.show({ text: e.response.data.message });
+          }
+        )
+        .then(
+          (userId) => CloudMessaging.sendTokenToServer(userId),
+          (error) => Toast.show({ text: error.message })
+        );
     };
 
-    fetchUser().then(
-      () => CloudMessaging.sendTokenToServer(user.id),
-      (error) => Toast.show({ text: error.message })
-    );
+    fetchUser();
   }, []);
 
   useEffect(() => {
@@ -175,8 +182,7 @@ const Home = (props) => {
                         },
                         transactionId: state.activeTransaction.id,
                         sender: user
-                      })
-                    }
+                      })}
                   >
                     <Text style={styles.chatTextBundle}>
                       <Text style={styles.chatText}>Chat</Text>

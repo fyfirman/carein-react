@@ -52,7 +52,9 @@ const PushController = (props) => {
       },
       senderID: '378976790564',
       popInitialNotification: true,
-      requestPermissions: true
+      requestPermissions: true,
+      largeIcon: 'icare_icon',
+      smallIcon: 'icare_icon'
     });
   }, []);
 
