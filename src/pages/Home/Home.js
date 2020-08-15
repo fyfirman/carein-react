@@ -252,12 +252,12 @@ const Home = (props) => {
                     {` • `}
                     <Text
                       style={
-                        state.lastTransaction.sakit
+                        state.lastTransaction.berhasil
                           ? styles.done
                           : styles.failed
                       }
                     >
-                      {state.lastTransaction.sakit ? 'Berhasil' : 'Gagal'}
+                      {state.lastTransaction.berhasil ? 'Berhasil' : 'Gagal'}
                     </Text>
                   </Text>
                 </View>
