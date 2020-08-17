@@ -14,7 +14,8 @@ const propTypes = {
 
 const defaultProps = {
   pictureSource: {
-    uri: 'https://dummyimage.com/400x400/c4c4c4/ffffff&text=Profile+Picture'
+    uri:
+      'https://www.cornwallbusinessawards.co.uk/wp-content/uploads/2017/11/dummy450x450.jpg'
   }
 };
 

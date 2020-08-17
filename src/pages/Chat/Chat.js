@@ -107,7 +107,7 @@ const Chat = (props) => {
               time={DateFormatter.getTime(item.time)}
               listener={item.pengirimId !== sender.id}
               listenerPicture={{
-                uri: !sender.foto
+                uri: sender.foto
                   ? 'https://www.cornwallbusinessawards.co.uk/wp-content/uploads/2017/11/dummy450x450.jpg'
                   : StringBuilder.addBaseURL(sender.foto)
               }}
